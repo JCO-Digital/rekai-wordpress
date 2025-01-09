@@ -35,6 +35,9 @@ importers:
       grunt-wp-readme-to-markdown:
         specifier: ~2.1.0
         version: 2.1.0(grunt@1.6.1)
+      grunt-zip:
+        specifier: ~1.0.0
+        version: 1.0.0
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
@@ -4022,6 +4025,10 @@ packages:
     resolution: {integrity: sha512-2bQiD4fzXqX8rhNdXkAywCadeqiPiay0oQny77wA2F3WF4grPJXCvAcyoWUJV+po/b15glGkxuSiQCK299UC2w==}
     engines: {node: '>=10'}
 
+  grunt-retro@0.6.4:
+    resolution: {integrity: sha512-kqnvNUAngOhkDckEQPYFDqNcRlculVp/Sy+gCe4ey7utM4BCaENVf2JfDeK488mj/0cgmAZyXwpW6w9l1OAxMg==}
+    engines: {node: '>= 0.8.0'}
+
   grunt-wp-i18n@1.0.3:
     resolution: {integrity: sha512-CJNbEKeBeOSAPeaJ9B8iCgSwtaG63UR9/uT46a4OsIqnFhOJpeAi138JTlvjfIbnDVoBrzvdrKJe1svveLjUtA==}
     engines: {node: '>=0.12.0'}
@@ -4031,6 +4038,11 @@ packages:
     engines: {node: '>= 0.8.0'}
     peerDependencies:
       grunt: '>=0.4.0'
+
+  grunt-zip@1.0.0:
+    resolution: {integrity: sha512-e5HOzf+BLFR6rXM67oGrFcVgfVbLDPBnv29YdWTupthwNg/1y91B0xXx667E6dKin8YvrwDShtQy48D1NRzn7g==}
+    engines: {node: '>= 8.0.0'}
+    hasBin: true
 
   grunt@1.6.1:
     resolution: {integrity: sha512-/ABUy3gYWu5iBmrUSRBP97JLpQUm0GgVveDCp6t3yRNIoltIYw7rEj3g5y1o2PGPR2vfTRGa7WC/LZHLTXnEzA==}
@@ -4761,6 +4773,9 @@ packages:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
 
+  jszip@3.10.1:
+    resolution: {integrity: sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==}
+
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -4814,7 +4829,10 @@ packages:
     engines: {node: '>= 0.8.0'}
 
   lie@3.1.1:
-    resolution: {integrity: sha1-mkNrLMd0bKWd56QfpGmz77dr2H4=}
+    resolution: {integrity: sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==}
+
+  lie@3.3.0:
+    resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
 
   liftup@3.0.1:
     resolution: {integrity: sha512-yRHaiQDizWSzoXk3APcA71eOI/UuhEkNN9DiW2Tt44mhYzX4joFoCZlxsSOF7RyeLlfqzFLQI1ngFq3ggMPhOw==}
@@ -5384,6 +5402,9 @@ packages:
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
+
+  pako@1.0.11:
+    resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
 
   param-case@3.0.4:
     resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
@@ -6343,6 +6364,9 @@ packages:
   set-proto@1.0.0:
     resolution: {integrity: sha512-RJRdvCo6IAnPdsvP/7m6bsQqNnn1FCBX5ZNtFL98MmFF/4xAIJTIg1YbHW5DC2W5SKZanrC6i4HsJqlajw/dZw==}
     engines: {node: '>= 0.4'}
+
+  setimmediate@1.0.5:
+    resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==}
 
   setprototypeof@1.1.0:
     resolution: {integrity: sha512-BvE/TwpZX4FXExxOxZyRGQQv651MSwmWKZGqvmPcRIjDqWub67kTKuIMx43cZZrS/cBBzwBcNDWoFxt2XEFIpQ==}
@@ -12357,6 +12381,8 @@ snapshots:
       underscore.string: 3.3.6
       which: 2.0.2
 
+  grunt-retro@0.6.4: {}
+
   grunt-wp-i18n@1.0.3:
     dependencies:
       grunt: 1.6.1
@@ -12365,6 +12391,11 @@ snapshots:
   grunt-wp-readme-to-markdown@2.1.0(grunt@1.6.1):
     dependencies:
       grunt: 1.6.1
+
+  grunt-zip@1.0.0:
+    dependencies:
+      grunt-retro: 0.6.4
+      jszip: 3.10.1
 
   grunt@1.6.1:
     dependencies:
@@ -13292,6 +13323,13 @@ snapshots:
       object.assign: 4.1.7
       object.values: 1.2.1
 
+  jszip@3.10.1:
+    dependencies:
+      lie: 3.3.0
+      pako: 1.0.11
+      readable-stream: 2.3.8
+      setimmediate: 1.0.5
+
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
@@ -13335,6 +13373,10 @@ snapshots:
       type-check: 0.4.0
 
   lie@3.1.1:
+    dependencies:
+      immediate: 3.0.6
+
+  lie@3.3.0:
     dependencies:
       immediate: 3.0.6
 
@@ -13948,6 +13990,8 @@ snapshots:
       netmask: 2.0.2
 
   package-json-from-dist@1.0.1: {}
+
+  pako@1.0.11: {}
 
   param-case@3.0.4:
     dependencies:
@@ -14880,6 +14924,8 @@ snapshots:
       dunder-proto: 1.0.1
       es-errors: 1.3.0
       es-object-atoms: 1.0.0
+
+  setimmediate@1.0.5: {}
 
   setprototypeof@1.1.0: {}
 
