@@ -7,6 +7,8 @@
     "blocks:build": "wp-scripts build --experimental-modules --webpack-src-dir=blocks/src --output-path=blocks/build",
     "blocks:watch": "wp-scripts start --experimental-modules --webpack-src-dir=blocks/src --output-path=blocks/build",
     "composer:install": "composer install",
+    "composer:update": "composer update",
+    "composer:install-release": "composer install --no-dev --no-scripts --no-interaction --prefer-dist",
     "js:build": "esbuild --bundle assets/js/*.?s --outdir=dist/js --minify --sourcemap",
     "js:watch": "pnpm js:build --watch",
     "plugin:i18n": "grunt i18n",
@@ -19,7 +21,7 @@
     "scss-admin:watch": "pnpm scss-admin:build --watch",
     "scss-frontend:build": "sass --style=compressed assets/css/index.scss dist/css/index.css",
     "scss-frontend:watch": "pnpm scss-frontend:build --watch",
-    "wp:start": "pnpm dlx @wp-now/wp-now start"
+    "wp:start": "pnpm dlx @wp-now/wp-now start --blueprint=.wp/latest-debug.json"
   },
   "devDependencies": {
     "@wordpress/block-editor": "^14.10.1",
