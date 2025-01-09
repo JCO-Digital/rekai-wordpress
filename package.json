@@ -4,11 +4,35 @@
   "description": "Rek.ai integration for WordPress",
   "main": "index.js",
   "scripts": {
-    "wp:start": "pnpm dlx @wp-now/wp-now start",
-    "composer:install": "composer install"
+    "blocks:build": "wp-scripts build --experimental-modules --webpack-src-dir=blocks/src --output-path=blocks/build",
+    "blocks:watch": "wp-scripts start --experimental-modules --webpack-src-dir=blocks/src --output-path=blocks/build",
+    "composer:install": "composer install",
+    "js:build": "esbuild --bundle assets/js/*.?s --outdir=dist/js --minify --sourcemap",
+    "js:watch": "pnpm js:build --watch",
+    "plugin:i18n": "grunt i18n",
+    "plugin:readme": "grunt readme",
+    "plugin:tasks": "grunt default",
+    "scss-admin:build": "sass --style=compressed assets/css/admin.scss dist/css/admin.css",
+    "scss-admin:watch": "pnpm scss-admin:build --watch",
+    "scss-frontend:build": "sass --style=compressed assets/css/index.scss dist/css/index.css",
+    "scss-frontend:watch": "pnpm scss-frontend:build:build --watch",
+    "wp:start": "pnpm dlx @wp-now/wp-now start"
+  },
+  "devDependencies": {
+    "@wordpress/block-editor": "^14.10.1",
+    "@wordpress/blocks": "^14.4.1",
+    "@wordpress/components": "^29.1.1",
+    "@wordpress/scripts": "^30.8.1",
+    "grunt": "~1.6.1",
+    "grunt-wp-i18n": "~1.0.3",
+    "grunt-wp-readme-to-markdown": "~2.1.0",
+    "concurrently": "^9.1.0",
+    "esbuild": "^0.24.0",
+    "prettier": "^3.4.2",
+    "sass-embedded": "^1.83.1"
   },
   "keywords": [],
   "author": "J&Co Digital Oy <support@jco.fi>",
-  "license": "GPL-3.0-or-later",
+  "license": "GPL-2.0-or-later",
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
 }
