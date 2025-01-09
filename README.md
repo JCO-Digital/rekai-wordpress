@@ -2,7 +2,7 @@
 **Contributors:** [jcodigital](https://profiles.wordpress.org/jcodigital/)  
 **Donate link:** -  
 **Tags:** rekai, ai, integration  
-**Requires at least:** 5.6  
+**Requires at least:** 6.0  
 **Tested up to:** 6.7.1  
 **Requires PHP:** 8.0  
 **Stable tag:** 0.1.0  
