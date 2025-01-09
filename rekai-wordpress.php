@@ -9,3 +9,15 @@
  * Domain Path: /languages
  * Text Domain: rekai-wordpress
  */
+
+namespace Rekai;
+
+use Rekai\Options\OptionsPage;
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/consts.php';
+require_once __DIR__ . '/includes/helpers.php';
+require_once __DIR__ . '/includes/assets.php';
+require_once __DIR__ . '/includes/fields.php';
+
+new OptionsPage();
