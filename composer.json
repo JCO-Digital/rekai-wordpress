@@ -1,0 +1,21 @@
+{
+  "name": "jcodigital/rekai-wordpress",
+  "description": "Rek.ai integration for WordPress",
+  "type": "wordpress-plugin",
+  "version": "0.1.0",
+  "autoload": {
+    "psr-4": {
+      "Rekai\\": "classes/"
+    }
+  },
+  "authors": [
+    {
+      "name": "J&CO Digital Oy",
+      "email": "support@jco.fi"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  }
+}
