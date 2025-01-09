@@ -4,6 +4,7 @@ install:
 	@pnpm install
 	@pnpm composer:install
 
+.PHONY: install-release
 install-release:
 	@echo "Installing NPM and Composer dependencies"
 	@pnpm install
