@@ -16,7 +16,7 @@
     "plugin:tasks": "grunt default",
     "plugin:zip": "grunt zip",
     "project:build": "pnpm js:build && pnpm scss-admin:build && pnpm scss-frontend:build && pnpm blocks:build",
-    "project:watch": "pnpm dlx concurrently -c blue,magenta,cyan,red --names \"🛠️js,💄scss(admin),💄scss(frontend),📦blocks\" \"pnpm js:watch\" \"pnpm scss-admin:watch\" \"pnpm scss-frontend:watch\" \"pnpm blocks:watch\"",
+    "project:dev": "pnpm dlx concurrently -c blue,yellow,magenta,cyan,red --names \"🌐wp,🛠️js,💄scss(admin),💄scss(frontend),📦blocks\" \"pnpm wp:start\" \"pnpm js:watch\" \"pnpm scss-admin:watch\" \"pnpm scss-frontend:watch\" \"pnpm blocks:watch\"",
     "scss-admin:build": "sass --style=compressed assets/css/admin.scss dist/css/admin.css",
     "scss-admin:watch": "pnpm scss-admin:build --watch",
     "scss-frontend:build": "sass --style=compressed assets/css/index.scss dist/css/index.css",

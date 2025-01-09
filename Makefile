@@ -24,3 +24,8 @@ release: build-release
 	@echo "Bundling a release of the project"
 	@pnpm plugin:tasks
 	@pnpm plugin:zip
+
+.PHONY: dev
+dev: install
+	@echo "Starting project"
+	@pnpm project:dev
