@@ -7,6 +7,7 @@
 
 namespace Rekai\Options;
 
+use function Rekai\render_secret_field;
 use function Rekai\render_template;
 use function Rekai\render_text_field;
 
@@ -16,8 +17,6 @@ use function Rekai\render_text_field;
  * @since 0.1.0
  */
 class OptionsPage {
-
-	private const OPTIONS_KEY = 'rekai_';
 
 	/**
 	 * Initializes the options page.
@@ -36,7 +35,7 @@ class OptionsPage {
 	final public function add_page(): void {
 		add_options_page(
 			'Rekai Options',
-			'Rekai',
+			'Rek.ai Settings',
 			'manage_options',
 			'rekai-options',
 			array( $this, 'render_page' )
@@ -49,6 +48,7 @@ class OptionsPage {
 	 * @return void
 	 */
 	final public function register_settings(): void {
+		// Settings registration.
 		register_setting(
 			'rekai-options-general',
 			'rekai_project_id',
@@ -56,12 +56,22 @@ class OptionsPage {
 				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
+		register_setting(
+			'rekai-options-general',
+			'rekai_secret_key',
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		// Settings sections.
 		add_settings_section(
 			'rekai-general',
 			__( 'General', 'rekai-wordpress' ),
 			array( $this, 'render_general_section' ),
 			'rekai-options-general',
 		);
+
+		// Settings fields.
 		add_settings_field(
 			'rekai_project_id',
 			__( 'Project ID', 'rekai-wordpress' ),
@@ -70,6 +80,16 @@ class OptionsPage {
 			'rekai-general',
 			array(
 				'label_for' => 'rekai_project_id',
+			)
+		);
+		add_settings_field(
+			'rekai_secret_key',
+			__( 'Secret Key', 'rekai-wordpress' ),
+			array( $this, 'render_secret_key_field' ),
+			'rekai-options-general',
+			'rekai-general',
+			array(
+				'label_for' => 'rekai_secret_key',
 			)
 		);
 	}
@@ -94,6 +114,21 @@ class OptionsPage {
 				'id'          => 'rekai_project_id',
 				'value'       => get_option( 'rekai_project_id', '' ),
 				'placeholder' => __( 'ID-123', 'rekai-wordpress' ),
+			)
+		);
+	}
+
+	/**
+	 * Renders the Secret Key field.
+	 *
+	 * @return void
+	 */
+	final public function render_secret_key_field(): void {
+		render_secret_field(
+			array(
+				'id'          => 'rekai_secret_key',
+				'value'       => get_option( 'rekai_secret_key', '' ),
+				'placeholder' => __( 'Secret Key', 'rekai-wordpress' ),
 			)
 		);
 	}

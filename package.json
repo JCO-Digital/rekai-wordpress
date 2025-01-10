@@ -28,17 +28,20 @@
     "@wordpress/blocks": "^14.4.1",
     "@wordpress/components": "^29.1.1",
     "@wordpress/scripts": "^30.8.1",
+    "concurrently": "^9.1.0",
+    "esbuild": "^0.24.0",
     "grunt": "~1.6.1",
     "grunt-wp-i18n": "~1.0.3",
     "grunt-wp-readme-to-markdown": "~2.1.0",
     "grunt-zip": "~1.0.0",
-    "concurrently": "^9.1.0",
-    "esbuild": "^0.24.0",
     "prettier": "^3.4.2",
     "sass-embedded": "^1.83.1"
   },
   "keywords": [],
   "author": "J&Co Digital Oy <support@jco.fi>",
   "license": "GPL-2.0-or-later",
-  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
+  "dependencies": {
+    "alpinejs": "^3.14.8"
+  }
 }
