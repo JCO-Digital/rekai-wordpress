@@ -33,3 +33,8 @@ add_action(
 	'wp_head',
 	'Rekai\render_rekai_scripts'
 );
+
+add_action(
+	'admin_notices',
+	'Rekai\handle_notices'
+);

@@ -35,11 +35,13 @@ function register_plugin_assets(): void {
  * @return void
  */
 function load_rekai_scripts(): void {
-	if ( ! get_option( 'rekai_project_id' ) ) {
+	$is_enabled = get_option( 'rekai_is_enabled' ) === '1';
+	$project_id = get_option( 'rekai_project_id' );
+	if ( ! $is_enabled || empty( $project_id ) ) {
 		return;
 	}
-	$project_id = get_option( 'rekai_project_id' );
-	$js_url     = sprintf( 'https://static.rekai.fi/%s.js', $project_id );
+
+	$js_url = sprintf( 'https://static.rekai.fi/%s.js', $project_id );
 	// The main Rek.ai script.
 	wp_enqueue_script(
 		'rekai-main',
@@ -56,12 +58,13 @@ function load_rekai_scripts(): void {
  * @return void
  */
 function render_rekai_scripts(): void {
-	if ( ! get_option( 'rekai_project_id' ) ) {
+	$is_enabled = get_option( 'rekai_is_enabled' ) === '1';
+	$project_id = get_option( 'rekai_project_id' );
+	if ( ! $is_enabled || empty( $project_id ) ) {
 		return;
 	}
-	$project_id = get_option( 'rekai_project_id' );
-	$is_admin   = current_user_can( 'manage_options' );
 
+	$is_admin = current_user_can( 'manage_options' );
 	$data = array(
 		'project_id' => $project_id,
 		'is_admin'   => $is_admin,

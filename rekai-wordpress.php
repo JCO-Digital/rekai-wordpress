@@ -21,6 +21,9 @@ require_once __DIR__ . '/consts.php';
 // Helper functions for the plugin.
 require_once __DIR__ . '/includes/helpers.php';
 
+// Plugin notices.
+require_once __DIR__ . '/includes/notices.php';
+
 // Generic handlers for different field types.
 require_once __DIR__ . '/includes/fields.php';
 
