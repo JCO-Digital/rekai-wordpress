@@ -7,6 +7,7 @@
 
 namespace Rekai\Options;
 
+use Rekai\Singleton;
 use function Rekai\render_checkbox_field;
 use function Rekai\render_secret_field;
 use function Rekai\render_template;
@@ -17,7 +18,7 @@ use function Rekai\render_text_field;
  *
  * @since 0.1.0
  */
-class OptionsPage {
+class OptionsPage extends Singleton {
 
 	/**
 	 * Initializes the options page.

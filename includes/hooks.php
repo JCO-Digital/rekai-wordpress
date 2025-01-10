@@ -8,12 +8,14 @@
 namespace Rekai;
 
 use Rekai\Options\OptionsPage;
+use Rekai\Scripts\RekaiMain;
 
 // Initializes all classes.
 add_action(
 	'plugins_loaded',
 	static function () {
-		new OptionsPage();
+		OptionsPage::get_instance();
+		RekaiMain::get_instance();
 	}
 );
 
@@ -22,17 +24,6 @@ add_action(
 	'Rekai\register_plugin_assets'
 );
 
-// This loads the Rek.ai Scripts.
-add_action(
-	'wp_enqueue_scripts',
-	'Rekai\load_rekai_scripts'
-);
-
-// This renders the Rek.ai inline scripts.
-add_action(
-	'wp_head',
-	'Rekai\render_rekai_scripts'
-);
 
 add_action(
 	'admin_notices',
