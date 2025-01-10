@@ -7,6 +7,7 @@
 
 namespace Rekai\Options;
 
+use function Rekai\render_checkbox_field;
 use function Rekai\render_secret_field;
 use function Rekai\render_template;
 use function Rekai\render_text_field;
@@ -51,6 +52,13 @@ class OptionsPage {
 		// Settings registration.
 		register_setting(
 			'rekai-options-general',
+			'rekai_is_enabled',
+			array(
+				'sanitize_callback' => 'boolval',
+			)
+		);
+		register_setting(
+			'rekai-options-general',
 			'rekai_project_id',
 			array(
 				'sanitize_callback' => 'sanitize_text_field',
@@ -72,6 +80,13 @@ class OptionsPage {
 		);
 
 		// Settings fields.
+		add_settings_field(
+			'rekai_is_enabled',
+			__( 'Enabled', 'rekai-wordpress' ),
+			array( $this, 'render_enabled_field' ),
+			'rekai-options-general',
+			'rekai-general'
+		);
 		add_settings_field(
 			'rekai_project_id',
 			__( 'Project ID', 'rekai-wordpress' ),
@@ -101,6 +116,21 @@ class OptionsPage {
 	 */
 	final public function render_general_section(): void {
 		echo '<p>' . esc_html__( 'General settings required for Rek.ai integration.', 'rekai-wordpress' ) . '</p>';
+	}
+
+	/**
+	 * Renders the Enabled field.
+	 *
+	 * @return void
+	 */
+	final public function render_enabled_field(): void {
+		render_checkbox_field(
+			array(
+				'id'          => 'rekai_is_enabled',
+				'value'       => get_option( 'rekai_is_enabled', '' ),
+				'placeholder' => __( 'Enable Rek.ai', 'rekai-wordpress' ),
+			)
+		);
 	}
 
 	/**
