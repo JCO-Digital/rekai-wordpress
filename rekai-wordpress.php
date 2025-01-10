@@ -12,12 +12,20 @@
 
 namespace Rekai;
 
-use Rekai\Options\OptionsPage;
-
+// Composer autoloader.
 require_once __DIR__ . '/vendor/autoload.php';
+
+// Constants for the plugin.
 require_once __DIR__ . '/consts.php';
+
+// Helper functions for the plugin.
 require_once __DIR__ . '/includes/helpers.php';
-require_once __DIR__ . '/includes/assets.php';
+
+// Generic handlers for different field types.
 require_once __DIR__ . '/includes/fields.php';
 
-new OptionsPage();
+// Handles registering the plugin styles and scripts.
+require_once __DIR__ . '/includes/assets.php';
+
+// All hooks of the plugin are defined here.
+require_once __DIR__ . '/includes/hooks.php';
