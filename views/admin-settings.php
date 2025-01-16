@@ -12,9 +12,12 @@
 	<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
 		<?php
 		if ( $rek_active_tab === 'general' ) :
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			settings_fields( 'rekai-options-general' );
 			do_settings_sections( 'rekai-options-general' );
+			submit_button();
+		elseif ( $rek_active_tab === 'advanced' ) :
+			settings_fields( 'rekai-options-advanced' );
+			do_settings_sections( 'rekai-options-advanced' );
 			submit_button();
 		endif;
 		?>

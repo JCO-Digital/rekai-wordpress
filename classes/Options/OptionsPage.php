@@ -12,6 +12,7 @@ use function Rekai\render_checkbox_field;
 use function Rekai\render_secret_field;
 use function Rekai\render_template;
 use function Rekai\render_text_field;
+use function Sodium\add;
 
 /**
  * Options page class.
@@ -54,30 +55,41 @@ class OptionsPage extends Singleton {
 		register_setting(
 			'rekai-options-general',
 			'rekai_is_enabled',
-			array(
-				'sanitize_callback' => 'boolval',
-			)
+			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
 			'rekai-options-general',
+			'rekai_script_key',
+			array( 'sanitize_callback' => 'sanitize_text_field' )
+		);
+		register_setting(
+			'rekai-options-advanced',
+			'rekai_test_mode',
+			array( 'sanitize_callback' => 'boolval' )
+		);
+		register_setting(
+			'rekai-options-advanced',
 			'rekai_project_id',
-			array(
-				'sanitize_callback' => 'sanitize_text_field',
-			)
+			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
 		register_setting(
-			'rekai-options-general',
+			'rekai-options-advanced',
 			'rekai_secret_key',
-			array(
-				'sanitize_callback' => 'sanitize_text_field',
-			)
+			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
+
 		// Settings sections.
 		add_settings_section(
 			'rekai-general',
 			__( 'General', 'rekai-wordpress' ),
 			array( $this, 'render_general_section' ),
 			'rekai-options-general',
+		);
+		add_settings_section(
+			'rekai-advanced',
+			__( 'Advanced', 'rekai-wordpress' ),
+			array( $this, 'render_advanced_section' ),
+			'rekai-options-advanced',
 		);
 
 		// Settings fields.
@@ -89,11 +101,31 @@ class OptionsPage extends Singleton {
 			'rekai-general'
 		);
 		add_settings_field(
-			'rekai_project_id',
-			__( 'Project ID', 'rekai-wordpress' ),
-			array( $this, 'render_id_field' ),
+			'rekai_script_key',
+			__( 'Script Key', 'rekai-wordpress' ),
+			array( $this, 'render_script_key_field' ),
 			'rekai-options-general',
 			'rekai-general',
+			array(
+				'label_for' => 'rekai_script_key',
+			)
+		);
+		add_settings_field(
+			'rekai_test_mode',
+			__( 'Test Mode', 'rekai-wordpress' ),
+			array( $this, 'render_test_mode_field' ),
+			'rekai-options-advanced',
+			'rekai-advanced',
+			array(
+				'label_for' => 'rekai_test_mode',
+			)
+		);
+		add_settings_field(
+			'rekai_project_id',
+			__( 'Project ID', 'rekai-wordpress' ),
+			array( $this, 'render_project_id_field' ),
+			'rekai-options-advanced',
+			'rekai-advanced',
 			array(
 				'label_for' => 'rekai_project_id',
 			)
@@ -102,8 +134,8 @@ class OptionsPage extends Singleton {
 			'rekai_secret_key',
 			__( 'Secret Key', 'rekai-wordpress' ),
 			array( $this, 'render_secret_key_field' ),
-			'rekai-options-general',
-			'rekai-general',
+			'rekai-options-advanced',
+			'rekai-advanced',
 			array(
 				'label_for' => 'rekai_secret_key',
 			)
@@ -120,6 +152,15 @@ class OptionsPage extends Singleton {
 	}
 
 	/**
+	 * Renders the Advanced section.
+	 *
+	 * @return void
+	 */
+	final public function render_advanced_section(): void {
+		echo '<p>' . esc_html__( 'Advanced settings for Rek.ai.', 'rekai-wordpress' ) . '</p>';
+	}
+
+	/**
 	 * Renders the Enabled field.
 	 *
 	 * @return void
@@ -129,7 +170,7 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_is_enabled',
 				'value'       => get_option( 'rekai_is_enabled', '' ),
-				'placeholder' => __( 'Enable Rek.ai', 'rekai-wordpress' ),
+				'placeholder' => esc_html__( 'Enable Rek.ai', 'rekai-wordpress' ),
 			)
 		);
 	}
@@ -139,12 +180,55 @@ class OptionsPage extends Singleton {
 	 *
 	 * @return void
 	 */
-	final public function render_id_field(): void {
+	final public function render_script_key_field(): void {
+		render_text_field(
+			array(
+				'id'          => 'rekai_script_key',
+				'value'       => get_option( 'rekai_script_key', '' ),
+				'placeholder' => esc_html__( 'Script Key', 'rekai-wordpress' ),
+				'help'        => sprintf(
+					/* translators: 1: is a link to a support document. 2: closing link */
+					esc_html__( 'The script key can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai-wordpress' ),
+					'<a href="' . esc_url( 'https://docs.rek.ai/dashboard-guide#embed-code' ) . '" target="_blank" rel="noopener noreferrer">',
+					'</a>'
+				),
+			)
+		);
+	}
+
+	/**
+	 * Renders the Test Mode field.
+	 *
+	 * @return void
+	 */
+	final public function render_test_mode_field(): void {
+		render_checkbox_field(
+			array(
+				'id'          => 'rekai_test_mode',
+				'value'       => get_option( 'rekai_test_mode', '' ),
+				'placeholder' => esc_html__( 'Test Mode', 'rekai-wordpress' ),
+				'help'        => esc_html__( 'Enables test mode. This will not send any data to Rek.ai.', 'rekai-wordpress' ),
+			)
+		);
+	}
+
+	/**
+	 * Renders the Project ID field.
+	 *
+	 * @return void
+	 */
+	final public function render_project_id_field(): void {
 		render_text_field(
 			array(
 				'id'          => 'rekai_project_id',
 				'value'       => get_option( 'rekai_project_id', '' ),
-				'placeholder' => __( 'ID-123', 'rekai-wordpress' ),
+				'placeholder' => esc_html__( 'Project ID', 'rekai-wordpress' ),
+				'help'        => sprintf(
+					/* translators: 1: is a link to a support document. 2: closing link */
+					esc_html__( 'The project ID can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai-wordpress' ),
+					'<a href="' . esc_url( 'https://docs.rek.ai/getting-started/installation#how-do-i-know-which-project-id-and-secret-key-my-project-has' ) . '" target="_blank" rel="noopener noreferrer">',
+					'</a>'
+				),
 			)
 		);
 	}
@@ -159,7 +243,13 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_secret_key',
 				'value'       => get_option( 'rekai_secret_key', '' ),
-				'placeholder' => __( 'Secret Key', 'rekai-wordpress' ),
+				'placeholder' => esc_html__( 'Secret Key', 'rekai-wordpress' ),
+				'help'        => sprintf(
+					/* translators: 1: is a link to a support document. 2: closing link */
+					esc_html__( 'The secret key can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai-wordpress' ),
+					'<a href="' . esc_url( 'https://docs.rek.ai/getting-started/installation#how-do-i-know-which-project-id-and-secret-key-my-project-has' ) . '" target="_blank" rel="noopener noreferrer">',
+					'</a>'
+				),
 			)
 		);
 	}
@@ -183,9 +273,13 @@ class OptionsPage extends Singleton {
 		$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$data = array(
 			'tabs'       => array(
-				'general' => array(
-					'label' => __( 'General', 'rekai-wordpress' ),
+				'general'  => array(
+					'label' => esc_html__( 'General', 'rekai-wordpress' ),
 					'url'   => add_query_arg( array( 'tab' => 'general' ), admin_url( 'admin.php?page=rekai-options' ) ),
+				),
+				'advanced' => array(
+					'label' => esc_html__( 'Advanced', 'rekai-wordpress' ),
+					'url'   => add_query_arg( array( 'tab' => 'advanced' ), admin_url( 'admin.php?page=rekai-options' ) ),
 				),
 			),
 			'active_tab' => $tab,

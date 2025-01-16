@@ -3,6 +3,7 @@
 $input_id          = $rek_id ?? '';
 $input_value       = $rek_value ?? '';
 $input_placeholder = $rek_placeholder ?? '';
+$input_help        = $rek_help ?? '';
 
 ?>
 <input
@@ -12,3 +13,10 @@ $input_placeholder = $rek_placeholder ?? '';
 		value="<?php echo esc_attr( $input_value ); ?>"
 		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
 />
+<?php if ( ! empty( $input_help ) ) : ?>
+	<p class="description">
+		<?php
+			echo $input_help; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		?>
+	</p>
+<?php endif; ?>

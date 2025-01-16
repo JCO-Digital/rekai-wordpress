@@ -9,7 +9,7 @@
   </component>
   <component name="MessDetector">
     <phpmd_settings>
-      <phpmd_by_interpreter asDefaultInterpreter="true" interpreter_id="df6fa3a7-5599-4e95-b215-e1b80ddbeb36" timeout="30000" />
+      <phpmd_by_interpreter asDefaultInterpreter="true" interpreter_id="e9f88f2a-7ae3-4526-9896-dbd6d9a491a3" timeout="30000" />
     </phpmd_settings>
   </component>
   <component name="PHPCodeSnifferOptionsConfiguration">
@@ -26,13 +26,13 @@
   </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
-      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="df6fa3a7-5599-4e95-b215-e1b80ddbeb36" beautifier_path="/home/maxemilian/projects/raseborg/vendor/bin/phpcbf" standards="MySource;PEAR;PSR1;PSR12;PSR2;Squiz;Zend" tool_path="/home/maxemilian/projects/rekai-wordpress/vendor/bin/phpcs" timeout="30000" />
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="df6fa3a7-5599-4e95-b215-e1b80ddbeb36" beautifier_path="$PROJECT_DIR$/vendor/bin/phpcs" standards="MySource;PEAR;PSR1;PSR12;PSR2;Squiz;Zend" tool_path="/home/maxemilian/projects/rekai-wordpress/vendor/bin/phpcs" timeout="30000" />
       <PhpCSConfiguration beautifier_path="$PROJECT_DIR$/vendor/bin/phpcbf" tool_path="$PROJECT_DIR$/vendor/bin/phpcs" />
     </phpcs_settings>
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/../../.wp-now/wordpress-versions/6.7.1" />
+      <path value="$USER_HOME$/.wp-now/wordpress-versions/6.7.1" />
       <path value="$PROJECT_DIR$/vendor/wp-coding-standards/wpcs" />
       <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsextra" />
       <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsutils" />

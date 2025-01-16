@@ -136,8 +136,6 @@ wp-config.php
 #/wp-content/themes
 ### PHPCodeSniffer template
 # CodeSniffer
-phpcs.xml
-
 /vendor/*
 /wpcs/*
 

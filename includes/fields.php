@@ -18,6 +18,7 @@ namespace Rekai;
  *     @type string $id    The ID of the field. Default empty string.
  *     @type string $value The value of the field. Default empty string.
  *     @type string $placeholder The placeholder of the field. Default empty string.
+ *     @type string $help The help text of the field. Default empty string.
  * }
  * @return void
  */
@@ -28,6 +29,7 @@ function render_text_field( array $args = array() ): void {
 			'id'          => '',
 			'value'       => '',
 			'placeholder' => '',
+			'help'        => '',
 		)
 	);
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -57,6 +59,7 @@ function render_secret_field( array $args = array() ): void {
 			'id'          => '',
 			'value'       => '',
 			'placeholder' => '',
+			'help'        => '',
 		)
 	);
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -83,6 +86,7 @@ function render_checkbox_field( array $args = array() ): void {
 		array(
 			'id'    => '',
 			'value' => '',
+			'help'  => '',
 		)
 	);
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

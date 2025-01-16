@@ -33,8 +33,8 @@ class RekaiMain extends Singleton {
 	 */
 	final public function should_load(): bool {
 		$is_enabled = get_option( 'rekai_is_enabled' ) === '1';
-		$project_id = get_option( 'rekai_project_id' );
-		return ! ( ! $is_enabled || empty( $project_id ) );
+		$script_key = get_option( 'rekai_script_key' );
+		return ! ( ! $is_enabled || empty( $script_key ) );
 	}
 
 	/**
@@ -46,9 +46,8 @@ class RekaiMain extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$project_id = get_option( 'rekai_project_id' );
-
-		$js_url = sprintf( 'https://static.rekai.fi/%s.js', $project_id );
+		$script_key = get_option( 'rekai_script_key' );
+		$js_url     = sprintf( 'https://static.rekai.fi/%s.js', $script_key );
 		// The main Rek.ai script.
 		wp_enqueue_script(
 			'rekai-main',
@@ -68,11 +67,11 @@ class RekaiMain extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$project_id = get_option( 'rekai_project_id' );
+		$script_key = get_option( 'rekai_script_key' );
 
 		$is_admin = current_user_can( 'manage_options' );
 		$data     = array(
-			'project_id' => $project_id,
+			'script_key' => $script_key,
 			'is_admin'   => $is_admin,
 		);
 

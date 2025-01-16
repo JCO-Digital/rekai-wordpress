@@ -1,8 +1,9 @@
-<?php
+<?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
 
 $input_id          = $rek_id ?? '';
 $input_value       = $rek_value ?? '';
 $input_placeholder = $rek_placeholder ?? '';
+$input_help        = $rek_help ?? '';
 
 $is_empty = empty( $input_value );
 
@@ -35,4 +36,10 @@ $is_empty = empty( $input_value );
 			</span>
 		</button>
 	<?php endif; ?>
+	<p class="description">
+		<?php
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $input_help;
+		?>
+	</p>
 </span>
