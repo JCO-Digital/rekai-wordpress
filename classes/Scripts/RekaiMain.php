@@ -68,11 +68,13 @@ class RekaiMain extends Singleton {
 			return;
 		}
 		$script_key = get_option( 'rekai_script_key' );
+		$is_test    = get_option( 'rekai_test_mode' ) === '1';
 
 		$is_admin = current_user_can( 'manage_options' );
 		$data     = array(
 			'script_key' => $script_key,
 			'is_admin'   => $is_admin,
+			'is_test'    => $is_test,
 		);
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
