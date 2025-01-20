@@ -107,16 +107,48 @@ module.exports = function (grunt) {
                 src: ['**/*'],
                 dest: 'build/rekai-wordpress.zip'
             },
+        },
+
+        copy: {
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: './',
+                        src: [
+                            '**/*',
+                            '!node_modules/**',
+                            '!.wp/**',
+                            '!.idea/**',
+                            '!build/**',
+                            '!plugin/**',
+                            '!Gruntfile.js',
+                            '!Makefile',
+                        ],
+                        dest: 'plugin/',
+                        // Remove empty directories
+                        filter: function(filepath) {
+                            // Skip if it's a directory
+                            if (grunt.file.isDir(filepath)) {
+                                return false;
+                            }
+                            return true;
+                        }
+                    }
+                ]
+            }
         }
     });
 
     grunt.loadNpmTasks("grunt-wp-i18n");
     grunt.loadNpmTasks("grunt-wp-readme-to-markdown");
     grunt.loadNpmTasks("grunt-zip")
+    grunt.loadNpmTasks("grunt-contrib-copy")
     grunt.registerTask("default", ["i18n", "readme"]);
     grunt.registerTask("release", ["i18n", "readme", "zip"])
     grunt.registerTask("i18n", ["addtextdomain", "makepot"]);
     grunt.registerTask("readme", ["wp_readme_to_markdown"]);
+    grunt.registerTask("dist", ["copy"]);
 
     grunt.util.linefeed = "\n";
 }

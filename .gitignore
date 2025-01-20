@@ -272,3 +272,4 @@ dist
 # Blocks
 blocks/build
 build/
+plugin/
