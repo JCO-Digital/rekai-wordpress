@@ -34,14 +34,6 @@ jobs:
           php-version: 8.2
           tools: composer:2
 
-      - name: Github token for deploying to dist repository
-        id: github-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ vars.TOKEN_APP_ID }}
-          private-key: ${{ secrets.TOKEN_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-
       - name: Make
         run: make release
 
