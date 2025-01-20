@@ -46,8 +46,9 @@ class RekaiMain extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$script_key = get_option( 'rekai_script_key' );
-		$js_url     = sprintf( 'https://static.rekai.fi/%s.js', $script_key );
+		$script_key           = get_option( 'rekai_script_key' );
+		$autocomplete_enabled = get_option( 'rekai_autocomplete_enabled' );
+		$js_url               = sprintf( 'https://static.rekai.fi/%s.js', $script_key );
 		// The main Rek.ai script.
 		wp_enqueue_script(
 			'rekai-main',
@@ -56,6 +57,15 @@ class RekaiMain extends Singleton {
 			'1',
 			true
 		);
+		if ( $autocomplete_enabled === '1' ) {
+			wp_enqueue_script(
+				'rekai-autocomplete',
+				'https://static.rekai.se/addon/v3/rekai_autocomplete.min.js',
+				array( 'rekai-main' ),
+				'1',
+				true
+			);
+		}
 	}
 
 	/**
