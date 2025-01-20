@@ -24,7 +24,7 @@ function handle_notices(): void {
 					'Rek.ai is enabled, but no Script key is set. Rek.ai will not work until you set a project ID. Configure it <a href="%s">here</a>.',
 					'rekai-wordpress'
 				),
-				admin_url( 'admin.php?page=rekai-options&tab=general' )
+				admin_url( 'admin.php?page=rekai-settings&tab=general' )
 			),
 			array(
 				'type' => 'error',

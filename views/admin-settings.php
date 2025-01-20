@@ -12,12 +12,16 @@
 	<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
 		<?php
 		if ( $rek_active_tab === 'general' ) :
-			settings_fields( 'rekai-options-general' );
-			do_settings_sections( 'rekai-options-general' );
+			settings_fields( 'rekai-settings-general' );
+			do_settings_sections( 'rekai-settings-general' );
+			submit_button();
+		elseif ( $rek_active_tab === 'autocomplete' ) :
+			settings_fields( 'rekai-settings-autocomplete' );
+			do_settings_sections( 'rekai-settings-autocomplete' );
 			submit_button();
 		elseif ( $rek_active_tab === 'advanced' ) :
-			settings_fields( 'rekai-options-advanced' );
-			do_settings_sections( 'rekai-options-advanced' );
+			settings_fields( 'rekai-settings-advanced' );
+			do_settings_sections( 'rekai-settings-advanced' );
 			submit_button();
 		endif;
 		?>
