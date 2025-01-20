@@ -50,7 +50,7 @@ jobs:
         with:
           src_dir: plugin
           target_owner: jco-digital
-          target_repo: rekai-wordpress-dist
+          target_repo: jco-digital/rekai-wordpress-dist
           target_dir: .
           access_token: ${{ steps.github-token.outputs.token }}
           target_branch: main
