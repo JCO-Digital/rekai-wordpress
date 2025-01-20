@@ -1,0 +1,57 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v2
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Setup PHP with tools
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: composer:2
+
+      - name: Github token for deploying to dist repository
+        id: github-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.TOKEN_APP_ID }}
+          private-key: ${{ secrets.TOKEN_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Make
+        run: make release
+
+      - name: Deploy
+        uses: manzoorwanijk/action-deploy-to-repo@v3
+        with:
+          src_dir: plugin
+          target_owner: jco-digital
+          target_repo: rekai-wordpress-dist
+          target_dir: .
+          access_token: ${{ steps.github-token.outputs.token }}
+          target_branch: main
+
