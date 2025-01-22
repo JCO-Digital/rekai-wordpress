@@ -240,6 +240,10 @@ class OptionsPage extends Singleton {
 					'label' => esc_html__( 'Advanced', 'rekai-wordpress' ),
 					'url'   => add_query_arg( array( 'tab' => 'advanced' ), admin_url( 'admin.php?page=rekai-settings' ) ),
 				),
+				'docs'         => array(
+					'label' => esc_html__( 'Documentation', 'rekai-wordpress' ),
+					'url'   => add_query_arg( array( 'tab' => 'docs' ), admin_url( 'admin.php?page=rekai-settings' ) ),
+				),
 			),
 			'active_tab' => $tab,
 		);

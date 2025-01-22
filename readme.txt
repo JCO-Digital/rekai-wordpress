@@ -21,7 +21,7 @@ Integrates the Rek.ai service into WordPress.
 
 1. Install the plugin using the Plugins menu in WordPress. Alternatively, you can upload the plugin files manually.
 2. Activate the plugin in the Plugins menu in WordPress.
-3. Configure your Rek.ai project ID and Secret Key in the Rek.ai WordPress settings.
+3. Configure your Rek.ai script key in the Rek.ai WordPress settings.
 4. Enable the features you want to use in the Rek.ai WordPress settings.
 5. Use the provided Gutenberg blocks.
 

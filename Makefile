@@ -22,7 +22,7 @@ build-release: install-release
 
 .PHONY: build-release
 release: build-release
-	@echo "❗✅ Bundling a release of the project"
+	@echo "✅❗ Bundling a release of the project"
 	@pnpm plugin:tasks
 	@pnpm plugin:zip
 	@pnpm plugin:dist
