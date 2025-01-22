@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rekai WordPress 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rekai-wordpress\n"
-"POT-Creation-Date: 2025-01-20 15:49:41+00:00\n"
+"POT-Creation-Date: 2025-01-22 14:51:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Enable Rek.ai"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:111 classes/Options/OptionsPage.php:283
+#: classes/Options/OptionsPage.php:111 classes/Options/OptionsPage.php:287
 #: plugin/classes/Options/OptionsPage.php:111
 #: plugin/classes/Options/OptionsPage.php:283
 msgid "Script Key"
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Enables autocomplete for the Rek.ai plugin."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:148 classes/Options/OptionsPage.php:329
+#: classes/Options/OptionsPage.php:148 classes/Options/OptionsPage.php:333
 #: plugin/classes/Options/OptionsPage.php:148
 #: plugin/classes/Options/OptionsPage.php:329
 msgid "Test Mode"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Enables test mode. This will not send any data to Rek.ai."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:164 classes/Options/OptionsPage.php:339
+#: classes/Options/OptionsPage.php:164 classes/Options/OptionsPage.php:343
 #: plugin/classes/Options/OptionsPage.php:164
 #: plugin/classes/Options/OptionsPage.php:339
 msgid "Use Mock Data"
@@ -86,7 +86,7 @@ msgstr ""
 msgid "Use mock data instead of getting real data from Rek.ai."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:180 classes/Options/OptionsPage.php:347
+#: classes/Options/OptionsPage.php:180 classes/Options/OptionsPage.php:351
 #: plugin/classes/Options/OptionsPage.php:180
 #: plugin/classes/Options/OptionsPage.php:347
 msgid "Project ID"
@@ -100,7 +100,7 @@ msgid ""
 "document%2$s for more information."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:201 classes/Options/OptionsPage.php:357
+#: classes/Options/OptionsPage.php:201 classes/Options/OptionsPage.php:361
 #: plugin/classes/Options/OptionsPage.php:201
 #: plugin/classes/Options/OptionsPage.php:357
 msgid "Secret Key"
@@ -114,25 +114,29 @@ msgid ""
 "document%2$s for more information."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:232 classes/Options/OptionsPage.php:269
+#: classes/Options/OptionsPage.php:232 classes/Options/OptionsPage.php:273
 #: plugin/classes/Options/OptionsPage.php:232
 #: plugin/classes/Options/OptionsPage.php:269
 msgid "General"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:236 classes/Options/OptionsPage.php:381
+#: classes/Options/OptionsPage.php:236 classes/Options/OptionsPage.php:385
 #: plugin/classes/Options/OptionsPage.php:236
 #: plugin/classes/Options/OptionsPage.php:381
 msgid "Autocomplete"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:240 classes/Options/OptionsPage.php:322
+#: classes/Options/OptionsPage.php:240 classes/Options/OptionsPage.php:326
 #: plugin/classes/Options/OptionsPage.php:240
 #: plugin/classes/Options/OptionsPage.php:322
 msgid "Advanced"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:276 classes/Options/OptionsPage.php:388
+#: classes/Options/OptionsPage.php:244
+msgid "Documentation"
+msgstr ""
+
+#: classes/Options/OptionsPage.php:280 classes/Options/OptionsPage.php:392
 #: plugin/classes/Options/OptionsPage.php:276
 #: plugin/classes/Options/OptionsPage.php:388
 msgid "Enabled"
@@ -143,6 +147,15 @@ msgstr ""
 msgid ""
 "Rek.ai is enabled, but no Script key is set. Rek.ai will not work until you "
 "set a project ID. Configure it <a href=\"%s\">here</a>."
+msgstr ""
+
+#: includes/notices.php:39
+#. translators: 1: Url to the options page.
+msgid ""
+"Rek.ai is enabled, but the WP environment type is not set to production. "
+"Rek.ai scripts will load but are set to not send any visitor data. If this "
+"is not intended, you can override it by following the documentation <a "
+"href=\"%s\">here</a>."
 msgstr ""
 
 #: plugin/views/admin-settings.php:3 views/admin-settings.php:3

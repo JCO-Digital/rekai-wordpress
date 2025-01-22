@@ -34,7 +34,38 @@ class RekaiMain extends Singleton {
 	final public function should_load(): bool {
 		$is_enabled = get_option( 'rekai_is_enabled' ) === '1';
 		$script_key = get_option( 'rekai_script_key' );
+
 		return ! ( ! $is_enabled || empty( $script_key ) );
+	}
+
+	/**
+	 * Checks whether the plugin is in test mode.
+	 *
+	 * This is determined by the environment type and the test mode setting.
+	 * If the environment type is not production, the test mode is always true.
+	 * Otherwise, the test mode is determined by the test mode setting.
+	 *
+	 * However, it can be overridden by the `rekai_override_test_mode` filter.
+	 *
+	 * @return bool
+	 */
+	final public function get_test_mode(): mixed {
+		if ( wp_get_environment_type() !== 'production' ) {
+			$is_test = true;
+		} else {
+			$is_test = get_option( 'rekai_test_mode' ) === '1';
+		}
+
+		/**
+		 * Filters whether to override the test mode.
+		 *
+		 * @param bool $is_test Whether to override the test mode.
+		 * @param string $environment_type The environment type.
+		 * @param bool $is_test_default Whether the test mode is set to true in the settings.
+		 *
+		 * @since 0.1.0
+		 */
+		return apply_filters( 'rekai_override_test_mode', $is_test, wp_get_environment_type(), get_option( 'rekai_test_mode' ) === '1' );
 	}
 
 	/**
@@ -78,7 +109,7 @@ class RekaiMain extends Singleton {
 			return;
 		}
 		$script_key = get_option( 'rekai_script_key' );
-		$is_test    = get_option( 'rekai_test_mode' ) === '1';
+		$is_test    = $this->get_test_mode();
 
 		$is_admin = current_user_can( 'manage_options' );
 		$data     = array(
