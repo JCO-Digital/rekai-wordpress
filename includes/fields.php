@@ -76,6 +76,7 @@ function render_secret_field( array $args = array() ): void {
  *
  *     @type string $id    The ID of the field. Default empty string.
  *     @type string $value The value of the field. Default empty string.
+ *     @type string $help  Help string rendered under the checkbox
  * }
  *
  * @return void
@@ -91,4 +92,36 @@ function render_checkbox_field( array $args = array() ): void {
 	);
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo render_template( 'fields/checkbox', $data );
+}
+
+/**
+ * Renders a switch field.
+ *
+ * Echoes the rendered field.
+ *
+ * @param array $args {
+ *     Optional. Array of field arguments.
+ *
+ *     @type string $id    The ID of the field. Default empty string.
+ *     @type string $value The value of the field. Default empty string.
+ *     @type string $on_text The text shown when the field is "on"
+ *     @type string $off_text The text shown when the field is "off"
+ *     @type string $help  Help string rendered under the checkbox
+ * }
+ *
+ * @return void
+ */
+function render_switch_field( array $args ): void {
+	$data = wp_parse_args(
+		$args,
+		array(
+			'id'       => '',
+			'value'    => '',
+			'on_text'  => '',
+			'off_text' => '',
+			'help'     => '',
+		)
+	);
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo render_template( 'fields/switch', $data );
 }

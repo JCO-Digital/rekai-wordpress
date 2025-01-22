@@ -10,6 +10,7 @@ namespace Rekai\Options;
 use Rekai\Singleton;
 use function Rekai\render_checkbox_field;
 use function Rekai\render_secret_field;
+use function Rekai\render_switch_field;
 use function Rekai\render_template;
 use function Rekai\render_text_field;
 use function Sodium\add;
@@ -131,6 +132,24 @@ class OptionsPage extends Singleton {
 				'value'       => get_option( 'rekai_autocomplete_enabled', '' ),
 				'placeholder' => esc_html__( 'Enable Autocomplete', 'rekai-wordpress' ),
 				'help'        => esc_html__( 'Enables autocomplete for the Rek.ai plugin.', 'rekai-wordpress' ),
+			)
+		);
+	}
+
+	/**
+	 * Renders the Autocomplete Enabled field.
+	 *
+	 * @return void
+	 */
+	final public function render_autocomplete_mode_field(): void {
+		render_switch_field(
+			array(
+				'id'          => 'rekai_autocomplete_automatic',
+				'value'       => get_option( 'rekai_autocomplete_automatic', '' ),
+				'placeholder' => esc_html__( 'Autocomplete mode', 'rekai-wordpress' ),
+				'help'        => esc_html__( 'Select the mode for the autocomplete.', 'rekai-wordpress' ),
+				'on_text'     => esc_html__( 'Automatic', 'rekai-wordpress' ),
+				'off_text'    => esc_html__( 'Manual', 'rekai-wordpress' ),
 			)
 		);
 	}
@@ -379,6 +398,11 @@ class OptionsPage extends Singleton {
 			'rekai_autocomplete_enabled',
 			array( 'sanitize_callback' => 'boolval' )
 		);
+		register_setting(
+			'rekai-settings-autocomplete',
+			'rekai_autocomplete_automatic',
+			array( 'sanitize_callback' => 'boolval' )
+		);
 
 		add_settings_section(
 			'rekai-autocomplete',
@@ -391,6 +415,13 @@ class OptionsPage extends Singleton {
 			'rekai_autocomplete_enabled',
 			__( 'Enabled', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_enabled_field' ),
+			'rekai-settings-autocomplete',
+			'rekai-autocomplete'
+		);
+		add_settings_field(
+			'rekai_autocomplete_automatic',
+			__( 'Autocomplete mode', 'rekai-wordpress' ),
+			array( $this, 'render_autocomplete_mode_field' ),
 			'rekai-settings-autocomplete',
 			'rekai-autocomplete'
 		);

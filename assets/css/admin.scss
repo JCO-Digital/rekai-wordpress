@@ -8,3 +8,80 @@
   align-items: center;
   justify-content: center;
 }
+
+.wp-switch-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 26px;
+}
+
+.wp-switch-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.wp-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #dcdcde;
+  transition: .3s;
+  border-radius: 24px;
+}
+
+.wp-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .3s linear;
+  border-radius: 50%;
+}
+
+.wp-switch-checkbox:checked + .wp-switch-slider {
+  background-color: #2271b1;
+}
+
+.wp-switch-checkbox:focus + .wp-switch-slider {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #2271b1;
+}
+
+.wp-switch-checkbox:checked + .wp-switch-slider:before {
+  transform: translateX(var(--on-translate, 34px));
+}
+
+.wp-switch-text {
+  position: absolute;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+  user-select: none;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.wp-switch-text-on {
+  left: 4px;
+  opacity: 0;
+}
+
+.wp-switch-text-off {
+  right: 4px;
+}
+
+.wp-switch-checkbox:checked ~ .wp-switch-text-on {
+  opacity: 1;
+}
+
+.wp-switch-checkbox:checked ~ .wp-switch-text-off {
+  opacity: 0;
+}
