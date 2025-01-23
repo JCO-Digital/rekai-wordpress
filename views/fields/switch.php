@@ -39,6 +39,7 @@ $input_checked = ! empty( $input_value );
 			class="wp-switch-checkbox"
 			x-ref="checkbox"
 			@click="checked = ! checked"
+            x-model="<?php echo esc_attr( $input_id ); ?>"
 			<?php checked( $input_checked ); ?>
 	/>
 	<span

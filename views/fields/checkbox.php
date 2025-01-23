@@ -15,6 +15,7 @@ $input_checked = ! empty( $input_value );
 		value="<?php echo esc_attr( $input_id ); ?>"
 		<?php checked( $input_checked ); ?>
 		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
+        x-model="<?php echo esc_attr( $input_id ); ?>"
 />
 <p class="description">
 	<?php

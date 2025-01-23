@@ -11,6 +11,7 @@ $input_help        = $rek_help ?? '';
 		id="<?php echo esc_attr( $input_id ); ?>"
 		name="<?php echo esc_attr( $input_id ); ?>"
 		value="<?php echo esc_attr( $input_value ); ?>"
+		x-model="<?php echo esc_attr( $input_id ); ?>"
 		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
 />
 <?php if ( ! empty( $input_help ) ) : ?>

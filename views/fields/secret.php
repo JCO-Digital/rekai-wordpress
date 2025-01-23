@@ -23,6 +23,7 @@ $is_empty = empty( $input_value );
 		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
 		autocomplete="off"
 		x-ref="input"
+		x-model="<?php echo esc_attr( $input_id ); ?>"
 	/>
 	<?php if ( ! $is_empty ) : ?>
 		<button type="button" class="button button-secondary secret-toggle" @click="toggle()">

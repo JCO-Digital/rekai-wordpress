@@ -13,7 +13,6 @@ use function Rekai\render_secret_field;
 use function Rekai\render_switch_field;
 use function Rekai\render_template;
 use function Rekai\render_text_field;
-use function Sodium\add;
 
 /**
  * Options page class.
@@ -21,6 +20,19 @@ use function Sodium\add;
  * @since 0.1.0
  */
 class OptionsPage extends Singleton {
+
+	/**
+	 * An array of all sections.
+	 *
+	 * @var array|string[]
+	 */
+	private array $sections = array(
+		'general'                => 'rekai-settings-general',
+		'autocomplete'           => 'rekai-settings-autocomplete',
+		'autocomplete_automatic' => 'rekai-settings-autocomplete-automatic',
+		'advanced'               => 'rekai-settings-advanced',
+		'docs'                   => 'rekai-settings-docs',
+	);
 
 	/**
 	 * Initializes the options page.
@@ -73,6 +85,15 @@ class OptionsPage extends Singleton {
 	 */
 	final public function render_autocomplete_section(): void {
 		echo '<p>' . esc_html__( 'Settings for autocomplete search.', 'rekai-wordpress' ) . '</p>';
+	}
+
+	/**
+	 * Handles rendering the Automatic section.
+	 *
+	 * @return void
+	 */
+	final public function render_autocomplete_automatic_section(): void {
+		echo '<p>' . esc_html__( 'Automatic mode will load the autocomplete script and attach to the provided input.', 'rekai-wordpress' ) . '</p>';
 	}
 
 	/**
@@ -150,6 +171,22 @@ class OptionsPage extends Singleton {
 				'help'        => esc_html__( 'Select the mode for the autocomplete.', 'rekai-wordpress' ),
 				'on_text'     => esc_html__( 'Automatic', 'rekai-wordpress' ),
 				'off_text'    => esc_html__( 'Manual', 'rekai-wordpress' ),
+			)
+		);
+	}
+
+	/**
+	 * Renders the Autocomplete selector field.
+	 *
+	 * @return void
+	 */
+	final public function render_autocomplete_selector_field(): void {
+		render_text_field(
+			array(
+				'id'          => 'rekai_autocomplete_automatic_selector',
+				'value'       => get_option( 'rekai_autocomplete_automatic_selector', '' ),
+				'placeholder' => esc_html__( 'Autocomplete selector', 'rekai-wordpress' ),
+				'help'        => esc_html__( 'Insert the selector for the autocomplete.', 'rekai-wordpress' ),
 			)
 		);
 	}
@@ -277,12 +314,12 @@ class OptionsPage extends Singleton {
 	 */
 	final public function register_general_section(): void {
 		register_setting(
-			'rekai-settings-general',
+			$this->sections['general'],
 			'rekai_is_enabled',
 			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
-			'rekai-settings-general',
+			$this->sections['general'],
 			'rekai_script_key',
 			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
@@ -291,7 +328,7 @@ class OptionsPage extends Singleton {
 			'rekai-general',
 			__( 'General', 'rekai-wordpress' ),
 			array( $this, 'render_general_section' ),
-			'rekai-settings-general',
+			$this->sections['general'],
 		);
 
 		add_settings_field(
@@ -299,13 +336,17 @@ class OptionsPage extends Singleton {
 			__( 'Enabled', 'rekai-wordpress' ),
 			array( $this, 'render_enabled_field' ),
 			'rekai-settings-general',
-			'rekai-general'
+			'rekai-general',
+			array(
+				'label_for' => 'rekai_is_enabled',
+				'type'      => 'bool',
+			)
 		);
 		add_settings_field(
 			'rekai_script_key',
 			__( 'Script Key', 'rekai-wordpress' ),
 			array( $this, 'render_script_key_field' ),
-			'rekai-settings-general',
+			$this->sections['general'],
 			'rekai-general',
 			array(
 				'label_for' => 'rekai_script_key',
@@ -320,22 +361,22 @@ class OptionsPage extends Singleton {
 	 */
 	final public function register_advanced_section(): void {
 		register_setting(
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai_test_mode',
 			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai_use_mock_data',
 			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai_project_id',
 			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
 		register_setting(
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai_secret_key',
 			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
@@ -344,32 +385,36 @@ class OptionsPage extends Singleton {
 			'rekai-advanced',
 			__( 'Advanced', 'rekai-wordpress' ),
 			array( $this, 'render_advanced_section' ),
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 		);
 
 		add_settings_field(
 			'rekai_test_mode',
 			__( 'Test Mode', 'rekai-wordpress' ),
 			array( $this, 'render_test_mode_field' ),
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai-advanced',
 			array(
 				'label_for' => 'rekai_test_mode',
+				'type'      => 'bool',
 			)
 		);
 		add_settings_field(
 			'rekai_use_mock_data',
 			__( 'Use Mock Data', 'rekai-wordpress' ),
 			array( $this, 'render_use_mock_data_field' ),
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai-advanced',
-			array( 'label_for' => 'rekai_use_mock_data' )
+			array(
+				'label_for' => 'rekai_use_mock_data',
+				'type'      => 'bool',
+			)
 		);
 		add_settings_field(
 			'rekai_project_id',
 			__( 'Project ID', 'rekai-wordpress' ),
 			array( $this, 'render_project_id_field' ),
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai-advanced',
 			array(
 				'label_for' => 'rekai_project_id',
@@ -379,7 +424,7 @@ class OptionsPage extends Singleton {
 			'rekai_secret_key',
 			__( 'Secret Key', 'rekai-wordpress' ),
 			array( $this, 'render_secret_key_field' ),
-			'rekai-settings-advanced',
+			$this->sections['advanced'],
 			'rekai-advanced',
 			array(
 				'label_for' => 'rekai_secret_key',
@@ -394,36 +439,104 @@ class OptionsPage extends Singleton {
 	 */
 	final public function register_autocomplete_section(): void {
 		register_setting(
-			'rekai-settings-autocomplete',
+			$this->sections['autocomplete'],
 			'rekai_autocomplete_enabled',
 			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
-			'rekai-settings-autocomplete',
+			$this->sections['autocomplete'],
 			'rekai_autocomplete_automatic',
 			array( 'sanitize_callback' => 'boolval' )
+		);
+		register_setting(
+			$this->sections['autocomplete_automatic'],
+			'rekai_autocomplete_automatic_selector',
+			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
 
 		add_settings_section(
 			'rekai-autocomplete',
 			__( 'Autocomplete', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_section' ),
-			'rekai-settings-autocomplete',
+			$this->sections['autocomplete']
+		);
+
+		add_settings_section(
+			'rekai-autocomplete-automatic',
+			__( 'Automatic settings', 'rekai-wordpress' ),
+			array( $this, 'render_autocomplete_automatic_section' ),
+			$this->sections['autocomplete_automatic']
 		);
 
 		add_settings_field(
 			'rekai_autocomplete_enabled',
 			__( 'Enabled', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_enabled_field' ),
-			'rekai-settings-autocomplete',
-			'rekai-autocomplete'
+			$this->sections['autocomplete'],
+			'rekai-autocomplete',
+			array(
+				'label_for' => 'rekai_autocomplete_enabled',
+				'type'      => 'bool',
+			)
 		);
 		add_settings_field(
 			'rekai_autocomplete_automatic',
 			__( 'Autocomplete mode', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_mode_field' ),
-			'rekai-settings-autocomplete',
-			'rekai-autocomplete'
+			$this->sections['autocomplete'],
+			'rekai-autocomplete',
+			array(
+				'label_for' => 'rekai_autocomplete_automatic',
+				'type'      => 'bool',
+			)
 		);
+		add_settings_field(
+			'rekai_autocomplete_automatic_selector',
+			__( 'Autocomplete selector', 'rekai-wordpress' ),
+			array( $this, 'render_autocomplete_selector_field' ),
+			$this->sections['autocomplete_automatic'],
+			'rekai-autocomplete-automatic',
+			array(
+				'label_for' => 'rekai_autocomplete_automatic_selector',
+			)
+		);
+	}
+
+	/**
+	 * Handles getting all settings and returning them as a json encoded string.
+	 *
+	 * @return string
+	 */
+	final public function get_alpine_settings(): string {
+		global $wp_settings_sections, $wp_settings_fields;
+		$final_array = array();
+		foreach ( $this->sections as $section_key => $_section ) {
+			if ( ! isset( $wp_settings_sections[ $_section ] ) ) {
+				continue;
+			}
+			foreach ( (array) $wp_settings_sections[ $_section ] as $section ) {
+				if ( ! isset( $section['id'] ) ) {
+					continue;
+				}
+				if ( ! isset( $wp_settings_fields[ $_section ][ $section['id'] ] ) ) {
+					continue;
+				}
+				foreach ( (array) $wp_settings_fields[ $_section ][ $section['id'] ] as $field ) {
+					if ( ! isset( $field['id'] ) ) {
+						continue;
+					}
+					if ( ! isset( $field['args']['type'] ) || $field['args']['type'] !== 'bool' ) {
+						$final_array[ $field['id'] ] = get_option( $field['id'] );
+					}
+					if ( isset( $field['args']['type'] ) && $field['args']['type'] === 'bool' ) {
+						$final_array[ $field['id'] ] = get_option( $field['id'] ) === '1';
+					}
+					if ( get_option( $field['id'] ) === false ) {
+						$final_array[ $field['id'] ] = '';
+					}
+				}
+			}
+		}
+		return wp_json_encode( $final_array );
 	}
 }
