@@ -66,14 +66,16 @@ class RekaiAutocomplete extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$is_automatic         = get_option( 'rekai_autocomplete_automatic' ) === '1';
-		$selector             = get_option( 'rekai_autocomplete_automatic_selector' );
-		$autocomplete_options = $this->get_autocomplete_options();
+		$is_automatic          = get_option( 'rekai_autocomplete_automatic' ) === '1';
+		$selector              = get_option( 'rekai_autocomplete_automatic_selector' );
+		$autocomplete_navigate = get_option( 'rekai_autocomplete_navigate_on_click' ) === '1';
+		$autocomplete_options  = $this->get_autocomplete_options();
 
 		$data = array(
 			'is_automatic'          => $is_automatic,
 			'autocomplete_selector' => $selector,
 			'autocomplete_options'  => $autocomplete_options,
+			'autocomplete_navigate' => $autocomplete_navigate,
 		);
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -89,14 +91,17 @@ class RekaiAutocomplete extends Singleton {
 	 * @return string
 	 */
 	private function get_autocomplete_options(): string {
-		$options = array();
-		$is_test = RekaiMain::get_instance()->get_test_mode();
+		$options           = array();
+		$is_test           = RekaiMain::get_instance()->get_test_mode();
+		$options['params'] = array();
 
 		if ( $is_test ) {
 			$options['advanced_mockdata'] = true;
 			$options['projectid']         = get_option( 'rekai_project_id' ) ?? '';
 			$options['srek']              = get_option( 'rekai_secret_key' ) ?? '';
 		}
+
+		$options['params']['nrofhits'] = (int) get_option( 'rekai_autocomplete_nrofhits', 10 );
 
 		return wp_json_encode( $options );
 	}

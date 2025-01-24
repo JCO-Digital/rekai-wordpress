@@ -9,6 +9,7 @@ namespace Rekai\Options;
 
 use Rekai\Singleton;
 use function Rekai\render_checkbox_field;
+use function Rekai\render_number_field;
 use function Rekai\render_secret_field;
 use function Rekai\render_switch_field;
 use function Rekai\render_template;
@@ -169,7 +170,7 @@ class OptionsPage extends Singleton {
 				'value'       => get_option( 'rekai_autocomplete_automatic', '' ),
 				'placeholder' => esc_html__( 'Autocomplete mode', 'rekai-wordpress' ),
 				'help'        => esc_html__( 'Select the mode for the autocomplete.', 'rekai-wordpress' ),
-				'on_text'     => esc_html__( 'Automatic', 'rekai-wordpress' ),
+				'on_text'     => esc_html__( 'Auto', 'rekai-wordpress' ),
 				'off_text'    => esc_html__( 'Manual', 'rekai-wordpress' ),
 			)
 		);
@@ -187,6 +188,40 @@ class OptionsPage extends Singleton {
 				'value'       => get_option( 'rekai_autocomplete_automatic_selector', '' ),
 				'placeholder' => esc_html__( 'Autocomplete selector', 'rekai-wordpress' ),
 				'help'        => esc_html__( 'Insert the selector for the autocomplete.', 'rekai-wordpress' ),
+			)
+		);
+	}
+
+	/**
+	 * Renders the Autocomplete Options field.
+	 *
+	 * @return void
+	 */
+	final public function render_autocomplete_nrofhits_field(): void {
+		render_number_field(
+			array(
+				'id'          => 'rekai_autocomplete_nrofhits',
+				'value'       => get_option( 'rekai_autocomplete_nrofhits', 10 ),
+				'placeholder' => esc_html__( '10', 'rekai-wordpress' ),
+				'help'        => esc_html__( 'Number of results to show in the autocomplete dropdown.', 'rekai-wordpress' ),
+				'min'         => 1,
+				'max'         => 10,
+			)
+		);
+	}
+
+	/**
+	 * Renders the Autocomplete Options field.
+	 *
+	 * @return void
+	 */
+	final public function render_autocomplete_navigate_on_click_field(): void {
+		render_checkbox_field(
+			array(
+				'id'          => 'rekai_autocomplete_navigate_on_click',
+				'value'       => get_option( 'rekai_autocomplete_navigate_on_click', false ),
+				'placeholder' => esc_html__( 'Navigate on click', 'rekai-wordpress' ),
+				'help'        => esc_html__( 'Navigate to the selected item when clicking on it.', 'rekai-wordpress' ),
 			)
 		);
 	}
@@ -453,6 +488,16 @@ class OptionsPage extends Singleton {
 			'rekai_autocomplete_automatic_selector',
 			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
+		register_setting(
+			$this->sections['autocomplete_automatic'],
+			'rekai_autocomplete_navigate_on_click',
+			array( 'sanitize_callback' => 'boolval' )
+		);
+		register_setting(
+			$this->sections['autocomplete_automatic'],
+			'rekai_autocomplete_nrofhits',
+			array( 'sanitize_callback' => 'intval' )
+		);
 
 		add_settings_section(
 			'rekai-autocomplete',
@@ -500,6 +545,29 @@ class OptionsPage extends Singleton {
 				'label_for' => 'rekai_autocomplete_automatic_selector',
 			)
 		);
+		add_settings_field(
+			'rekai_autocomplete_navigate_on_click',
+			__( 'Open on click', 'rekai-wordpress' ),
+			array( $this, 'render_autocomplete_navigate_on_click_field' ),
+			$this->sections['autocomplete_automatic'],
+			'rekai-autocomplete-automatic',
+			array(
+				'label_for' => 'rekai_autocomplete_navigate_on_click',
+				'type'      => 'bool',
+			)
+		);
+		add_settings_field(
+			'rekai_autocomplete_nrofhits',
+			__( 'Number of results', 'rekai-wordpress' ),
+			array( $this, 'render_autocomplete_nrofhits_field' ),
+			$this->sections['autocomplete_automatic'],
+			'rekai-autocomplete-automatic',
+			array(
+				'label_for' => 'rekai_autocomplete_nrofhits',
+				'type'      => 'number',
+				'default'   => 10,
+			)
+		);
 	}
 
 	/**
@@ -510,7 +578,7 @@ class OptionsPage extends Singleton {
 	final public function get_alpine_settings(): string {
 		global $wp_settings_sections, $wp_settings_fields;
 		$final_array = array();
-		foreach ( $this->sections as $section_key => $_section ) {
+		foreach ( $this->sections as $_section ) {
 			if ( ! isset( $wp_settings_sections[ $_section ] ) ) {
 				continue;
 			}
@@ -525,15 +593,14 @@ class OptionsPage extends Singleton {
 					if ( ! isset( $field['id'] ) ) {
 						continue;
 					}
-					if ( ! isset( $field['args']['type'] ) || $field['args']['type'] !== 'bool' ) {
-						$final_array[ $field['id'] ] = get_option( $field['id'] );
-					}
-					if ( isset( $field['args']['type'] ) && $field['args']['type'] === 'bool' ) {
-						$final_array[ $field['id'] ] = get_option( $field['id'] ) === '1';
-					}
-					if ( get_option( $field['id'] ) === false ) {
-						$final_array[ $field['id'] ] = '';
-					}
+					$type          = $field['args']['type'] ?? 'string';
+					$default_value = $field['args']['default'] ?? '';
+					$value         = match ( $type ) {
+						'bool' => get_option( $field['id'] ) === '1',
+						'number' => (int) get_option( $field['id'], $default_value ),
+						default => get_option( $field['id'], $default_value ),
+					};
+					$final_array[ $field['id'] ] = $value;
 				}
 			}
 		}
