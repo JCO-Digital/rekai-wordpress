@@ -8,6 +8,7 @@
 namespace Rekai;
 
 use Rekai\Options\OptionsPage;
+use Rekai\Scripts\RekaiAutocomplete;
 use Rekai\Scripts\RekaiMain;
 
 // Initializes all classes.
@@ -16,6 +17,7 @@ add_action(
 	static function () {
 		OptionsPage::get_instance();
 		RekaiMain::get_instance();
+		RekaiAutocomplete::get_instance();
 	}
 );
 

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Handles the Rek.ai scripts.
  *
@@ -26,7 +26,7 @@ class RekaiMain extends Singleton {
 	}
 
 	/**
-	 * Returns a boolean wether the scripts/assets should be loaded.
+	 * Returns a boolean whether the scripts/assets should be loaded.
 	 * Checks against the Plugin settings.
 	 *
 	 * @return bool
@@ -77,26 +77,16 @@ class RekaiMain extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$script_key           = get_option( 'rekai_script_key' );
-		$autocomplete_enabled = get_option( 'rekai_autocomplete_enabled' );
-		$js_url               = sprintf( 'https://static.rekai.fi/%s.js', $script_key );
+		$script_key = get_option( 'rekai_script_key' );
+		$js_url     = sprintf( 'https://static.rekai.fi/%s.js', $script_key );
 		// The main Rek.ai script.
 		wp_enqueue_script(
 			'rekai-main',
 			$js_url,
 			array(),
 			'1',
-			true
+			false
 		);
-		if ( $autocomplete_enabled === '1' ) {
-			wp_enqueue_script(
-				'rekai-autocomplete',
-				'https://static.rekai.se/addon/v3/rekai_autocomplete.min.js',
-				array( 'rekai-main' ),
-				'1',
-				true
-			);
-		}
 	}
 
 	/**
@@ -108,20 +98,14 @@ class RekaiMain extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$script_key           = get_option( 'rekai_script_key' );
-		$is_test              = $this->get_test_mode();
-		$is_automatic         = get_option( 'rekai_autocomplete_automatic' ) === '1';
-		$selector             = get_option( 'rekai_autocomplete_automatic_selector' );
-		$autocomplete_options = $this->get_autocomplete_options();
+		$script_key = get_option( 'rekai_script_key' );
+		$is_test    = $this->get_test_mode();
 
 		$is_admin = current_user_can( 'manage_options' );
 		$data     = array(
-			'script_key'            => $script_key,
-			'is_admin'              => $is_admin,
-			'is_test'               => $is_test,
-			'is_automatic'          => $is_automatic,
-			'autocomplete_selector' => $selector,
-			'autocomplete_options'  => $autocomplete_options,
+			'script_key' => $script_key,
+			'is_admin'   => $is_admin,
+			'is_test'    => $is_test,
 		);
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -129,23 +113,5 @@ class RekaiMain extends Singleton {
 			'rekai-head',
 			$data
 		);
-	}
-
-	/**
-	 * Handles retrieving the autocomplete options and constructing the JSON string.
-	 *
-	 * @return string
-	 */
-	private function get_autocomplete_options(): string {
-		$options = array();
-		$is_test = $this->get_test_mode();
-
-		if ( $is_test ) {
-			$options['advanced_mockdata'] = true;
-			$options['projectid']         = get_option( 'rekai_project_id' ) ?? '';
-			$options['srek']              = get_option( 'rekai_secret_key' ) ?? '';
-		}
-
-		return wp_json_encode( $options );
 	}
 }

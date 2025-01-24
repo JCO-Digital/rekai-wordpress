@@ -47,7 +47,7 @@ $options_page = new OptionsPage();
 			<form
 				method="post"
 				action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>"
-				x-show="rekai_autocomplete_automatic === true"
+				x-show="rekai_autocomplete_automatic === true && rekai_autocomplete_enabled === true"
 				x-transition
 				x-cloak
 			>
