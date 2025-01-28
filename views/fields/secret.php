@@ -39,7 +39,7 @@ $is_empty = empty( $input_value );
 	<?php endif; ?>
 	<p class="description">
 		<?php
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $input_help;
 		?>
 	</p>
