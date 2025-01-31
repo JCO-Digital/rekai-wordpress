@@ -316,6 +316,9 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function render_page(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'rekai-wordpress' ) );
+		}
 		$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$data = array(
 			'tabs'       => array(
