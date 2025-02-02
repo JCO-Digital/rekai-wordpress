@@ -21,8 +21,7 @@
     "allow-plugins": {
       "composer/installers": true,
       "php-http/discovery": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "wikimedia/composer-merge-plugin": true
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "minimum-stability": "stable",
