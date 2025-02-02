@@ -32,15 +32,18 @@ function register_blocks_metadata(): void {
  * @return void
  */
 function register_blocks(): void {
+	/*
 	if ( is_wp_version_compatible( '6.7' ) ) {
+		// TODO Debug this when you can ask @Maxemilian
 		register_blocks_metadata();
 	}
+	*/
 	$blocks = array(
 		'recommendations',
-		//'qna',
+		// 'qna',
 	);
 	foreach ( $blocks as $block ) {
-		register_block_type( trailingslashit( REKAI_PLUGIN_PATH ) . 'blocks/build/' . $block . '/block.json' );
+		register_block_type( join_path( REKAI_PLUGIN_PATH, 'blocks/build', $block, 'block.json' ) );
 	}
 }
 add_action( 'init', __NAMESPACE__ . '\register_blocks' );

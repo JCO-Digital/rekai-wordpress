@@ -8,6 +8,8 @@
  * Author URI: https://jco.fi
  * Domain Path: /languages
  * Text Domain: rekai-wordpress
+ *
+ * @package Rekai
  */
 
 namespace Rekai;
