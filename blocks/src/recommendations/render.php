@@ -5,6 +5,8 @@
  * @package Rekai
  */
 
+namespace Rekai;
+
 $attributes = generate_data_attributes( array( 'class' => 'rek-prediction' ) );
 ?>
 <div
