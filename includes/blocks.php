@@ -20,7 +20,7 @@ function register_blocks_metadata(): void {
 		return;
 	}
 
-	// wp_register_block_metadata_collection( $base_path, $manifest );
+	wp_register_block_metadata_collection( $base_path, $manifest );
 }
 
 /**

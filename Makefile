@@ -27,7 +27,12 @@ release: build-release
 	@pnpm plugin:zip
 	@pnpm plugin:dist
 
+.PHONY: clean-blocks
+clean-blocks:
+	@echo "Cleaning blocks"
+	@rm -rf blocks/build
+
 .PHONY: dev
-dev: install
+dev: clean-blocks install
 	@echo "▶️ Starting project"
 	@pnpm project:dev
