@@ -1,24 +1,6 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
-import {__} from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import './editor.scss';
+import { __ } from "@wordpress/i18n";
+import { useBlockProps } from "@wordpress/block-editor";
+import "./editor.scss";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -29,12 +11,9 @@ import './editor.scss';
  * @return {JSX.Element} Element to render.
  */
 export default function Edit() {
-    return (
-        <p>
-            {__(
-                'Rek.ai Recommendations',
-                'rekai-wordpress'
-            )}
-        </p>
-    );
+  return (
+    <div {...useBlockProps()}>
+      {__("Rek.ai Recommendations", "rekai-wordpress")}
+    </div>
+  );
 }

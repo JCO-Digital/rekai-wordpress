@@ -20,7 +20,7 @@ function register_blocks_metadata(): void {
 		return;
 	}
 
-	wp_register_block_metadata_collection( $base_path, $manifest );
+	// wp_register_block_metadata_collection( $base_path, $manifest );
 }
 
 /**
@@ -32,12 +32,9 @@ function register_blocks_metadata(): void {
  * @return void
  */
 function register_blocks(): void {
-	/*
 	if ( is_wp_version_compatible( '6.7' ) ) {
-		// TODO Debug this when you can ask @Maxemilian
 		register_blocks_metadata();
 	}
-	*/
 	$blocks = array(
 		'recommendations',
 		// 'qna',

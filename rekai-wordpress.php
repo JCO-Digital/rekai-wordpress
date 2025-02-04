@@ -35,5 +35,8 @@ require_once __DIR__ . '/includes/assets.php';
 // All hooks of the plugin are defined here.
 require_once __DIR__ . '/includes/hooks.php';
 
-// Gutenberg blocks
+// Gutenberg blocks.
 require_once __DIR__ . '/includes/blocks.php';
+
+// Block specific functions.
+require_once __DIR__ . '/includes/block-functions.php';
