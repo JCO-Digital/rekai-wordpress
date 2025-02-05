@@ -35,11 +35,21 @@ function generate_data_attributes( $attributes ) {
 		$data['advanced_mockdata'] = 'true';
 	}
 
-	$block = array( 'className' );
+	// Add site language to only display current language.
+	if ( $attributes['currentLanguage'] ) {
+		$data['allowedlangs'] = get_locale();
+	}
 
+	$block = array( 'className', 'currentLanguage' );
+
+	var_dump( $attributes );
 	foreach ( $attributes as $key => $value ) {
-		if ( ! in_array( $key, $block ) ) {
-			$data[ $key ] = $value;
+		if ( ! in_array( $key, $block, true ) ) {
+			if ( is_bool( $value ) ) {
+				$data[ $key ] = $value ? 'true' : 'false';
+			} else {
+				$data[ $key ] = $value;
+			}
 		}
 	}
 

@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { PanelBody, TextControl } from "@wordpress/components";
+import { PanelBody, TextControl, ToggleControl } from "@wordpress/components";
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 import "./editor.scss";
 
@@ -17,16 +17,52 @@ export default function Edit({ attributes, setAttributes }) {
     <div {...useBlockProps()}>
       <InspectorControls>
         <PanelBody title={__("Display", "rekai-wordpress")}>
-          {__("Number of Recommendations", "rekai-wordpress")}
           <TextControl
+            label={__("Number of Recommendations", "rekai-wordpress")}
             type="number"
-            onChange={(val) => {
-              setAttributes({ nrofhits: val });
+            onChange={(newValue) => {
+              setAttributes({ nrofhits: newValue });
             }}
             value={attributes.nrofhits}
           />
+          <ToggleControl
+            label={__("Add content", "rekai-wordpress")}
+            help={
+              attributes.addcontent
+                ? __("Adds text content to data.", "rekai-wordpress")
+                : __("Only use metadata.", "rekai-wordpress")
+            }
+            checked={attributes.addcontent}
+            onChange={(newValue) => {
+              setAttributes({ addcontent: newValue });
+            }}
+          />
         </PanelBody>
-        <PanelBody title={__("Filter", "rekai-wordpress")}></PanelBody>
+        <PanelBody title={__("Filter", "rekai-wordpress")}>
+          <ToggleControl
+            label={__("Show only current language", "rekai-wordpress")}
+            help={
+              attributes.currentLanguage
+                ? __(
+                    "Shows only content in current language.",
+                    "rekai-wordpress",
+                  )
+                : __("Shows content in all languages.", "rekai-wordpress")
+            }
+            checked={attributes.currentLanguage}
+            onChange={(newValue) => {
+              setAttributes({ currentLanguage: newValue });
+            }}
+          />
+          <TextControl
+            label={__("Subtree", "rekai-wordpress")}
+            type="text"
+            onChange={(newValue) => {
+              setAttributes({ subtree: newValue });
+            }}
+            value={attributes.subtree}
+          />
+        </PanelBody>
       </InspectorControls>
 
       {__("Rek.ai Recommendations", "rekai-wordpress")}

@@ -13,8 +13,16 @@
   },
   "attributes": {
     "nrofhits": {
-      "type": "number",
-      "default": 10
+      "type": "string",
+      "default": "10"
+    },
+    "currentLanguage": {
+      "type": "boolean",
+      "default": true
+    },
+    "addcontent": {
+      "type": "boolean",
+      "default": false
     },
     "subtree": {
       "type": "string",
