@@ -16,6 +16,10 @@
       "type": "string",
       "default": "10"
     },
+    "headerText": {
+      "type": "string",
+      "default": ""
+    },
     "currentLanguage": {
       "type": "boolean",
       "default": true
