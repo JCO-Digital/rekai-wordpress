@@ -16,23 +16,23 @@ use Rekai\Scripts\RekaiMain;
  *
  * @return array
  */
-function generate_data_attributes( array $attributes ): array {
-	$is_test  = RekaiMain::get_instance()->get_test_mode();
-	$add_test = false;
-
-	if ( $is_test ) {
-			$project_id = get_option( 'rekai_project_id' );
-			$secret_key = get_option( 'rekai_secret_key' );
-			$add_test   = ! empty( $project_id ) && ! empty( $secret_key );
-	}
-
+function generate_data_attributes( $attributes ) {
 	$data = array();
-	if ( $add_test ) {
-		$data['projectid'] = $project_id;
-		$data['secretkey'] = $secret_key;
-		$mock_data         = get_option( 'rekai_use_mock_data' );
-		if ( $mock_data === '1' ) {
-			$data['advanced_mockdata'] = 'true';
+
+	// Check for test mode.
+	if ( RekaiMain::get_instance()->get_test_mode() ) {
+		$project_id = get_option( 'rekai_project_id' );
+		$secret_key = get_option( 'rekai_secret_key' );
+
+		// Check that both project id and secret key is set.
+		if ( ! empty( $project_id ) && ! empty( $secret_key ) ) {
+			$data['projectid'] = $project_id;
+			$data['secretkey'] = $secret_key;
+
+			// Set mock data attribute.
+			if ( get_option( 'rekai_use_mock_data' ) === '1' ) {
+				$data['advanced_mockdata'] = 'true';
+			}
 		}
 	}
 
