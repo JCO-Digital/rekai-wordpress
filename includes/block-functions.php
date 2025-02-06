@@ -17,9 +17,8 @@ use Rekai\Scripts\RekaiMain;
  * @return array
  */
 function generate_data_attributes( array $attributes ): array {
-	$is_test   = RekaiMain::get_instance()->get_test_mode();
-	$mock_data = get_option( 'rekai_use_mock_data' );
-	$add_test  = false;
+	$is_test  = RekaiMain::get_instance()->get_test_mode();
+	$add_test = false;
 
 	if ( $is_test ) {
 			$project_id = get_option( 'rekai_project_id' );
@@ -28,12 +27,13 @@ function generate_data_attributes( array $attributes ): array {
 	}
 
 	$data = array();
-	if ( $is_test && $add_test ) {
+	if ( $add_test ) {
 		$data['projectid'] = $project_id;
 		$data['secretkey'] = $secret_key;
-	}
-	if ( $is_test && $add_test && $mock_data === '1' ) {
-		$data['advanced_mockdata'] = 'true';
+		$mock_data         = get_option( 'rekai_use_mock_data' );
+		if ( $mock_data === '1' ) {
+			$data['advanced_mockdata'] = 'true';
+		}
 	}
 
 	// Add site language to only display current language.
@@ -47,6 +47,8 @@ function generate_data_attributes( array $attributes ): array {
 		if ( ! in_array( $key, $block, true ) ) {
 			if ( is_bool( $value ) ) {
 				$data[ $key ] = $value ? 'true' : 'false';
+			} elseif ( ! empty( $value ) && is_array( $value ) ) {
+				$data[ $key ] = implode( ',', $value );
 			} elseif ( ! empty( $value ) ) {
 				$data[ $key ] = $value;
 			}

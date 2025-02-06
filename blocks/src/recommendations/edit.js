@@ -2,6 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { PanelBody, TextControl, ToggleControl } from "@wordpress/components";
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import logo from "../../../assets/img/logo-rekai-blue.svg";
 import "./editor.scss";
 
 /**
@@ -15,8 +16,22 @@ import "./editor.scss";
 export default function Edit({ attributes, setAttributes }) {
   return (
     <div {...useBlockProps()}>
+      <img src={logo} alt={"Rek.ai Logo"} />
+      <p>{__("Recommendations", "rekai-wordpress")}</p>
+
       <InspectorControls>
         <PanelBody title={__("Display", "rekai-wordpress")}>
+          <TextControl
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+            help={__(
+              "If you want to add header text above the questions",
+              "rekai-wordpress",
+            )}
+            label={__("Header Text", "rekai-wordpress")}
+            value={attributes.headertext}
+            onChange={(value) => setAttributes({ headerText: value })}
+          />
           <TextControl
             label={__("Number of Recommendations", "rekai-wordpress")}
             type="number"
@@ -64,8 +79,6 @@ export default function Edit({ attributes, setAttributes }) {
           />
         </PanelBody>
       </InspectorControls>
-
-      {__("Rek.ai Recommendations", "rekai-wordpress")}
     </div>
   );
 }
