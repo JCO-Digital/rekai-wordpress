@@ -20,6 +20,14 @@
       "type": "string",
       "default": ""
     },
+    "renderstyle": {
+      "type": "string",
+      "default": ""
+    },
+    "userootpath": {
+      "type": "boolean",
+      "default": false
+    },
     "currentLanguage": {
       "type": "boolean",
       "default": true

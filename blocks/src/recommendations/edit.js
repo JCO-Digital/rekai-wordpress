@@ -1,7 +1,16 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { PanelBody, TextControl, ToggleControl } from "@wordpress/components";
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import {
+  PanelBody,
+  TextControl,
+  ToggleControl,
+  SelectControl,
+} from "@wordpress/components";
+import {
+  InspectorControls,
+  RichText,
+  useBlockProps,
+} from "@wordpress/block-editor";
 import logo from "../../../assets/img/logo-rekai-blue.svg";
 import "./editor.scss";
 
@@ -14,31 +23,47 @@ import "./editor.scss";
  * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+  const { headerText, nrofhits, renderstyle } = attributes;
+  const items = [];
+  for (let i = 0; i < nrofhits; i++) {
+    items.push(<div key={i} className="item"></div>);
+  }
   return (
     <div {...useBlockProps()}>
-      <img src={logo} alt={"Rek.ai Logo"} />
-      <p>{__("Recommendations", "rekai-wordpress")}</p>
+      <RichText
+        identifier="headerText"
+        tagName={"h2"}
+        value={headerText}
+        onChange={(newValue) => {
+          setAttributes({ headerText: newValue });
+        }}
+        placeholder={__("Heading Text", "rekai-wordpress")}
+      />
+      <div className={"items " + renderstyle}>{items}</div>
 
       <InspectorControls>
         <PanelBody title={__("Display", "rekai-wordpress")}>
-          <TextControl
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-            help={__(
-              "If you want to add header text above the questions",
-              "rekai-wordpress",
-            )}
-            label={__("Header Text", "rekai-wordpress")}
-            value={attributes.headertext}
-            onChange={(value) => setAttributes({ headerText: value })}
-          />
           <TextControl
             label={__("Number of Recommendations", "rekai-wordpress")}
             type="number"
             onChange={(newValue) => {
               setAttributes({ nrofhits: newValue });
             }}
-            value={attributes.nrofhits}
+            value={nrofhits}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <SelectControl
+            label={__("Render Style", "rekai-wordpress")}
+            value={renderstyle}
+            options={[
+              { label: __("Pills", "rekai-wordpress"), value: "pills" },
+              { label: __("List", "rekai-wordpress"), value: "list" },
+              { label: __("Advanced", "rekai-wordpress"), value: "advanced" },
+            ]}
+            onChange={(newValue) => setAttributes({ renderstyle: newValue })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <ToggleControl
             label={__("Add content", "rekai-wordpress")}
@@ -51,9 +76,24 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(newValue) => {
               setAttributes({ addcontent: newValue });
             }}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
         <PanelBody title={__("Filter", "rekai-wordpress")}>
+          <ToggleControl
+            label={__("Use Root path", "rekai-wordpress")}
+            help={__(
+              "Enabling this will show only questions that are under the path where this block is added",
+              "rekai-wordpress",
+            )}
+            checked={attributes.userootpath}
+            onChange={(value) => {
+              setAttributes({ userootpath: value });
+            }}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
           <ToggleControl
             label={__("Show only current language", "rekai-wordpress")}
             help={
@@ -68,6 +108,8 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(newValue) => {
               setAttributes({ currentLanguage: newValue });
             }}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <TextControl
             label={__("Subtree", "rekai-wordpress")}
@@ -76,6 +118,8 @@ export default function Edit({ attributes, setAttributes }) {
               setAttributes({ subtree: newValue });
             }}
             value={attributes.subtree}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
       </InspectorControls>
