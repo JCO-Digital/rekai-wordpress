@@ -5,13 +5,15 @@ use function Rekai\handle_extra_attributes;
 $nrofhits = $attributes['nrofhits'] ?? 5;
 
 $base_attributes = array(
-	'entitytype' => 'rekai-qna',
-	'nrofhits'   => $nrofhits,
+	'entitytype'      => 'rekai-qna',
+	'nrofhits'        => $nrofhits,
+	'headertext'      => $attributes['headerText'] ?? '',
+	'currentLanguage' => $attributes['useCurrentLanguage'] ?? false,
+	'pathOption'      => $attributes['pathOption'] ?? 'all',
+	'depth'           => $attributes['depth'] ?? 1,
+	'limit'           => $attributes['limit'] ?? 'none',
+	'limitDepth'      => $attributes['limitDepth'] ?? 'none',
 );
-
-$base_attributes['headertext']      = $attributes['headerText'] ?? '';
-$base_attributes['userootpath']     = $attributes['useRoot'] ?? false;
-$base_attributes['currentLanguage'] = $attributes['useCurrentLanguage'] ?? false;
 
 $tags = $attributes['tags'] ?? array();
 if ( ! empty( $tags ) && is_array( $tags ) ) {

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Options page class.
  *
@@ -188,6 +188,22 @@ class OptionsPage extends Singleton {
 				'value'       => get_option( 'rekai_autocomplete_automatic_selector', '' ),
 				'placeholder' => esc_html__( 'Autocomplete selector', 'rekai-wordpress' ),
 				'help'        => esc_html__( 'Insert the selector for the autocomplete.', 'rekai-wordpress' ),
+			)
+		);
+	}
+
+	/**
+	 * Renders the Autocomplete Use current language field.
+	 *
+	 * @return void
+	 */
+	final public function render_autocomplete_currentlang_field(): void {
+		render_checkbox_field(
+			array(
+				'id'          => 'rekai_autocomplete_usecurrentlang',
+				'value'       => get_option( 'rekai_autocomplete_usecurrentlang', '' ),
+				'placeholder' => esc_html__( 'Use current language', 'rekai-wordpress' ),
+				'help'        => esc_html__( 'Use the current language for the autocomplete.', 'rekai-wordpress' ),
 			)
 		);
 	}
@@ -498,6 +514,11 @@ class OptionsPage extends Singleton {
 		);
 		register_setting(
 			$this->sections['autocomplete_automatic'],
+			'rekai_autocomplete_usecurrentlang',
+			array( 'sanitize_callback' => 'boolval' )
+		);
+		register_setting(
+			$this->sections['autocomplete_automatic'],
 			'rekai_autocomplete_nrofhits',
 			array( 'sanitize_callback' => 'intval' )
 		);
@@ -556,6 +577,17 @@ class OptionsPage extends Singleton {
 			'rekai-autocomplete-automatic',
 			array(
 				'label_for' => 'rekai_autocomplete_navigate_on_click',
+				'type'      => 'bool',
+			)
+		);
+		add_settings_field(
+			'rekai_autocomplete_usecurrentlang',
+			__( 'Use current language', 'rekai-wordpress' ),
+			array( $this, 'render_autocomplete_currentlang_field' ),
+			$this->sections['autocomplete_automatic'],
+			'rekai-autocomplete-automatic',
+			array(
+				'label_for' => 'rekai_autocomplete_usecurrentlang',
 				'type'      => 'bool',
 			)
 		);

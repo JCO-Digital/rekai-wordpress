@@ -17,9 +17,32 @@
       "type": "string",
       "default": ""
     },
-    "useRoot": {
-      "type": "boolean",
-      "default": false
+    "pathOption": {
+      "type": "string",
+      "default": "all",
+      "enum": [
+        "all",
+        "rootPath",
+        "maxDepth",
+        "rootPathLevel"
+      ]
+    },
+    "depth": {
+      "type": "number",
+      "default": 1
+    },
+    "limit": {
+      "type": "string",
+      "default": "none",
+      "enum": [
+        "none",
+        "subPages",
+        "minDepth"
+      ]
+    },
+    "limitDepth": {
+      "type": "number",
+      "default": 1
     },
     "useCurrentLanguage": {
       "type": "boolean",

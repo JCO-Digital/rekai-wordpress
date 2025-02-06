@@ -103,6 +103,10 @@ class RekaiAutocomplete extends Singleton {
 
 		$options['params']['nrofhits'] = (int) get_option( 'rekai_autocomplete_nrofhits', 10 );
 
+		if ( '1' === get_option( 'rekai_autocomplete_usecurrentlang' ) ) {
+			$options['params']['allowedlangs'] = get_locale();
+		}
+
 		return wp_json_encode( $options );
 	}
 }

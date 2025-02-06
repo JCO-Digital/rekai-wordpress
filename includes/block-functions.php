@@ -18,6 +18,7 @@ use Rekai\Scripts\RekaiMain;
  */
 function generate_data_attributes( $attributes ) {
 	$data = handle_testing_mode();
+	$data = handle_path_options( $data, $attributes );
 
 	// Add site language to only display current language.
 	if ( ! empty( $attributes['currentLanguage'] ) ) {
@@ -39,6 +40,43 @@ function generate_data_attributes( $attributes ) {
 	}
 
 	return map_data_to_dataset( $data );
+}
+
+/**
+ * Handles path-related options and modifies the provided data array based on the attributes.
+ *
+ * @param array $data The data array to be modified with path options.
+ * @param array $attributes An array of attributes containing path options and limits. Passed by reference to cleanup the attributes.
+ *
+ * @return array The modified data array reflecting the applied path options.
+ */
+function handle_path_options( array $data, array &$attributes ): array {
+	switch ( $attributes['pathOption'] ) {
+		case 'useRoot':
+			$data['userootpath'] = 'true';
+			break;
+		case 'maxDepth':
+			$data['maxpathdepth'] = $attributes['depth'] ?? 1;
+			break;
+		case 'rootPathLevel':
+			$data['userootpath']   = 'true';
+			$data['rootpathlevel'] = $attributes['depth'] ?? 1;
+			break;
+		default:
+			break;
+	}
+	switch ( $attributes['limit'] ) {
+		case 'subPages':
+			$data['excludechildnodes'] = 'true';
+			break;
+		case 'minDepth':
+			$data['minpathdepth'] = $attributes['limitDepth'] ?? 1;
+			break;
+		default:
+			break;
+	}
+	unset( $attributes['pathOption'], $attributes['limit'], $attributes['depth'], $attributes['limitDepth'] );
+	return $data;
 }
 
 /**
