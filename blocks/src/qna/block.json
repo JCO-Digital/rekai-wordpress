@@ -21,6 +21,10 @@
       "type": "boolean",
       "default": false
     },
+    "useCurrentLanguage": {
+      "type": "boolean",
+      "default": false
+    },
     "tags": {
       "type": "array",
       "default": []

@@ -9,8 +9,9 @@ $base_attributes = array(
 	'nrofhits'   => $nrofhits,
 );
 
-$base_attributes['headertext']  = $attributes['headerText'] ?? '';
-$base_attributes['userootpath'] = $attributes['useRoot'] ?? false;
+$base_attributes['headertext']      = $attributes['headerText'] ?? '';
+$base_attributes['userootpath']     = $attributes['useRoot'] ?? false;
+$base_attributes['currentLanguage'] = $attributes['useCurrentLanguage'] ?? false;
 
 $tags = $attributes['tags'] ?? array();
 if ( ! empty( $tags ) && is_array( $tags ) ) {

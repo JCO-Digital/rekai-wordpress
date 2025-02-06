@@ -40,7 +40,14 @@ import logo from "../../../assets/img/logo-rekai-blue.svg";
  * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-  const { nrofhits, headerText, tags, useRoot, extraAttributes } = attributes;
+  const {
+    nrofhits,
+    headerText,
+    tags,
+    useRoot,
+    extraAttributes,
+    useCurrentLanguage,
+  } = attributes;
 
   return (
     <div {...useBlockProps()}>
@@ -84,14 +91,18 @@ export default function Edit({ attributes, setAttributes }) {
           <ToggleControl
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-            label={__("Use Root path", "rekai-wordpress")}
-            help={__(
-              "Enabling this will show only questions that are under the path where this block is added",
-              "rekai-wordpress",
-            )}
-            checked={useRoot}
+            label={__("Show only current language", "rekai-wordpress")}
+            help={
+              attributes.useCurrentLanguage
+                ? __(
+                    "Shows only content in current language.",
+                    "rekai-wordpress",
+                  )
+                : __("Shows content in all languages.", "rekai-wordpress")
+            }
+            checked={useCurrentLanguage}
             onChange={(value) => {
-              setAttributes({ useRoot: value });
+              setAttributes({ useCurrentLanguage: value });
             }}
           />
           <FormTokenField
