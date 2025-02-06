@@ -46,7 +46,7 @@ function generate_data_attributes( $attributes ) {
 		if ( ! in_array( $key, $block, true ) ) {
 			if ( is_bool( $value ) ) {
 				$data[ $key ] = $value ? 'true' : 'false';
-			} else {
+			} elseif ( ! empty( $value ) ) {
 				$data[ $key ] = $value;
 			}
 		}
