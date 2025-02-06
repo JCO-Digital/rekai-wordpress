@@ -7,11 +7,12 @@
 
 namespace Rekai;
 
-$attributes = generate_data_attributes( array( 'class' => 'rek-prediction' ) );
+$extra          = generate_data_attributes( $attributes ?? array() );
+$extra['class'] = 'rek-prediction';
 ?>
 <div
 		<?php
 		// phpcs:ignore
-		echo get_block_wrapper_attributes( $attributes );
+		echo get_block_wrapper_attributes( $extra );
 		?>
 ></div>

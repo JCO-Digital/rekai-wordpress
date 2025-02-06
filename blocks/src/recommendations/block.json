@@ -11,7 +11,24 @@
   "supports": {
     "html": false
   },
-  "attributes": {},
+  "attributes": {
+    "nrofhits": {
+      "type": "string",
+      "default": "10"
+    },
+    "currentLanguage": {
+      "type": "boolean",
+      "default": true
+    },
+    "addcontent": {
+      "type": "boolean",
+      "default": false
+    },
+    "subtree": {
+      "type": "string",
+      "default": ""
+    }
+  },
   "textdomain": "rekai-wordpress",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
