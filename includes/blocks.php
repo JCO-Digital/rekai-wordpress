@@ -40,7 +40,10 @@ function register_blocks(): void {
 		'qna',
 	);
 	foreach ( $blocks as $block ) {
-		register_block_type( join_path( REKAI_PLUGIN_PATH, 'blocks/build', $block, 'block.json' ) );
+		$block_file = join_path( REKAI_PLUGIN_PATH, 'blocks/build', $block, 'block.json' );
+		if ( is_readable( $block_file ) ) {
+			register_block_type( $block_file );
+		}
 	}
 }
 add_action( 'init', __NAMESPACE__ . '\register_blocks' );

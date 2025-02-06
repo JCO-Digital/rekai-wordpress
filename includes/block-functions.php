@@ -36,7 +36,7 @@ function generate_data_attributes( $attributes ) {
 	}
 
 	// Add site language to only display current language.
-	if ( $attributes['currentLanguage'] ) {
+	if ( ! empty( $attributes['currentLanguage'] ) ) {
 		$data['allowedlangs'] = get_locale();
 	}
 
