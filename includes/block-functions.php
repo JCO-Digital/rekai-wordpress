@@ -17,45 +17,59 @@ use Rekai\Scripts\RekaiMain;
  * @return array
  */
 function generate_data_attributes( $attributes ) {
-	$data = array();
-
-	// Check for test mode.
-	if ( RekaiMain::get_instance()->get_test_mode() ) {
-		$project_id = get_option( 'rekai_project_id' );
-		$secret_key = get_option( 'rekai_secret_key' );
-
-		// Check that both project id and secret key is set.
-		if ( ! empty( $project_id ) && ! empty( $secret_key ) ) {
-			$data['projectid'] = $project_id;
-			$data['secretkey'] = $secret_key;
-
-			// Set mock data attribute.
-			if ( get_option( 'rekai_use_mock_data' ) === '1' ) {
-				$data['advanced_mockdata'] = 'true';
-			}
-		}
-	}
+	$data = handle_testing_mode();
 
 	// Add site language to only display current language.
 	if ( ! empty( $attributes['currentLanguage'] ) ) {
 		$data['allowedlangs'] = get_locale();
 	}
 
-	$block = array( 'className', 'currentLanguage' );
-
+	$blocked_attributes = array( 'className', 'currentLanguage' );
 	foreach ( $attributes as $key => $value ) {
-		if ( ! in_array( $key, $block, true ) ) {
-			if ( is_bool( $value ) ) {
-				$data[ $key ] = $value ? 'true' : 'false';
-			} elseif ( ! empty( $value ) && is_array( $value ) ) {
-				$data[ $key ] = implode( ',', $value );
-			} elseif ( ! empty( $value ) ) {
-				$data[ $key ] = $value;
-			}
+		if ( in_array( $key, $blocked_attributes, true ) ) {
+			continue;
+		}
+		if ( is_bool( $value ) ) {
+			$data[ $key ] = $value ? 'true' : 'false';
+		} elseif ( ! empty( $value ) && is_array( $value ) ) {
+			$data[ $key ] = implode( ',', $value );
+		} elseif ( ! empty( $value ) ) {
+			$data[ $key ] = $value;
 		}
 	}
 
 	return map_data_to_dataset( $data );
+}
+
+/**
+ * Handles configuration for test mode settings.
+ *
+ * @param array $data Initial data array to populate with test mode settings.
+ * @return array Data array with test mode settings if applicable.
+ */
+function handle_testing_mode( $data = array() ) {
+	// Check for test mode.
+	if ( ! RekaiMain::get_instance()->get_test_mode() ) {
+		return $data;
+	}
+
+	$project_id = get_option( 'rekai_project_id' );
+	$secret_key = get_option( 'rekai_secret_key' );
+
+	// Check that both project id and secret key is set.
+	if ( empty( $project_id ) || empty( $secret_key ) ) {
+		return $data;
+	}
+
+	$data['projectid'] = $project_id;
+	$data['secretkey'] = $secret_key;
+
+	// Set mock data attribute.
+	if ( get_option( 'rekai_use_mock_data' ) === '1' ) {
+		$data['advanced_mockdata'] = 'true';
+	}
+
+	return $data;
 }
 
 /**
@@ -67,7 +81,10 @@ function generate_data_attributes( $attributes ) {
  *
  * @return void
  */
-function handle_extra_attributes( string $attributes_string, array &$attributes ): void {
+function handle_extra_attributes(
+	string $attributes_string,
+	array &$attributes
+): void {
 	$attr_array = array();
 	preg_match_all(
 		'/([a-zA-Z0-9_-]+)="([^"]*)"/',
