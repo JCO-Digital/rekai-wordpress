@@ -15,6 +15,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpcsstandards/phpcsutils" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/wp-coding-standards/wpcs" />
+      <excludeFolder url="file://$MODULE_DIR$/blocks/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

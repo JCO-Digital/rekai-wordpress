@@ -24,6 +24,10 @@
     "tags": {
       "type": "array",
       "default": []
+    },
+    "extraAttributes": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {

@@ -40,7 +40,7 @@ import logo from "../../../assets/img/logo-rekai-blue.svg";
  * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-  const { nrofhits, headerText, tags, useRoot } = attributes;
+  const { nrofhits, headerText, tags, useRoot, extraAttributes } = attributes;
 
   return (
     <div {...useBlockProps()}>
@@ -81,6 +81,19 @@ export default function Edit({ attributes, setAttributes }) {
               setAttributes({ useRoot: value });
             }}
           />
+          <ToggleControl
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+            label={__("Use Root path", "rekai-wordpress")}
+            help={__(
+              "Enabling this will show only questions that are under the path where this block is added",
+              "rekai-wordpress",
+            )}
+            checked={useRoot}
+            onChange={(value) => {
+              setAttributes({ useRoot: value });
+            }}
+          />
           <FormTokenField
             __next40pxDefaultSize
             __nextHasNoMarginBottom
@@ -90,6 +103,17 @@ export default function Edit({ attributes, setAttributes }) {
             }}
             suggestions={[]}
             value={tags}
+          />
+        </PanelBody>
+        <PanelBody title={__("Extra attributes", "rekai-wordpress")}>
+          <TextControl
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+            value={extraAttributes}
+            onChange={(value) => {
+              setAttributes({ extraAttributes: value });
+            }}
+            label={__("Extra attributes", "rekai-wordpress")}
           />
         </PanelBody>
       </InspectorControls>
