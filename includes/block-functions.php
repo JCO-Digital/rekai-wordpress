@@ -134,15 +134,12 @@ function handle_extra_attributes(
 		$attributes['class'] = '';
 	}
 	foreach ( $attr_array as $match ) {
-		if ( count( $match ) !== 3 ) {
-			continue;
-		}
-		$cleaned_value = str_replace( array( '"', "'" ), '', $match[2] );
+		$cleaned_value = esc_attr( str_replace( array( '"', "'" ), '', $match[2] ) );
 		if ( $match[1] === 'class' ) {
-			$attributes['class'] .= ' ' . esc_attr( $cleaned_value );
+			$attributes['class'] .= ' ' . $cleaned_value;
 			continue;
 		}
-		$attributes[ $match[1] ] = esc_attr( $cleaned_value );
+		$attributes[ $match[1] ] = $cleaned_value;
 	}
 }
 
