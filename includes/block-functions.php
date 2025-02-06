@@ -28,11 +28,11 @@ function generate_data_attributes( $attributes ) {
 
 	$data = array();
 	if ( $is_test && $add_test ) {
-		$data['data-projectid'] = $project_id;
-		$data['data-secretkey'] = $secret_key;
+		$data['projectid'] = $project_id;
+		$data['secretkey'] = $secret_key;
 	}
 	if ( $is_test && $add_test && $mock_data === '1' ) {
-		$data['data-advanced_mockdata'] = 'true';
+		$data['advanced_mockdata'] = 'true';
 	}
 
 	// Add site language to only display current language.
@@ -42,7 +42,6 @@ function generate_data_attributes( $attributes ) {
 
 	$block = array( 'className', 'currentLanguage' );
 
-	var_dump( $attributes );
 	foreach ( $attributes as $key => $value ) {
 		if ( ! in_array( $key, $block, true ) ) {
 			if ( is_bool( $value ) ) {
