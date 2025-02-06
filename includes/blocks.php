@@ -37,7 +37,7 @@ function register_blocks(): void {
 	}
 	$blocks = array(
 		'recommendations',
-		// 'qna',
+		'qna',
 	);
 	foreach ( $blocks as $block ) {
 		register_block_type( join_path( REKAI_PLUGIN_PATH, 'blocks/build', $block, 'block.json' ) );

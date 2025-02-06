@@ -27,11 +27,11 @@ function generate_data_attributes( $data = array() ) {
 	}
 
 	if ( $is_test && $add_test ) {
-		$data['projectid'] = $project_id;
-		$data['secretkey'] = $secret_key;
+		$data['data-projectid'] = $project_id;
+		$data['data-secretkey'] = $secret_key;
 	}
 	if ( $is_test && $add_test && $mock_data === '1' ) {
-		$data['advanced_mockdata'] = 'true';
+		$data['data-advanced_mockdata'] = 'true';
 	}
 	return $data;
 }

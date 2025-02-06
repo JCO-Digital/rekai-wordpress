@@ -27,6 +27,7 @@
     "wp:start": "pnpm dlx @wp-now/wp-now start --blueprint=.wp/latest-debug.json"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@wordpress/block-editor": "^14.10.1",
     "@wordpress/blocks": "^14.4.1",
     "@wordpress/components": "^29.1.1",
@@ -40,7 +41,8 @@
     "grunt-wp-readme-to-markdown": "~2.1.0",
     "grunt-zip": "~1.0.0",
     "prettier": "^3.4.2",
-    "sass-embedded": "^1.83.1"
+    "sass-embedded": "^1.83.1",
+    "url-loader": "^4.1.1"
   },
   "keywords": [],
   "author": "J&Co Digital Oy <support@jco.fi>",
