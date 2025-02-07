@@ -32,17 +32,30 @@ export default function Edit({ attributes, setAttributes }) {
     nrofhits,
     renderstyle,
     listcols,
+    cols,
     pathOption,
     limit,
     depth,
     limitDepth,
+    extraAttributes,
   } = attributes;
   const items = [];
   for (let i = 0; i < nrofhits; i++) {
-    items.push(<div key={i} className="item"></div>);
+    items.push(
+      <div key={i} className="item">
+        <div className="image"></div>
+        <div className="title"></div>
+        <div className="row row1"></div>
+        <div className="row row2"></div>
+      </div>,
+    );
   }
   return (
     <div {...useBlockProps()}>
+      <div className="logoHeader">
+        <img src={logo} alt={"Rek.ai Logo"} />
+        <h4>Recommendations</h4>
+      </div>
       {showHeader && (
         <RichText
           identifier="headerText"
@@ -54,7 +67,16 @@ export default function Edit({ attributes, setAttributes }) {
           placeholder={__("Heading Text", "rekai-wordpress")}
         />
       )}
-      <div className={"items cols" + listcols + " " + renderstyle}>{items}</div>
+      <div
+        className={
+          "items cols" +
+          (renderstyle === "list" ? listcols : cols) +
+          " " +
+          renderstyle
+        }
+      >
+        {items}
+      </div>
 
       <InspectorControls>
         <PanelBody title={__("Display", "rekai-wordpress")}>
@@ -97,6 +119,20 @@ export default function Edit({ attributes, setAttributes }) {
                 setAttributes({ listcols: newValue });
               }}
               value={listcols}
+              min="1"
+              max="3"
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+          {renderstyle === "advanced" && (
+            <NumberControl
+              label={__("Number of Columns", "rekai-wordpress")}
+              type="number"
+              onChange={(newValue) => {
+                setAttributes({ cols: newValue });
+              }}
+              value={cols}
               min="1"
               max="3"
               __next40pxDefaultSize
@@ -216,6 +252,20 @@ export default function Edit({ attributes, setAttributes }) {
             value={attributes.subtree}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
+          />
+        </PanelBody>
+        <PanelBody
+          title={__("Extra attributes", "rekai-wordpress")}
+          initialOpen={false}
+        >
+          <TextControl
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+            value={extraAttributes}
+            onChange={(value) => {
+              setAttributes({ extraAttributes: value });
+            }}
+            label={__("Extra attributes", "rekai-wordpress")}
           />
         </PanelBody>
       </InspectorControls>

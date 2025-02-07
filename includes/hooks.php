@@ -50,7 +50,7 @@ function settings_link( $links ) {
 	);
 	// Create the link.
 	$settings_link = "<a href='$url'>" . __( 'Settings', 'rekai-wordpress' ) . '</a>';
-	// Adds the link to the end of the array.
+	// Add the link to the end of the array.
 	array_push(
 		$links,
 		$settings_link
