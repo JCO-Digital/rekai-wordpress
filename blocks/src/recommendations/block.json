@@ -55,6 +55,18 @@
       "type": "string",
       "default": "2"
     },
+    "showImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "fallbackimgsrc": {
+      "type": "string",
+      "default": ""
+    },
+    "showIngress": {
+      "type": "boolean",
+      "default": true
+    },
     "currentLanguage": {
       "type": "boolean",
       "default": true

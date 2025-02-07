@@ -33,6 +33,8 @@ export default function Edit({ attributes, setAttributes }) {
     renderstyle,
     listcols,
     cols,
+    showImage,
+    showIngress,
     pathOption,
     limit,
     depth,
@@ -43,10 +45,10 @@ export default function Edit({ attributes, setAttributes }) {
   for (let i = 0; i < nrofhits; i++) {
     items.push(
       <div key={i} className="item">
-        <div className="image"></div>
+        {showImage && <div className="image"></div>}
         <div className="title"></div>
-        <div className="row row1"></div>
-        <div className="row row2"></div>
+        {showIngress && <div className="row row1"></div>}
+        {showIngress && <div className="row row2"></div>}
       </div>,
     );
   }
@@ -139,21 +141,28 @@ export default function Edit({ attributes, setAttributes }) {
               __nextHasNoMarginBottom
             />
           )}
-
-          <ToggleControl
-            label={__("Add content", "rekai-wordpress")}
-            help={
-              attributes.addcontent
-                ? __("Adds text content to data.", "rekai-wordpress")
-                : __("Only use metadata.", "rekai-wordpress")
-            }
-            checked={attributes.addcontent}
-            onChange={(newValue) => {
-              setAttributes({ addcontent: newValue });
-            }}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
+          {renderstyle === "advanced" && (
+            <ToggleControl
+              label={__("Show Image", "rekai-wordpress")}
+              checked={showImage}
+              onChange={(newValue) => {
+                setAttributes({ showImage: newValue });
+              }}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+          {renderstyle === "advanced" && (
+            <ToggleControl
+              label={__("Show Ingress", "rekai-wordpress")}
+              checked={showIngress}
+              onChange={(newValue) => {
+                setAttributes({ showIngress: newValue });
+              }}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
         </PanelBody>
         <PanelBody title={__("Filter", "rekai-wordpress")}>
           <ToggleControl

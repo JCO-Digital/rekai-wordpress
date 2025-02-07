@@ -30,8 +30,7 @@ add_shortcode( 'rek-prediction', '\Rekai\prediction' );
  * @return string Generated HTML for embed.
  */
 function qna( $atts ) {
-	$atts['entitytype']        = 'rekai-qna';
-	$atts['advanced_mockdata'] = true;
+	$atts['entitytype'] = 'rekai-qna';
 	return prediction( $atts );
 }
 add_shortcode( 'rek-qna', '\Rekai\qna' );
