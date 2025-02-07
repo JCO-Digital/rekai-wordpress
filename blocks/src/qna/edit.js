@@ -60,7 +60,7 @@ export default function Edit({ attributes, setAttributes }) {
     <div {...useBlockProps()}>
       <div className="rekai-block-heading">
         <img src={logo} alt={"Rek.ai Logo"} />
-        <p>Q&A Block</p>
+        <h4>Q&A Block</h4>
       </div>
       <div className="rekai-block-preview">
         {Array.from(Array(nrofhits).keys()).map((i) => (
