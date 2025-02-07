@@ -159,3 +159,11 @@ function map_data_to_dataset( $data ) {
 	}
 	return $dataset;
 }
+
+function dataset_to_attributes( $data ) {
+	$output = '';
+	foreach ( $data as $key => $value ) {
+		$output .= ' ' . $key . '="' . esc_attr( $value ) . '"';
+	}
+	return $output;
+}
