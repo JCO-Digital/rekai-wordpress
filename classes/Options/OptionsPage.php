@@ -21,6 +21,25 @@ use function Rekai\render_text_field;
  * @since 0.1.0
  */
 class OptionsPage extends Singleton {
+	/**
+	 * Options that should be set to autoload.
+	 *
+	 * @var array
+	 */
+	public static array $autoload_options = array(
+		'rekai_is_enabled',
+		'rekai_script_key',
+		'rekai_autocomplete_enabled',
+		'rekai_autocomplete_automatic',
+		'rekai_autocomplete_automatic_selector',
+		'rekai_autocomplete_usecurrentlang',
+		'rekai_autocomplete_nrofhits',
+		'rekai_autocomplete_navigate_on_click',
+		'rekai_test_mode',
+		'rekai_use_mock_data',
+		'rekai_project_id',
+		'rekai_secret_key',
+	);
 
 	/**
 	 * An array of all sections.
@@ -50,13 +69,26 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function add_page(): void {
-		add_options_page(
+		$hook_suffix = add_options_page(
 			'Rekai Settings',
 			'Rek.ai Settings',
 			'manage_options',
 			'rekai-settings',
 			array( $this, 'render_page' )
 		);
+		add_action( "load-{$hook_suffix}", array( $this, 'prime_options' ) );
+	}
+
+	/**
+	 * Primes the option caches for various groups of settings.
+	 *
+	 * @return void
+	 */
+	final public function prime_options(): void {
+		wp_prime_option_caches_by_group( $this->sections['general'] );
+		wp_prime_option_caches_by_group( $this->sections['autocomplete'] );
+		wp_prime_option_caches_by_group( $this->sections['autocomplete_automatic'] );
+		wp_prime_option_caches_by_group( $this->sections['advanced'] );
 	}
 
 	/**

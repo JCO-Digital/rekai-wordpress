@@ -15,6 +15,8 @@
 namespace Rekai;
 
 // Composer autoloader.
+use Rekai\Options\OptionsPage;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Constants for the plugin.
@@ -40,3 +42,29 @@ require_once __DIR__ . '/includes/blocks.php';
 
 // Block specific functions.
 require_once __DIR__ . '/includes/block-functions.php';
+
+/**
+ * Run when activating the Rekai plugin and enabling autoload for specific plugin options.
+ *
+ * @return void
+ */
+function rekai_activate(): void {
+	wp_set_options_autoload(
+		OptionsPage::$autoload_options,
+		'yes'
+	);
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\rekai_activate' );
+
+/**
+ * Run when deactivating the Rekai plugin and disabling autoload for specific plugin options.
+ *
+ * @return void
+ */
+function rekai_deactivate(): void {
+	wp_set_options_autoload(
+		OptionsPage::$autoload_options,
+		'yes'
+	);
+}
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\rekai_deactivate' );
