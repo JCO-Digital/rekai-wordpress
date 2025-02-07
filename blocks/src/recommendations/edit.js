@@ -5,6 +5,9 @@ import {
   TextControl,
   ToggleControl,
   SelectControl,
+  RadioControl,
+  RangeControl,
+  __experimentalNumberControl as NumberControl,
 } from "@wordpress/components";
 import {
   InspectorControls,
@@ -23,26 +26,47 @@ import "./editor.scss";
  * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-  const { headerText, nrofhits, renderstyle } = attributes;
+  const {
+    headerText,
+    showHeader,
+    nrofhits,
+    renderstyle,
+    listcols,
+    pathOption,
+    limit,
+    depth,
+    limitDepth,
+  } = attributes;
   const items = [];
   for (let i = 0; i < nrofhits; i++) {
     items.push(<div key={i} className="item"></div>);
   }
   return (
     <div {...useBlockProps()}>
-      <RichText
-        identifier="headerText"
-        tagName={"h2"}
-        value={headerText}
-        onChange={(newValue) => {
-          setAttributes({ headerText: newValue });
-        }}
-        placeholder={__("Heading Text", "rekai-wordpress")}
-      />
-      <div className={"items " + renderstyle}>{items}</div>
+      {showHeader && (
+        <RichText
+          identifier="headerText"
+          tagName={"h2"}
+          value={headerText}
+          onChange={(newValue) => {
+            setAttributes({ headerText: newValue });
+          }}
+          placeholder={__("Heading Text", "rekai-wordpress")}
+        />
+      )}
+      <div className={"items cols" + listcols + " " + renderstyle}>{items}</div>
 
       <InspectorControls>
         <PanelBody title={__("Display", "rekai-wordpress")}>
+          <ToggleControl
+            label={__("Show Header", "rekai-wordpress")}
+            checked={showHeader}
+            onChange={(newValue) => {
+              setAttributes({ showHeader: newValue });
+            }}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
           <TextControl
             label={__("Number of Recommendations", "rekai-wordpress")}
             type="number"
@@ -65,6 +89,21 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
+          {renderstyle === "list" && (
+            <NumberControl
+              label={__("Number of Columns", "rekai-wordpress")}
+              type="number"
+              onChange={(newValue) => {
+                setAttributes({ listcols: newValue });
+              }}
+              value={listcols}
+              min="1"
+              max="3"
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+
           <ToggleControl
             label={__("Add content", "rekai-wordpress")}
             help={
@@ -82,19 +121,6 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
         <PanelBody title={__("Filter", "rekai-wordpress")}>
           <ToggleControl
-            label={__("Use Root path", "rekai-wordpress")}
-            help={__(
-              "Enabling this will show only questions that are under the path where this block is added",
-              "rekai-wordpress",
-            )}
-            checked={attributes.userootpath}
-            onChange={(value) => {
-              setAttributes({ userootpath: value });
-            }}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <ToggleControl
             label={__("Show only current language", "rekai-wordpress")}
             help={
               attributes.currentLanguage
@@ -111,6 +137,76 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
+          <RadioControl
+            label={__("Show content from starting point:", "rekai-wordpress")}
+            selected={pathOption}
+            options={[
+              {
+                value: "all",
+                label: __("Whole website", "rekai-wordpress"),
+              },
+              {
+                value: "rootPath",
+                label: __("Starting from current page", "rekai-wordpress"),
+              },
+              {
+                value: "maxDepth",
+                label: __("Subpages until specified depth", "rekai-wordpress"),
+              },
+              {
+                value: "rootPathLevel",
+                label: __(
+                  "Subpages of current page from specified depth",
+                  "rekai-wordpress",
+                ),
+              },
+            ]}
+            onChange={(value) => setAttributes({ pathOption: value })}
+          />
+          {["maxDepth", "rootPathLevel"].includes(pathOption) && (
+            <NumberControl
+              value={parseInt(depth)}
+              label={
+                pathOption === "maxDepth"
+                  ? __("Max depth", "rekai-wordpress")
+                  : __(
+                      "Path level from current path to exclude",
+                      "rekai-wordpress",
+                    )
+              }
+              min={0}
+              onChange={(value) => setAttributes({ depth: parseInt(value) })}
+            />
+          )}
+          <RadioControl
+            label={__("Exclude content from subpages?", "rekai-wordpress")}
+            selected={limit}
+            options={[
+              {
+                value: "none",
+                label: __("None", "rekai-wordpress"),
+              },
+              {
+                value: "subPages",
+                label: __("Subpages of current page", "rekai-wordpress"),
+              },
+              {
+                value: "minDepth",
+                label: __("Exclude subpages until depth", "rekai-wordpress"),
+              },
+            ]}
+            onChange={(value) => setAttributes({ limit: value })}
+          />
+          {limit === "minDepth" && (
+            <NumberControl
+              value={parseInt(limitDepth)}
+              label={__("Exclude subpages until depth")}
+              min={0}
+              onChange={(value) =>
+                setAttributes({ limitDepth: parseInt(value) })
+              }
+            />
+          )}
           <TextControl
             label={__("Subtree", "rekai-wordpress")}
             type="text"

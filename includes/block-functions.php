@@ -24,8 +24,11 @@ function generate_data_attributes( $attributes ) {
 	if ( ! empty( $attributes['currentLanguage'] ) ) {
 		$data['allowedlangs'] = get_locale();
 	}
+	if ( isset( $attributes['showHeader'] ) && $attributes['showHeader'] === false ) {
+		unset( $attributes['headerText'] );
+	}
 
-	$blocked_attributes = array( 'className', 'currentLanguage' );
+	$blocked_attributes = array( 'className', 'currentLanguage', 'showHeader' );
 	foreach ( $attributes as $key => $value ) {
 		if ( in_array( $key, $blocked_attributes, true ) ) {
 			continue;
@@ -51,7 +54,7 @@ function generate_data_attributes( $attributes ) {
  * @return array The modified data array reflecting the applied path options.
  */
 function handle_path_options( array $data, array &$attributes ): array {
-	switch ( $attributes['pathOption'] ) {
+	switch ( $attributes['pathOption'] ?? '' ) {
 		case 'useRoot':
 			$data['userootpath'] = 'true';
 			break;
@@ -65,7 +68,7 @@ function handle_path_options( array $data, array &$attributes ): array {
 		default:
 			break;
 	}
-	switch ( $attributes['limit'] ) {
+	switch ( $attributes['limit'] ?? '' ) {
 		case 'subPages':
 			$data['excludechildnodes'] = 'true';
 			break;
@@ -152,7 +155,7 @@ function handle_extra_attributes(
 function map_data_to_dataset( $data ) {
 	$dataset = array();
 	foreach ( $data as $key => $value ) {
-		$dataset[ 'data-' . $key ] = $value;
+		$dataset[ 'data-' . strtolower( $key ) ] = $value;
 	}
 	return $dataset;
 }

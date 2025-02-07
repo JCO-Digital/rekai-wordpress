@@ -20,13 +20,36 @@
       "type": "string",
       "default": ""
     },
-    "renderstyle": {
-      "type": "string",
-      "default": ""
-    },
-    "userootpath": {
+    "showHeader": {
       "type": "boolean",
       "default": false
+    },
+    "pathOption": {
+      "type": "string",
+      "default": "all",
+      "enum": ["all", "rootPath", "maxDepth", "rootPathLevel"]
+    },
+    "depth": {
+      "type": "number",
+      "default": 1
+    },
+    "limit": {
+      "type": "string",
+      "default": "none",
+      "enum": ["none", "subPages", "minDepth"]
+    },
+    "limitDepth": {
+      "type": "number",
+      "default": 1
+    },
+    "renderstyle": {
+      "type": "string",
+      "default": "",
+      "enum": ["list", "pills", "advanced"]
+    },
+    "listcols": {
+      "type": "string",
+      "default": "1"
     },
     "currentLanguage": {
       "type": "boolean",
