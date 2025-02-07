@@ -26,9 +26,9 @@
       flex-direction: row;
       flex-wrap: wrap;
       .item {
-        border-radius: 0.5rem;
+        border-radius: 1rem;
         background: gray;
-        padding: 0.5rem;
+        padding: 1rem;
         width: 156px;
         &:nth-child(5n + 1) {
           width: 178px;
@@ -42,6 +42,21 @@
         &:nth-child(5n + 4) {
           width: 89px;
         }
+      }
+    }
+    &.list {
+      display: grid;
+      grid-template-columns: 1fr;
+      &.cols2 {
+        grid-template-columns: 1fr 1fr;
+      }
+      &.cols3 {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .item {
+        border-radius: 1rem;
+        background: gray;
+        padding: 1rem;
       }
     }
   }
