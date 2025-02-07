@@ -43,6 +43,9 @@ require_once __DIR__ . '/includes/blocks.php';
 // Block specific functions.
 require_once __DIR__ . '/includes/block-functions.php';
 
+// Shortcodes.
+require_once __DIR__ . '/includes/shortcode.php';
+
 /**
  * Run when activating the Rekai plugin and enabling autoload for specific plugin options.
  *

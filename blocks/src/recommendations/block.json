@@ -44,12 +44,16 @@
     },
     "renderstyle": {
       "type": "string",
-      "default": "",
+      "default": "list",
       "enum": ["list", "pills", "advanced"]
     },
     "listcols": {
       "type": "string",
       "default": "1"
+    },
+    "cols": {
+      "type": "string",
+      "default": "2"
     },
     "currentLanguage": {
       "type": "boolean",
@@ -60,6 +64,10 @@
       "default": false
     },
     "subtree": {
+      "type": "string",
+      "default": ""
+    },
+    "extraAttributes": {
       "type": "string",
       "default": ""
     }
