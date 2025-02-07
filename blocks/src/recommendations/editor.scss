@@ -30,7 +30,7 @@
       flex-wrap: wrap;
       .item {
         border-radius: 1rem;
-        background: var(--wp--preset--color--accent-3);
+        background: #0A00A2;
         padding: 1rem;
         width: 156px;
         &:nth-child(5n + 1) {
@@ -61,7 +61,7 @@
     &.list {
       .item {
         border-radius: 1rem;
-        background: var(--wp--preset--color--accent-3);
+        background: #0A00A2;
         padding: 1rem;
       }
     }
@@ -70,12 +70,11 @@
         margin-bottom: 2rem;
         > div {
           border-radius: 1rem;
-          background: var(--wp--preset--color--accent-3);
+          background: #0A00A2;
         }
       }
       .image {
         height: 128px;
-        margin-bottom: 1rem;
         margin-bottom: 1rem;
       }
       .title {
