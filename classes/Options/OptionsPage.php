@@ -103,6 +103,31 @@ class OptionsPage extends Singleton {
 	}
 
 	/**
+	 * Add settings link to plugin listing.
+	 *
+	 * @param array $links Array of plugin action links.
+	 * @return array Modified array of plugin action links.
+	 */
+	final public function settings_link( array $links ): array {
+		// Build and escape the URL.
+		$url = esc_url(
+			add_query_arg(
+				'page',
+				'rekai-settings',
+				get_admin_url() . 'admin.php'
+			)
+		);
+		// Create the link.
+		$settings_link = "<a href='$url'>" . __( 'Settings', 'rekai-wordpress' ) . '</a>';
+		// Add the link to the end of the array.
+		array_unshift(
+			$links,
+			$settings_link
+		);
+		return $links;
+	}
+
+	/**
 	 * Renders the General section.
 	 *
 	 * @return void

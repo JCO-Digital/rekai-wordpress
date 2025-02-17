@@ -32,28 +32,11 @@ add_action(
 	'Rekai\handle_notices'
 );
 
-add_filter( 'plugin_action_links_rekai-wordpress/rekai-wordpress.php', '\Rekai\settings_link' );
-/**
- * Add settings link to plugin listing.
- *
- * @param array $links Array of plugin action links.
- * @return array Modified array of plugin action links.
- */
-function settings_link( $links ) {
-	// Build and escape the URL.
-	$url = esc_url(
-		add_query_arg(
-			'page',
-			'rekai-settings',
-			get_admin_url() . 'admin.php'
-		)
-	);
-	// Create the link.
-	$settings_link = "<a href='$url'>" . __( 'Settings', 'rekai-wordpress' ) . '</a>';
-	// Add the link to the end of the array.
-	array_push(
-		$links,
-		$settings_link
-	);
-	return $links;
-}
+// Add filter to add settings link to plugin page.
+add_filter(
+	'plugin_action_links_rekai-wordpress/rekai-wordpress.php',
+	array(
+		OptionsPage::get_instance(),
+		'settings_link',
+	)
+);
