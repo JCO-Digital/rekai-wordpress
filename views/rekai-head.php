@@ -1,6 +1,5 @@
 <?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
 
-$project_id            = $rek_script_key ?? '';
 $is_admin              = $rek_is_admin ?? false;
 $is_test               = $rek_is_test ?? false;
 $is_automatic          = $rek_is_automatic ?? false;

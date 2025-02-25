@@ -8,7 +8,8 @@
 namespace Rekai;
 
 /**
- * Generates and returns a prediction shortcode.
+ * Generates and returns a prediction shortcode. It passes the shortcode attributes to the HTML
+ * element as data attributes.
  *
  * @param array $atts Shortcode attributes.
  * @return string Generated HTML for embed.

@@ -3,6 +3,7 @@
 $input_id          = $rek_id ?? '';
 $input_value       = $rek_value ?? '';
 $input_placeholder = $rek_placeholder ?? '';
+$input_size        = $rek_size ?? '20';
 $input_help        = $rek_help ?? '';
 
 ?>
@@ -13,6 +14,7 @@ $input_help        = $rek_help ?? '';
 		value="<?php echo esc_attr( $input_value ); ?>"
 		x-model="<?php echo esc_attr( $input_id ); ?>"
 		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
+		size="<?php echo esc_attr($input_size); ?>"
 />
 <?php if ( ! empty( $input_help ) ) : ?>
 	<p class="description">

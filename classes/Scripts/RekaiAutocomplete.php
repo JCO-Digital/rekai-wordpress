@@ -18,6 +18,13 @@ use function Rekai\render_template;
 class RekaiAutocomplete extends Singleton {
 
 	/**
+	 * The default static URL for Rek.ai resources.
+	 *
+	 * @var string
+	 */
+	const DEFAULT_URL = 'https://static.rekai.se';
+
+	/**
 	 * Initializes the script loading.
 	 */
 	protected function __construct() {
@@ -50,7 +57,7 @@ class RekaiAutocomplete extends Singleton {
 
 		wp_enqueue_script(
 			'rekai-autocomplete',
-			'https://static.rekai.se/addon/v3/rekai_autocomplete.min.js',
+			$this->get_static_url( '/addon/v3/rekai_autocomplete.min.js' ),
 			array( 'rekai-main' ),
 			'1',
 			false
@@ -108,5 +115,23 @@ class RekaiAutocomplete extends Singleton {
 		}
 
 		return wp_json_encode( $options );
+	}
+
+	/**
+	 * Gets the base URL from the embed code as to not use different base URLs for CSP reasons.
+	 *
+	 * This method takes a URL path, appends it to the static URL base, and returns
+	 * the complete URL. If an embed code exists and contains a valid static URL pattern,
+	 * that URL will be used as the base instead of the default one.
+	 *
+	 * @param string $url The URL path to append to the static URL base.
+	 * @return string The complete static URL.
+	 */
+	private function get_static_url( string $url ): string {
+		$embed_code = get_option( 'rekai_embed_code', '' );
+		if ( ! empty( $embed_code ) && preg_match( '/^https:\/\/static\.[^\/]+/', $embed_code, $matches ) ) {
+			return $matches[0] . $url;
+		}
+		return self::DEFAULT_URL . $url;
 	}
 }

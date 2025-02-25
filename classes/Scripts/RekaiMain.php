@@ -33,9 +33,9 @@ class RekaiMain extends Singleton {
 	 */
 	final public function should_load(): bool {
 		$is_enabled = get_option( 'rekai_is_enabled' ) === '1';
-		$script_key = get_option( 'rekai_script_key' );
+		$embed_code = get_option( 'rekai_embed_code' );
 
-		return ! ( ! $is_enabled || empty( $script_key ) );
+		return ! ( ! $is_enabled || empty( $embed_code ) );
 	}
 
 	/**
@@ -68,6 +68,8 @@ class RekaiMain extends Singleton {
 		return apply_filters( 'rekai_override_test_mode', $is_test, wp_get_environment_type(), get_option( 'rekai_test_mode' ) === '1' );
 	}
 
+
+
 	/**
 	 * Handles the Rek.ai scripts.
 	 *
@@ -77,12 +79,14 @@ class RekaiMain extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$script_key = get_option( 'rekai_script_key' );
-		$js_url     = sprintf( 'https://static.rekai.fi/%s.js', $script_key );
+		$embed_code = get_option( 'rekai_embed_code' );
+		if ( empty( $embed_code ) ) {
+			return;
+		}
 		// The main Rek.ai script.
 		wp_enqueue_script(
 			'rekai-main',
-			$js_url,
+			$embed_code,
 			array(),
 			'1',
 			false
@@ -98,14 +102,12 @@ class RekaiMain extends Singleton {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$script_key = get_option( 'rekai_script_key' );
-		$is_test    = $this->get_test_mode();
+		$is_test = $this->get_test_mode();
 
 		$is_admin = current_user_can( 'manage_options' );
 		$data     = array(
-			'script_key' => $script_key,
-			'is_admin'   => $is_admin,
-			'is_test'    => $is_test,
+			'is_admin' => $is_admin,
+			'is_test'  => $is_test,
 		);
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

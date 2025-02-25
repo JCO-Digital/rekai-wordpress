@@ -29,6 +29,7 @@ function render_text_field( array $args = array() ): void {
 			'id'          => '',
 			'value'       => '',
 			'placeholder' => '',
+			'size'        => '20',
 			'help'        => '',
 		)
 	);

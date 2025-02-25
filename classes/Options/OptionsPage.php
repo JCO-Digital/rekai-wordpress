@@ -28,7 +28,7 @@ class OptionsPage extends Singleton {
 	 */
 	public static array $autoload_options = array(
 		'rekai_is_enabled',
-		'rekai_script_key',
+		'rekai_embed_code',
 		'rekai_autocomplete_enabled',
 		'rekai_autocomplete_automatic',
 		'rekai_autocomplete_automatic_selector',
@@ -183,15 +183,16 @@ class OptionsPage extends Singleton {
 	 *
 	 * @return void
 	 */
-	final public function render_script_key_field(): void {
+	final public function render_embed_code_field(): void {
 		render_text_field(
 			array(
-				'id'          => 'rekai_script_key',
-				'value'       => get_option( 'rekai_script_key', '' ),
-				'placeholder' => esc_html__( 'Script Key', 'rekai-wordpress' ),
+				'id'          => 'rekai_embed_code',
+				'value'       => get_option( 'rekai_embed_code', '' ),
+				'placeholder' => esc_html__( 'https://static.rekai.se/XXXXXXXX.js', 'rekai-wordpress' ),
+				'size'        => '40',
 				'help'        => sprintf(
 					/* translators: 1: is a link to a support document. 2: closing link */
-					esc_html__( 'The script key can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai-wordpress' ),
+					esc_html__( 'The embed code can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai-wordpress' ),
 					'<a href="' . esc_url( 'https://docs.rek.ai/dashboard-guide#embed-code' ) . '" target="_blank" rel="noopener noreferrer">',
 					'</a>'
 				),
@@ -431,8 +432,8 @@ class OptionsPage extends Singleton {
 		);
 		register_setting(
 			$this->sections['general'],
-			'rekai_script_key',
-			array( 'sanitize_callback' => 'sanitize_text_field' )
+			'rekai_embed_code',
+			array( 'sanitize_callback' => array( $this, 'sanitize_embed_code' ) )
 		);
 
 		add_settings_section(
@@ -454,13 +455,13 @@ class OptionsPage extends Singleton {
 			)
 		);
 		add_settings_field(
-			'rekai_script_key',
-			__( 'Script Key', 'rekai-wordpress' ),
-			array( $this, 'render_script_key_field' ),
+			'rekai_embed_code',
+			__( 'Embed Code', 'rekai-wordpress' ),
+			array( $this, 'render_embed_code_field' ),
 			$this->sections['general'],
 			'rekai-general',
 			array(
-				'label_for' => 'rekai_script_key',
+				'label_for' => 'rekai_embed_code',
 			)
 		);
 	}
@@ -697,5 +698,27 @@ class OptionsPage extends Singleton {
 			}
 		}
 		return wp_json_encode( $final_array );
+	}
+
+	/**
+	 * Sanitizes an embed code. Converts a code to a static URL if necessary.
+	 *
+	 * Accepts either:
+	 * - Just the hex code (e.g. '1234abcd')
+	 * - Full URL (e.g. 'https://static.rekai.se/1234abcd.js')
+	 *
+	 * Will convert hex codes to full URLs and validate full URLs match expected format.
+	 * Returns empty string if input is invalid.
+	 *
+	 * @param string $input The embed code to sanitize
+	 * @return string The sanitized embed code URL or empty string if invalid
+	 */public function sanitize_embed_code( string $input ): string {
+		if ( preg_match( '/^[0-9a-f]{4,}$/', $input, $matches ) ) {
+			return 'https://static.rekai.se/' . $matches[0] . '.js';
+		}
+		if ( preg_match( '/https:\/\/[^\/]+\/[0-9a-f]{4,}\.js/', $input, $matches ) ) {
+			return esc_url( $matches[0] );
+		}
+		return '';
 	}
 }
