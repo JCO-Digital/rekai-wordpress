@@ -1,12 +1,14 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
+import { useEntityRecords } from "@wordpress/core-data";
 import {
+  FormTokenField,
   PanelBody,
   TextControl,
   ToggleControl,
-  SelectControl,
   RadioControl,
-  RangeControl,
+  Spinner,
+  SelectControl,
   __experimentalNumberControl as NumberControl,
 } from "@wordpress/components";
 import {
@@ -25,24 +27,54 @@ import "./editor.scss";
  *
  * @return {JSX.Element} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({ attributes, setAttributes, context }) {
   const {
     headerText,
     showHeader,
-    nrofhits,
+    nrOfHits,
     renderstyle,
     listcols,
     cols,
     showImage,
     showIngress,
+    ingressMaxLength,
     pathOption,
     limit,
     depth,
     limitDepth,
+    subtreeIds,
     extraAttributes,
   } = attributes;
+  const separator = "##!!##";
+  const [postList, setPostList] = useState([]);
+  const [tokenValue, setTokenValue] = useState([]);
+  const { hasResolved, records } = useEntityRecords(
+    "postType",
+    context.postType,
+    {
+      per_page: -1,
+    },
+  );
+
+  useEffect(() => {
+    if (records) {
+      let tokenList = [];
+      setPostList(
+        records.map((record) => {
+          const token =
+            record.title.rendered + separator + record.id.toString();
+          if (subtreeIds.includes(record.id.toString())) {
+            tokenList.push(token);
+          }
+          return token;
+        }),
+      );
+      setTokenValue(tokenList);
+    }
+  }, [records]);
+
   const items = [];
-  for (let i = 0; i < nrofhits; i++) {
+  for (let i = 0; i < nrOfHits; i++) {
     items.push(
       <div key={i} className="item">
         {showImage && <div className="image"></div>}
@@ -95,9 +127,9 @@ export default function Edit({ attributes, setAttributes }) {
             label={__("Number of Recommendations", "rekai-wordpress")}
             type="number"
             onChange={(newValue) => {
-              setAttributes({ nrofhits: newValue });
+              setAttributes({ nrOfHits: newValue });
             }}
-            value={nrofhits}
+            value={nrOfHits}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
@@ -114,7 +146,7 @@ export default function Edit({ attributes, setAttributes }) {
             __nextHasNoMarginBottom
           />
           {renderstyle === "list" && (
-            <NumberControl
+            <TextControl
               label={__("Number of Columns", "rekai-wordpress")}
               type="number"
               onChange={(newValue) => {
@@ -128,7 +160,7 @@ export default function Edit({ attributes, setAttributes }) {
             />
           )}
           {renderstyle === "advanced" && (
-            <NumberControl
+            <TextControl
               label={__("Number of Columns", "rekai-wordpress")}
               type="number"
               onChange={(newValue) => {
@@ -158,6 +190,18 @@ export default function Edit({ attributes, setAttributes }) {
               checked={showIngress}
               onChange={(newValue) => {
                 setAttributes({ showIngress: newValue });
+              }}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+          {renderstyle === "advanced" && (
+            <TextControl
+              label={__("Ingress Max Length", "rekai-wordpress")}
+              type="number"
+              value={ingressMaxLength}
+              onChange={(newValue) => {
+                setAttributes({ ingressMaxLength: newValue });
               }}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
@@ -223,6 +267,36 @@ export default function Edit({ attributes, setAttributes }) {
               onChange={(value) => setAttributes({ depth: parseInt(value) })}
             />
           )}
+          {(hasResolved && (
+            <FormTokenField
+              __experimentalExpandOnFocus
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+              label={__("Subtree", "rekai-wordpress")}
+              placeholder={__("Search for Page", "jcore")}
+              suggestions={postList}
+              displayTransform={(token) => {
+                const field = token.split(separator);
+                return field[0] ?? "";
+              }}
+              value={tokenValue}
+              onChange={(token) => {
+                console.debug(token);
+                setTokenValue(token);
+                let value = token.map((t) => {
+                  const field = t.split(separator);
+                  if (field.length === 2) {
+                    return field[1];
+                  }
+                  return undefined;
+                });
+                if (token.length) {
+                }
+                setAttributes({ subtreeIds: value });
+              }}
+            />
+          )) || <Spinner />}
+          {subtreeIds}
           <RadioControl
             label={__("Exclude content from subpages?", "rekai-wordpress")}
             selected={limit}
@@ -252,16 +326,6 @@ export default function Edit({ attributes, setAttributes }) {
               }
             />
           )}
-          <TextControl
-            label={__("Subtree", "rekai-wordpress")}
-            type="text"
-            onChange={(newValue) => {
-              setAttributes({ subtree: newValue });
-            }}
-            value={attributes.subtree}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
         </PanelBody>
         <PanelBody
           title={__("Extra attributes", "rekai-wordpress")}

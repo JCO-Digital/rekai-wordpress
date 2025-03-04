@@ -28,7 +28,7 @@ function generate_data_attributes( $attributes ) {
 		unset( $attributes['headerText'] );
 	}
 
-	$blocked_attributes = array( 'className', 'currentLanguage', 'showHeader' );
+	$blocked_attributes = array( 'className', 'blockType', 'currentLanguage', 'showHeader', 'subtreeIds', 'style' );
 	foreach ( $attributes as $key => $value ) {
 		if ( in_array( $key, $blocked_attributes, true ) ) {
 			continue;

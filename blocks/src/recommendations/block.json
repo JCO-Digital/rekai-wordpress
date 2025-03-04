@@ -7,14 +7,32 @@
   "category": "widgets",
   "icon": "editor-ul",
   "description": "Recommendations block using Rek.ai.",
+  "usesContext": ["postType", "postId"],
   "example": {},
   "supports": {
-    "html": false
+    "html": false,
+    "align": ["wide", "full"],
+    "background": {
+      "backgroundImage": true,
+      "backgroundSize": true
+    },
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": false
+    }
   },
   "attributes": {
-    "nrofhits": {
+    "blockType": {
       "type": "string",
-      "default": "10"
+      "default": "recommendations"
+    },
+    "nrOfHits": {
+      "type": "number",
+      "default": 10
     },
     "headerText": {
       "type": "string",
@@ -67,17 +85,17 @@
       "type": "boolean",
       "default": true
     },
+    "ingressMaxLength": {
+      "type": "number",
+      "default": 100
+    },
     "currentLanguage": {
       "type": "boolean",
       "default": true
     },
-    "addcontent": {
-      "type": "boolean",
-      "default": false
-    },
-    "subtree": {
-      "type": "string",
-      "default": ""
+    "subtreeIds": {
+      "type": "array",
+      "default": []
     },
     "extraAttributes": {
       "type": "string",
