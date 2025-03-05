@@ -32,7 +32,16 @@ function generate_data_attributes( $attributes ) {
 		$attributes['subtree'] = generate_subtree( $attributes['subtreeIds'] );
 	}
 
-	$blocked_attributes = array( 'className', 'blockType', 'currentLanguage', 'showHeader', 'subtreeIds', 'style' );
+	$blocked_attributes = array(
+		'align',
+		'className',
+		'blockType',
+		'currentLanguage',
+		'showHeader',
+		'subtreeIds',
+		'style',
+		'extraAttributes',
+	);
 	foreach ( $attributes as $key => $value ) {
 		if ( in_array( $key, $blocked_attributes, true ) ) {
 			continue;
@@ -139,10 +148,16 @@ function generate_subtree( array $ids ): string {
 }
 
 /**
- * Handles parsing a user supplied string of attributes. It will validate them and sanitize them correctly (?).
+ * Handles extra attributes supplied by the user in a string format.
+ *
+ * This function parses a string of attributes (e.g., `data-attribute="value"`)
+ * and adds them to an existing array of attributes. It ensures that all added
+ * attributes have the `data-` prefix and that values are properly escaped.
+ * It also has special handling for `data-subtree` attributes, concatenating
+ * new values to existing ones.
  *
  * @param string $attributes_string The user-supplied attributes string.
- * @param array  $attributes The array of attributes to add the user-supplied attributes.
+ * @param array  &$attributes The array of attributes to add the user-supplied attributes.
  *                           This will be updated by reference.
  *
  * @return void
@@ -151,23 +166,27 @@ function handle_extra_attributes(
 	string $attributes_string,
 	array &$attributes
 ): void {
-	$attr_array = array();
-	preg_match_all(
-		'/([a-zA-Z0-9_-]+)="([^"]*)"/',
-		$attributes_string,
-		$attr_array,
-		PREG_SET_ORDER
-	);
-	if ( empty( $attributes['class'] ) ) {
-		$attributes['class'] = '';
-	}
-	foreach ( $attr_array as $match ) {
-		$cleaned_value = esc_attr( str_replace( array( '"', "'" ), '', $match[2] ) );
-		if ( $match[1] === 'class' ) {
-			$attributes['class'] .= ' ' . $cleaned_value;
-			continue;
+	if (
+		preg_match_all(
+			'/([a-zA-Z0-9_-]+)="([^"]*)"/',
+			$attributes_string,
+			$attr_array,
+			PREG_SET_ORDER
+		)
+	) {
+		foreach ( $attr_array as $match ) {
+			$attr_name     = ( strpos( $match[1], 'data-' ) === false ? 'data-' : '' ) . $match[1];
+			$cleaned_value = esc_attr( str_replace( array( '"', "'" ), '', $match[2] ) );
+			$old_value     = $attributes[ $attr_name ] ?? '';
+			switch ( $attr_name ) {
+				case 'data-subtree':
+					$attributes['data-subtree'] = ( empty( $old_value ) ? '' : $old_value . ',' ) . $cleaned_value;
+					break;
+				default:
+					$attributes[ $attr_name ] = $cleaned_value;
+					break;
+			}
 		}
-		$attributes[ $match[1] ] = $cleaned_value;
 	}
 }
 
