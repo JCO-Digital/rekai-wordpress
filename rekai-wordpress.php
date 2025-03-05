@@ -41,7 +41,7 @@ require_once __DIR__ . '/includes/hooks.php';
 require_once __DIR__ . '/includes/blocks.php';
 
 // Block specific functions.
-require_once __DIR__ . '/includes/block-functions.php';
+require_once __DIR__ . '/includes/attribute-helpers.php';
 
 // Shortcodes.
 require_once __DIR__ . '/includes/shortcode.php';
