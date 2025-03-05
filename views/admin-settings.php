@@ -14,7 +14,12 @@ $options_page = new OptionsPage();
 	<div class="nav-tab-wrapper">
 		<?php foreach ( $rek_tabs as $rek_tab => $tab_data ) : ?>
 			<a href="<?php echo esc_url( $tab_data['url'] ); ?>"
-				class="nav-tab <?php echo $rek_active_tab === $rek_tab ? 'nav-tab-active' : ''; ?>"><?php echo esc_html( $tab_data['label'] ); ?></a>
+				class="nav-tab <?php echo $rek_active_tab === $rek_tab ? 'nav-tab-active' : ''; ?>">
+				<?php if ( isset( $tab_data['icon'] ) ) : ?>
+					<span class="<?php echo esc_attr( $tab_data['icon'] ); ?>"></span>
+				<?php endif; ?>
+				<?php echo esc_html( $tab_data['label'] ); ?>
+			</a>
 		<?php endforeach; ?>
 	</div>
 

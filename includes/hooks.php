@@ -8,6 +8,7 @@
 namespace Rekai;
 
 use Rekai\Options\OptionsPage;
+use Rekai\Options\ShortcodeGenerator;
 use Rekai\Scripts\RekaiAutocomplete;
 use Rekai\Scripts\RekaiMain;
 
@@ -16,6 +17,7 @@ add_action(
 	'plugins_loaded',
 	static function () {
 		OptionsPage::get_instance();
+		ShortcodeGenerator::get_instance();
 		RekaiMain::get_instance();
 		RekaiAutocomplete::get_instance();
 	}

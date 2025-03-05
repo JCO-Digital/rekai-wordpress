@@ -412,6 +412,11 @@ class OptionsPage extends Singleton {
 					'label' => esc_html__( 'Documentation', 'rekai-wordpress' ),
 					'url'   => add_query_arg( array( 'tab' => 'docs' ), admin_url( 'admin.php?page=rekai-settings' ) ),
 				),
+				'shortcode'    => array(
+					'label' => esc_html__( 'Shortcode Generator', 'rekai-wordpress' ),
+					'icon'  => 'dashicons dashicons-external',
+					'url'   => admin_url( 'admin.php?page=rekai-shortcodes' ),
+				),
 			),
 			'active_tab' => $tab,
 		);
