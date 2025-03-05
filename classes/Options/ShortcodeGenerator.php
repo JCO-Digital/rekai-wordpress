@@ -76,19 +76,19 @@ class ShortcodeGenerator extends Singleton {
 				),
 			),
 			'common_attributes' => array(
-				'nrofhits' => array(
+				'nrofhits'     => array(
 					'label'   => esc_html__( 'Number of Hits', 'rekai-wordpress' ),
 					'type'    => 'number',
 					'default' => 5,
 					'min'     => 1,
 					'max'     => 10,
 				),
-				'subtree'  => array(
+				'subtree'      => array(
 					'label'       => esc_html__( 'Subtree', 'rekai-wordpress' ),
 					'type'        => 'text',
 					'placeholder' => '/news',
 				),
-				'tags'     => array(
+				'tags'         => array(
 					'label'       => esc_html__( 'Tags', 'rekai-wordpress' ),
 					'type'        => 'text',
 					'placeholder' => 'tag1,tag2,tag3',
