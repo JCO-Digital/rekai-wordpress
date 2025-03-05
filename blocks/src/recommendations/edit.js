@@ -267,36 +267,36 @@ export default function Edit({ attributes, setAttributes, context }) {
               onChange={(value) => setAttributes({ depth: parseInt(value) })}
             />
           )}
-          {(hasResolved && (
-            <FormTokenField
-              __experimentalExpandOnFocus
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-              label={__("Subtree", "rekai-wordpress")}
-              placeholder={__("Search for Page", "jcore")}
-              suggestions={postList}
-              displayTransform={(token) => {
-                const field = token.split(separator);
-                return field[0] ?? "";
-              }}
-              value={tokenValue}
-              onChange={(token) => {
-                console.debug(token);
-                setTokenValue(token);
-                let value = token.map((t) => {
-                  const field = t.split(separator);
-                  if (field.length === 2) {
-                    return field[1];
+          {["all"].includes(pathOption) &&
+            ((hasResolved && (
+              <FormTokenField
+                __experimentalExpandOnFocus
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+                label={__("Subtree", "rekai-wordpress")}
+                placeholder={__("Search for Page", "jcore")}
+                suggestions={postList}
+                displayTransform={(token) => {
+                  const field = token.split(separator);
+                  return field[0] ?? "";
+                }}
+                value={tokenValue}
+                onChange={(token) => {
+                  console.debug(token);
+                  setTokenValue(token);
+                  let value = token.map((t) => {
+                    const field = t.split(separator);
+                    if (field.length === 2) {
+                      return field[1];
+                    }
+                    return undefined;
+                  });
+                  if (token.length) {
                   }
-                  return undefined;
-                });
-                if (token.length) {
-                }
-                setAttributes({ subtreeIds: value });
-              }}
-            />
-          )) || <Spinner />}
-          {subtreeIds}
+                  setAttributes({ subtreeIds: value });
+                }}
+              />
+            )) || <Spinner />)}
           <RadioControl
             label={__("Exclude content from subpages?", "rekai-wordpress")}
             selected={limit}

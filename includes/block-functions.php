@@ -28,6 +28,10 @@ function generate_data_attributes( $attributes ) {
 		unset( $attributes['headerText'] );
 	}
 
+	if ( ! empty( $attributes['subtreeIds'] ) ) {
+		$attributes['subtree'] = generate_subtree( $attributes['subtreeIds'] );
+	}
+
 	$blocked_attributes = array( 'className', 'blockType', 'currentLanguage', 'showHeader', 'subtreeIds', 'style' );
 	foreach ( $attributes as $key => $value ) {
 		if ( in_array( $key, $blocked_attributes, true ) ) {
@@ -114,6 +118,27 @@ function handle_testing_mode( $data = array() ) {
 }
 
 /**
+ * Generates a comma-separated string of links based on an array of IDs.
+ *
+ * This function takes an array of post IDs, retrieves the permalink for each ID,
+ * and constructs a string of permalinks separated by commas. The URL is shortened to a relative path.
+ *
+ * @param array $ids An array of post IDs.
+ * @return string A comma-separated string of permalinks, or an empty string if input is invalid.
+ */
+function generate_subtree( array $ids ): string {
+	$subtree = '';
+	foreach ( $ids as $id ) {
+		$link = preg_replace( '|^https?://[^/]+/|', '^/', get_permalink( $id ) );
+		if ( ! empty( $subtree ) ) {
+			$subtree .= ',';
+		}
+		$subtree .= $link;
+	}
+	return $subtree;
+}
+
+/**
  * Handles parsing a user supplied string of attributes. It will validate them and sanitize them correctly (?).
  *
  * @param string $attributes_string The user-supplied attributes string.
@@ -160,6 +185,12 @@ function map_data_to_dataset( $data ) {
 	return $dataset;
 }
 
+/**
+ * Converts an array of data attributes into an HTML attribute string.
+ *
+ * @param array $data The array of data attributes, where keys are attribute names and values are attribute values.
+ * @return string An HTML attribute string containing the data attributes.
+ */
 function dataset_to_attributes( $data ) {
 	$output = '';
 	foreach ( $data as $key => $value ) {
