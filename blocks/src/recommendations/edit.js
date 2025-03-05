@@ -12,6 +12,7 @@ import {
   __experimentalNumberControl as NumberControl,
 } from "@wordpress/components";
 import {
+  InspectorAdvancedControls,
   InspectorControls,
   RichText,
   useBlockProps,
@@ -327,21 +328,19 @@ export default function Edit({ attributes, setAttributes, context }) {
             />
           )}
         </PanelBody>
-        <PanelBody
-          title={__("Extra attributes", "rekai-wordpress")}
-          initialOpen={false}
-        >
-          <TextControl
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-            value={extraAttributes}
-            onChange={(value) => {
-              setAttributes({ extraAttributes: value });
-            }}
-            label={__("Extra attributes", "rekai-wordpress")}
-          />
-        </PanelBody>
       </InspectorControls>
+      <InspectorAdvancedControls>
+        <TextControl
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
+          value={extraAttributes}
+          onChange={(value) => {
+            setAttributes({ extraAttributes: value });
+          }}
+          label={__("Extra Rek.ai attributes", "rekai-wordpress")}
+          help={__("Add extra Rek.ai attributes here.", "rekai-wordpress")}
+        />
+      </InspectorAdvancedControls>
     </div>
   );
 }
