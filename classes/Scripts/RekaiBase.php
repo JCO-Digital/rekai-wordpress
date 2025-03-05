@@ -30,7 +30,18 @@ abstract class RekaiBase extends Singleton {
 		add_action( 'wp_head', array( $this, 'render_head' ) );
 	}
 
+	/**
+	 * Handles equeue of the Rek.ai scripts.
+	 *
+	 * @return void
+	 */
 	abstract public function enqueue();
+
+	/**
+	 * Handles rendering head inline scripts.
+	 *
+	 * @return void
+	 */
 	abstract public function render_head();
 
 	/**
@@ -39,13 +50,11 @@ abstract class RekaiBase extends Singleton {
 	 * @return bool Whether the scripts/assets should be loaded.
 	 */
 	public function should_load(): bool {
-		if ( get_option( 'rekai_is_enabled' ) !== '1' ) {
-			return false;
-		}
-		if ( empty( get_option( 'rekai_embed_code' ) ) ) {
-			return false;
-		}
-		if ( $this->is_incomplete_test_mode() ) {
+		if (
+			get_option( 'rekai_is_enabled' ) !== '1'
+			|| empty( get_option( 'rekai_embed_code' ) )
+			|| $this->is_incomplete_test_mode()
+		) {
 			return false;
 		}
 
