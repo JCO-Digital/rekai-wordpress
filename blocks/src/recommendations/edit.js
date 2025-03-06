@@ -30,6 +30,7 @@ import "./editor.scss";
  */
 export default function Edit({ attributes, setAttributes, context }) {
   const {
+    blockType,
     headerText,
     showHeader,
     nrOfHits,
@@ -39,6 +40,7 @@ export default function Edit({ attributes, setAttributes, context }) {
     showImage,
     showIngress,
     ingressMaxLength,
+    tags,
     pathOption,
     limit,
     depth,
@@ -74,22 +76,15 @@ export default function Edit({ attributes, setAttributes, context }) {
     }
   }, [records]);
 
-  const items = [];
-  for (let i = 0; i < nrOfHits; i++) {
-    items.push(
-      <div key={i} className="item">
-        {showImage && <div className="image"></div>}
-        <div className="title"></div>
-        {showIngress && <div className="row row1"></div>}
-        {showIngress && <div className="row row2"></div>}
-      </div>,
-    );
-  }
   return (
     <div {...useBlockProps()}>
       <div className="logoHeader">
         <img src={logo} alt={"Rek.ai Logo"} />
-        <h4>Recommendations</h4>
+        <h4>
+          {(blockType === "recommendations" &&
+            __("Recommendations", "rekai-wordpress")) ||
+            __("Questions & Answers", "rekai-wordpress")}
+        </h4>
       </div>
       {showHeader && (
         <RichText
@@ -102,16 +97,9 @@ export default function Edit({ attributes, setAttributes, context }) {
           placeholder={__("Heading Text", "rekai-wordpress")}
         />
       )}
-      <div
-        className={
-          "items cols" +
-          (renderstyle === "list" ? listcols : cols) +
-          " " +
-          renderstyle
-        }
-      >
-        {items}
-      </div>
+
+      {(blockType === "recommendations" && renderRecommendations(attributes)) ||
+        renderQna(attributes)}
 
       <InspectorControls>
         <PanelBody title={__("Display", "rekai-wordpress")}>
@@ -227,6 +215,16 @@ export default function Edit({ attributes, setAttributes, context }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
+          <FormTokenField
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+            label="Tags"
+            onChange={(values) => {
+              setAttributes({ tags: values });
+            }}
+            suggestions={[]}
+            value={tags}
+          />
           <RadioControl
             label={__("Show content from starting point:", "rekai-wordpress")}
             selected={pathOption}
@@ -341,6 +339,60 @@ export default function Edit({ attributes, setAttributes, context }) {
           help={__("Add extra Rek.ai attributes here.", "rekai-wordpress")}
         />
       </InspectorAdvancedControls>
+    </div>
+  );
+}
+
+function renderRecommendations(attributes) {
+  const { nrOfHits, showImage, showIngress, renderstyle, listcols, cols } =
+    attributes;
+
+  return (
+    <div
+      className={
+        "items cols" +
+        (renderstyle === "list" ? listcols : cols) +
+        " " +
+        renderstyle
+      }
+    >
+      {Array.from(Array(nrOfHits).keys()).map((i) => (
+        <div key={i} className="item">
+          {showImage && <div className="image"></div>}
+          <div className="title"></div>
+          {showIngress && <div className="row row1"></div>}
+          {showIngress && <div className="row row2"></div>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function renderQna(attributes) {
+  const { nrOfHits } = attributes;
+
+  return (
+    <div className="rekai-block-preview">
+      {Array.from(Array(nrOfHits).keys()).map((i) => (
+        <div key={i} className="rekai-block-preview-item">
+          <div className="rekai-block-preview-blob"></div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className="lucide lucide-plus"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </div>
+      ))}
     </div>
   );
 }
