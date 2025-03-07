@@ -14,7 +14,7 @@ const variations = [
   {
     name: "qna",
     title: "Rek.ai Questions and Answers",
-    icon: "smiley",
+    icon: "editor-help",
     description: __("Rek.ai Questions and answers block.", "rekai-wordpress"),
     attributes: { blockType: "qna" },
     isActive: ["blockType"],

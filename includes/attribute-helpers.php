@@ -20,18 +20,6 @@ function generate_data_attributes( $attributes ) {
 	$data = handle_testing_mode();
 	$data = handle_path_options( $data, $attributes );
 
-	// Add site language to only display current language.
-	if ( ! empty( $attributes['currentLanguage'] ) ) {
-		$data['allowedlangs'] = get_locale();
-	}
-	if ( isset( $attributes['showHeader'] ) && $attributes['showHeader'] === false ) {
-		unset( $attributes['headerText'] );
-	}
-
-	if ( ! empty( $attributes['subtreeIds'] ) ) {
-		$attributes['subtree'] = generate_subtree( $attributes['subtreeIds'] );
-	}
-
 	$blocked_attributes = array(
 		'align',
 		'className',
@@ -42,6 +30,34 @@ function generate_data_attributes( $attributes ) {
 		'style',
 		'extraAttributes',
 	);
+
+	switch ( $attributes['blockType'] ?? '' ) {
+		case 'recommendations':
+			$blocked_attributes[] = 'tags';
+			break;
+		case 'qna':
+			$attributes['entitytype'] = 'rekai-qna';
+			$blocked_attributes[]     = 'renderstyle';
+			$blocked_attributes[]     = 'listcols';
+			$blocked_attributes[]     = 'cols';
+			$blocked_attributes[]     = 'showImage';
+			$blocked_attributes[]     = 'showIngress';
+			$blocked_attributes[]     = 'ingressMaxLength';
+			break;
+	}
+
+	// Add site language to only display current language.
+	if ( ! empty( $attributes['currentLanguage'] ) ) {
+		$data['allowedlangs'] = get_locale();
+	}
+	if ( isset( $attributes['showHeader'] ) && $attributes['showHeader'] === false ) {
+		$blocked_attributes[] = 'headerText';
+	}
+
+	if ( ! empty( $attributes['subtreeIds'] ) ) {
+		$attributes['subtree'] = generate_subtree( $attributes['subtreeIds'] );
+	}
+
 	foreach ( $attributes as $key => $value ) {
 		if ( in_array( $key, $blocked_attributes, true ) ) {
 			continue;
