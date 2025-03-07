@@ -1,6 +1,6 @@
 {
   "name": "rekai-wordpress",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rek.ai integration for WordPress",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,9 @@
     "scss-admin:watch": "pnpm scss-admin:build --watch",
     "scss-frontend:build": "sass --style=compressed assets/css/index.scss dist/css/index.css",
     "scss-frontend:watch": "pnpm scss-frontend:build --watch",
-    "wp:start": "pnpm dlx @wp-now/wp-now start --blueprint=.wp/latest-debug.json"
+    "wp:start": "pnpm dlx @wp-now/wp-now start --blueprint=.wp/latest-debug.json",
+    "version": "node versionSync.mjs && git add rekai-wordpress.php && git add readme.txt",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
