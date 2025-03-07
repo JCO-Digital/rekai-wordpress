@@ -9,7 +9,6 @@ import {
   RadioControl,
   Spinner,
   SelectControl,
-  __experimentalNumberControl as NumberControl,
 } from "@wordpress/components";
 import {
   InspectorAdvancedControls,
@@ -177,7 +176,8 @@ export default function Edit({ attributes, setAttributes, context }) {
             onChange={(value) => setAttributes({ pathOption: value })}
           />
           {["maxDepth", "rootPathLevel"].includes(pathOption) && (
-            <NumberControl
+            <TextControl
+              type="number"
               value={parseInt(depth)}
               label={
                 pathOption === "maxDepth"
@@ -241,7 +241,8 @@ export default function Edit({ attributes, setAttributes, context }) {
             onChange={(value) => setAttributes({ limit: value })}
           />
           {limit === "minDepth" && (
-            <NumberControl
+            <TextControl
+              type="number"
               value={parseInt(limitDepth)}
               label={__("Exclude subpages until depth")}
               min={0}
