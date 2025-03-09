@@ -18,6 +18,7 @@ import {
 } from "@wordpress/block-editor";
 import logo from "../../../assets/img/logo-rekai-blue.svg";
 import "./editor.scss";
+import usePosts from "./usePosts";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -44,32 +45,8 @@ export default function Edit({ attributes, setAttributes, context }) {
   const separator = "##!!##";
   const isRecommendations = blockType === "recommendations";
   const isQna = !isRecommendations;
-  const [postList, setPostList] = useState([]);
   const [tokenValue, setTokenValue] = useState([]);
-  const { hasResolved, records } = useEntityRecords(
-    "postType",
-    context.postType,
-    {
-      per_page: -1,
-    },
-  );
-
-  useEffect(() => {
-    if (records) {
-      let tokenList = [];
-      setPostList(
-        records.map((record) => {
-          const token =
-            record.title.rendered + separator + record.id.toString();
-          if (subtreeIds.includes(record.id.toString())) {
-            tokenList.push(token);
-          }
-          return token;
-        }),
-      );
-      setTokenValue(tokenList);
-    }
-  }, [records]);
+  const { postList, loading } = usePosts(separator);
 
   return (
     <div {...useBlockProps({ className: blockType })}>
@@ -192,7 +169,7 @@ export default function Edit({ attributes, setAttributes, context }) {
             />
           )}
           {["all"].includes(pathOption) &&
-            ((hasResolved && (
+            ((!loading && (
               <FormTokenField
                 __experimentalExpandOnFocus
                 __next40pxDefaultSize
