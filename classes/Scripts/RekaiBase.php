@@ -98,12 +98,19 @@ abstract class RekaiBase extends Singleton {
 	 */
 	public function is_incomplete_test_mode(): bool {
 		if ( ! $this->get_test_mode() ) {
+			// Not in test mode.
+			return false;
+		}
+		if ( in_array( wp_get_environment_type(), array( 'production', 'local' ) ) ) {
+			// Allow test mode without id / secret for local and production, since it probably works there.
 			return false;
 		}
 		if ( empty( get_option( 'rekai_project_id', '' ) ) ) {
+			// Invalid without ID.
 			return true;
 		}
 		if ( empty( get_option( 'rekai_secret_key', '' ) ) ) {
+			// Invalid without secret.
 			return true;
 		}
 		return false;
