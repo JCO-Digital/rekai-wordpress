@@ -380,6 +380,10 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function enqueue_assets(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_GET['page'] ) || 'rekai-settings' !== $_GET['page'] ) {
+			return;
+		}
 		wp_enqueue_style( 'rekai-admin' );
 		wp_enqueue_script( 'rekai-backend' );
 	}
@@ -725,5 +729,5 @@ class OptionsPage extends Singleton {
 			return esc_url( $matches[0] );
 		}
 		return '';
-	}
+}
 }
