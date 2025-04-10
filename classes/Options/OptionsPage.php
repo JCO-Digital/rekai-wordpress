@@ -277,7 +277,7 @@ class OptionsPage extends Singleton {
 				'placeholder' => esc_html__( '10', 'rekai-wordpress' ),
 				'help'        => esc_html__( 'Number of results to show in the autocomplete dropdown.', 'rekai-wordpress' ),
 				'min'         => 1,
-				'max'         => 10,
+				'max'         => 100,
 			)
 		);
 	}
