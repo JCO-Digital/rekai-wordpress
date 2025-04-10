@@ -1,41 +1,39 @@
-import { useEffect, useState } from "@wordpress/element";
-import { useEntityRecords } from "@wordpress/core-data";
+import { useState } from "@wordpress/element";
 
-export default function usePosts(separator) {
+let fetching = false;
+
+export default function usePosts(subtree, setTokenValue, separator) {
+  const url = "/wp-json/rekai/v1/posts";
   const [postList, setPostList] = useState([]);
 
-  /*
-  const { isResolving, records } = useEntityRecords(
-		"root",
-		"postType",
-		queryArgs,
-	);
-	*/
-
-  const { isResolving, records } = useEntityRecords("postType", "page", {
-    per_page: -1,
-  });
-
-  useEffect(() => {
-    if (records) {
-      let tokenList = [];
-      setPostList(
-        records.map((record) => {
-          console.debug(record);
-          const token =
-            record.title.rendered + separator + record.id.toString();
-          //if (subtreeIds.includes(record.id.toString())) {
-          //  tokenList.push(token);
-          //}
-          return token;
-        }),
-      );
-      //setTokenValue(tokenList);
+  if (!fetching && postList.length === 0) {
+    fetching = true;
+    try {
+      fetch(url).then((response) => {
+        fetching = false;
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+        const tokenList = [];
+        response.json().then((body) => {
+          let list = [...postList];
+          body.forEach((post) => {
+            const index = post.id ? post.id : post.link;
+            const token = post.label + separator + index;
+            list.push(token);
+            if (subtree.includes(index)) {
+              tokenList.push(token);
+            }
+          });
+          setTokenValue(tokenList);
+          setPostList(list);
+        });
+      });
+    } catch (error) {
+      fetching = false;
+      console.error(error.message);
     }
-  }, [records]);
+  }
 
-  return {
-    postList,
-    loading: isResolving,
-  };
+  return postList;
 }

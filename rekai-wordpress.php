@@ -43,6 +43,9 @@ require_once __DIR__ . '/includes/blocks.php';
 // Block specific functions.
 require_once __DIR__ . '/includes/attribute-helpers.php';
 
+// REST API.
+require_once __DIR__ . '/includes/rest-api.php';
+
 // Shortcodes.
 require_once __DIR__ . '/includes/shortcode.php';
 
@@ -54,7 +57,7 @@ require_once __DIR__ . '/includes/shortcode.php';
 function rekai_activate(): void {
 	wp_set_options_autoload(
 		OptionsPage::$autoload_options,
-		'yes'
+		true
 	);
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\rekai_activate' );
@@ -67,7 +70,7 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\rekai_activate' );
 function rekai_deactivate(): void {
 	wp_set_options_autoload(
 		OptionsPage::$autoload_options,
-		'yes'
+		false
 	);
 }
 register_deactivation_hook( __FILE__, __NAMESPACE__ . '\rekai_deactivate' );

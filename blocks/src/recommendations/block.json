@@ -97,7 +97,7 @@
       "type": "array",
       "default": []
     },
-    "subtreeIds": {
+    "subtree": {
       "type": "array",
       "default": []
     },

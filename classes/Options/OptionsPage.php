@@ -47,11 +47,10 @@ class OptionsPage extends Singleton {
 	 * @var array|string[]
 	 */
 	private array $sections = array(
-		'general'                => 'rekai-settings-general',
-		'autocomplete'           => 'rekai-settings-autocomplete',
-		'autocomplete_automatic' => 'rekai-settings-autocomplete-automatic',
-		'advanced'               => 'rekai-settings-advanced',
-		'docs'                   => 'rekai-settings-docs',
+		'general'      => 'rekai-settings-general',
+		'autocomplete' => 'rekai-settings-autocomplete',
+		'advanced'     => 'rekai-settings-advanced',
+		'docs'         => 'rekai-settings-docs',
 	);
 
 	/**
@@ -87,7 +86,6 @@ class OptionsPage extends Singleton {
 	final public function prime_options(): void {
 		wp_prime_option_caches_by_group( $this->sections['general'] );
 		wp_prime_option_caches_by_group( $this->sections['autocomplete'] );
-		wp_prime_option_caches_by_group( $this->sections['autocomplete_automatic'] );
 		wp_prime_option_caches_by_group( $this->sections['advanced'] );
 	}
 
@@ -570,22 +568,22 @@ class OptionsPage extends Singleton {
 			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai_autocomplete_automatic_selector',
 			array( 'sanitize_callback' => 'sanitize_text_field' )
 		);
 		register_setting(
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai_autocomplete_navigate_on_click',
 			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai_autocomplete_usecurrentlang',
 			array( 'sanitize_callback' => 'boolval' )
 		);
 		register_setting(
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai_autocomplete_nrofhits',
 			array( 'sanitize_callback' => 'intval' )
 		);
@@ -595,13 +593,6 @@ class OptionsPage extends Singleton {
 			__( 'Autocomplete', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_section' ),
 			$this->sections['autocomplete']
-		);
-
-		add_settings_section(
-			'rekai-autocomplete-automatic',
-			__( 'Automatic settings', 'rekai-wordpress' ),
-			array( $this, 'render_autocomplete_automatic_section' ),
-			$this->sections['autocomplete_automatic']
 		);
 
 		add_settings_field(
@@ -630,7 +621,7 @@ class OptionsPage extends Singleton {
 			'rekai_autocomplete_automatic_selector',
 			__( 'Autocomplete selector', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_selector_field' ),
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai-autocomplete-automatic',
 			array(
 				'label_for' => 'rekai_autocomplete_automatic_selector',
@@ -640,7 +631,7 @@ class OptionsPage extends Singleton {
 			'rekai_autocomplete_navigate_on_click',
 			__( 'Open on click', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_navigate_on_click_field' ),
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai-autocomplete-automatic',
 			array(
 				'label_for' => 'rekai_autocomplete_navigate_on_click',
@@ -651,7 +642,7 @@ class OptionsPage extends Singleton {
 			'rekai_autocomplete_usecurrentlang',
 			__( 'Use current language', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_currentlang_field' ),
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai-autocomplete-automatic',
 			array(
 				'label_for' => 'rekai_autocomplete_usecurrentlang',
@@ -662,7 +653,7 @@ class OptionsPage extends Singleton {
 			'rekai_autocomplete_nrofhits',
 			__( 'Number of results', 'rekai-wordpress' ),
 			array( $this, 'render_autocomplete_nrofhits_field' ),
-			$this->sections['autocomplete_automatic'],
+			$this->sections['autocomplete'],
 			'rekai-autocomplete-automatic',
 			array(
 				'label_for' => 'rekai_autocomplete_nrofhits',
