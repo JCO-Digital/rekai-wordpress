@@ -31,7 +31,6 @@ class OptionsPage extends Singleton {
 		'rekai_embed_code',
 		'rekai_autocomplete_mode',
 		'rekai_autocomplete_automatic_selector',
-		'rekai_autocomplete_usecurrentlang',
 		'rekai_autocomplete_nrofhits',
 		'rekai_autocomplete_navigate_on_click',
 		'rekai_test_mode',

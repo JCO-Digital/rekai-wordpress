@@ -48,7 +48,7 @@ function generate_data_attributes( $attributes ) {
 
 	// Add site language to only display current language.
 	if ( ! empty( $attributes['currentLanguage'] ) ) {
-		$data['allowedlangs'] = get_locale();
+		$data['allowedlangs'] = get_bloginfo( 'language' );
 	}
 	if ( isset( $attributes['showHeader'] ) && $attributes['showHeader'] === false ) {
 		$blocked_attributes[] = 'headerText';

@@ -23,7 +23,7 @@ class RekaiAutocomplete extends RekaiBase {
 	 * @return bool
 	 */
 	final public function should_load(): bool {
-		$autocomplete_enabled = get_option( 'rekai_autocomplete_enabled' ) === '1';
+		$autocomplete_enabled = get_option( 'rekai_autocomplete_mode', 'disabled' ) !== 'disabled';
 		if ( ! $autocomplete_enabled ) {
 			return false;
 		}
@@ -59,7 +59,7 @@ class RekaiAutocomplete extends RekaiBase {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-		$is_automatic          = get_option( 'rekai_autocomplete_automatic' ) === '1';
+		$is_automatic          = get_option( 'rekai_autocomplete_mode' ) === 'auto';
 		$selector              = get_option( 'rekai_autocomplete_automatic_selector' );
 		$autocomplete_navigate = get_option( 'rekai_autocomplete_navigate_on_click' ) === '1';
 		$autocomplete_options  = $this->get_autocomplete_options();
@@ -97,7 +97,7 @@ class RekaiAutocomplete extends RekaiBase {
 		$options['params']['nrofhits'] = (int) get_option( 'rekai_autocomplete_nrofhits', 10 );
 
 		if ( '1' === get_option( 'rekai_autocomplete_usecurrentlang' ) ) {
-			$options['params']['allowedlangs'] = get_locale();
+			$options['params']['allowedlangs'] = get_bloginfo( 'language' );
 		}
 
 		return wp_json_encode( $options );
