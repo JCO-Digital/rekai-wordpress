@@ -96,6 +96,36 @@ function render_checkbox_field( array $args = array() ): void {
 }
 
 /**
+ * Renders a radiobutton group.
+ *
+ * Echoes the rendered field.
+ *
+ * @param array $args {
+ *     Optional. Array of field arguments.
+ *
+ *     @type string $id      The ID of the field. Default empty string.
+ *     @type string $value   The value of the field. Default empty string.
+ *     @type array  $options The different options.
+ *     @type string $help    Help string rendered under the checkbox
+ * }
+ *
+ * @return void
+ */
+function render_radiobuttons_field( array $args = array() ): void {
+	$data = wp_parse_args(
+		$args,
+		array(
+			'id'    => '',
+			'value' => '',
+			'value' => array(),
+			'help'  => '',
+		)
+	);
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo render_template( 'fields/radiobuttons', $data );
+}
+
+/**
  * Renders a switch field.
  *
  * Echoes the rendered field.

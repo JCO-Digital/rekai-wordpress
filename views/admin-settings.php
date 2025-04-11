@@ -7,7 +7,6 @@ $options_page = new OptionsPage();
 ?>
 <div
 	class="wrap"
-	x-data='<?php echo $options_page->get_alpine_settings(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>'
 >
 	<h1><?php esc_html_e( 'Rek.ai Settings', 'rekai-wordpress' ); ?></h1>
 
@@ -34,34 +33,15 @@ $options_page = new OptionsPage();
 		>
 			<?php
 			if ( $rek_active_tab === 'general' ) :
-				settings_fields( 'rekai-settings-general' );
-				do_settings_sections( 'rekai-settings-general' );
-				submit_button();
-			elseif ( $rek_active_tab === 'autocomplete' ) :
-				settings_fields( 'rekai-settings-autocomplete' );
-				do_settings_sections( 'rekai-settings-autocomplete' );
+				settings_fields( 'rekai-tab-general' );
+				do_settings_sections( 'rekai-tab-general' );
 				submit_button();
 			elseif ( $rek_active_tab === 'advanced' ) :
-				settings_fields( 'rekai-settings-advanced' );
-				do_settings_sections( 'rekai-settings-advanced' );
+				settings_fields( 'rekai-tab-advanced' );
+				do_settings_sections( 'rekai-tab-advanced' );
 				submit_button();
 			endif;
 			?>
 		</form>
-		<?php if ( $rek_active_tab === 'autocomplete' ) : ?>
-			<form
-				method="post"
-				action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>"
-				x-show="rekai_autocomplete_automatic === true && rekai_autocomplete_enabled === true"
-				x-transition
-				x-cloak
-			>
-				<?php
-				settings_fields( 'rekai-settings-autocomplete-automatic' );
-				do_settings_sections( 'rekai-settings-autocomplete-automatic' );
-				submit_button();
-				?>
-			</form>
-		<?php endif; ?>
 	<?php endif; ?>
 </div>

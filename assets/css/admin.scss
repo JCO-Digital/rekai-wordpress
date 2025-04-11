@@ -1,7 +1,7 @@
 @use "vendor/theme.min.css";
 
 [x-cloak] {
-	display: none;
+  display: none;
 }
 
 .secret-toggle {
@@ -30,7 +30,7 @@
   right: 0;
   bottom: 0;
   background-color: #dcdcde;
-  transition: .3s;
+  transition: 0.3s;
   border-radius: 24px;
 }
 
@@ -42,7 +42,7 @@
   left: 2px;
   bottom: 2px;
   background-color: white;
-  transition: .3s linear;
+  transition: 0.3s linear;
   border-radius: 50%;
 }
 
@@ -51,7 +51,9 @@
 }
 
 .wp-switch-checkbox:focus + .wp-switch-slider {
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #2271b1;
+  box-shadow:
+    0 0 0 2px white,
+    0 0 0 4px #2271b1;
 }
 
 .wp-switch-checkbox:checked + .wp-switch-slider:before {
@@ -87,45 +89,68 @@
 }
 
 .rekai-shortcode-generator {
-	max-width: 800px;
-	margin-top: 20px;
+  max-width: 800px;
+  margin-top: 20px;
 }
 
 .rekai-shortcode-generator h2 {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 .rekai-shortcode-type,
 .rekai-shortcode-attributes,
 .rekai-shortcode-preview {
-	background: #fff;
-	padding: 20px;
-	margin-bottom: 20px;
-	border: 1px solid #ccd0d4;
-	box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccd0d4;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
 
 .rekai-shortcode-output {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	background: #f0f0f1;
-	padding: 15px;
-	border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0f0f1;
+  padding: 15px;
+  border-radius: 4px;
 }
 
 .rekai-shortcode-output code {
-	flex: 1;
-	padding: 10px;
-	background: #fff;
-	border: 1px solid #dcdcde;
+  flex: 1;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #dcdcde;
 }
 
 #rekai-shortcode-type {
-	min-width: 200px;
+  min-width: 200px;
 }
 
 #rekai-shortcode-description {
-	margin-top: 10px;
-	font-style: italic;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+#rekai-selector-section {
+  max-height: 0;
+  overflow-y: hidden;
+  &.animate {
+    transition: max-height 500ms;
+  }
+  &.show {
+    max-height: 600px;
+    max-height: calc-size(auto);
+  }
+}
+
+.secret-toggle {
+  span::before {
+    content: "\f530";
+  }
+  &.show {
+    span::before {
+      content: "\f177";
+    }
+  }
 }
