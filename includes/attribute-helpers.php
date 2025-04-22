@@ -20,29 +20,24 @@ function generate_data_attributes( $attributes ) {
 	$data = handle_testing_mode();
 	$data = handle_path_options( $data, $attributes );
 
-	$blocked_attributes = array(
-		'align',
-		'className',
-		'blockType',
-		'currentLanguage',
-		'showHeader',
-		'subtreeIds',
-		'style',
-		'extraAttributes',
+	$passthrough = array(
+		'nrOfHits',
 	);
 
 	switch ( $attributes['blockType'] ?? '' ) {
 		case 'recommendations':
-			$blocked_attributes[] = 'tags';
+			$passthrough[] = 'renderStyle';
+			$passthrough[] = 'listCols';
+			$passthrough[] = 'cols';
+			if ( 'advanced' === $attributes['renderStyle'] ) {
+				$passthrough[] = 'showImage';
+				$passthrough[] = 'showIngress';
+				$passthrough[] = 'ingressMaxLength';
+			}
 			break;
 		case 'qna':
-			$attributes['entitytype'] = 'rekai-qna';
-			$blocked_attributes[]     = 'renderstyle';
-			$blocked_attributes[]     = 'listcols';
-			$blocked_attributes[]     = 'cols';
-			$blocked_attributes[]     = 'showImage';
-			$blocked_attributes[]     = 'showIngress';
-			$blocked_attributes[]     = 'ingressMaxLength';
+			$data['entitytype'] = 'rekai-qna';
+			$passthrough[]      = 'tags';
 			break;
 	}
 
@@ -50,18 +45,21 @@ function generate_data_attributes( $attributes ) {
 	if ( ! empty( $attributes['currentLanguage'] ) ) {
 		$data['allowedlangs'] = get_bloginfo( 'language' );
 	}
-	if ( isset( $attributes['showHeader'] ) && $attributes['showHeader'] === false ) {
-		$blocked_attributes[] = 'headerText';
+	if ( ! empty( $attributes['showHeader'] ) ) {
+		$passthrough[] = 'headerText';
 	}
 
-	if ( ! empty( $attributes['subtreeIds'] ) ) {
-		$attributes['subtree'] = generate_subtree( $attributes['subtreeIds'] );
+	if ( ! empty( $attributes['subTreeIds'] ) ) {
+		$attributes['subTree'] = generate_subtree( $attributes['subTreeIds'] );
 	}
 
-	foreach ( $attributes as $key => $value ) {
-		if ( in_array( $key, $blocked_attributes, true ) ) {
+	foreach ( $passthrough as $key ) {
+		if ( ! isset( $attributes[ $key ] ) ) {
 			continue;
 		}
+
+		$value = $attributes[ $key ];
+
 		if ( is_bool( $value ) ) {
 			$data[ $key ] = $value ? 'true' : 'false';
 		} elseif ( ! empty( $value ) && is_array( $value ) ) {
@@ -82,7 +80,7 @@ function generate_data_attributes( $attributes ) {
  *
  * @return array The modified data array reflecting the applied path options.
  */
-function handle_path_options( array $data, array &$attributes ): array {
+function handle_path_options( array $data, array $attributes ): array {
 	switch ( $attributes['pathOption'] ?? '' ) {
 		case 'useRoot':
 			$data['userootpath'] = 'true';
@@ -107,7 +105,6 @@ function handle_path_options( array $data, array &$attributes ): array {
 		default:
 			break;
 	}
-	unset( $attributes['pathOption'], $attributes['limit'], $attributes['depth'], $attributes['limitDepth'] );
 	return $data;
 }
 
