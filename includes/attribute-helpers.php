@@ -12,13 +12,17 @@ use Rekai\Scripts\RekaiMain;
 /**
  * Generates data attributes for the Rekai configuration.
  *
+ * This function transforms block attributes into data attributes that can be used
+ * for Rekai's front-end functionality. It processes testing mode settings,
+ * handles path options, and includes specific attributes based on block type.
+ *
  * @param array $attributes The attributes array to be processed.
  *
- * @return array
+ * @return array An array of HTML data attributes ready to be added to elements.
  */
 function generate_data_attributes( $attributes ) {
 	$data = handle_testing_mode();
-	$data = handle_path_options( $data, $attributes );
+	$data = handle_path_options( $attributes, $data );
 
 	$passthrough = array(
 		'nrOfHits',
@@ -73,14 +77,19 @@ function generate_data_attributes( $attributes ) {
 }
 
 /**
- * Handles path-related options and modifies the provided data array based on the attributes.
+ * Processes path options and limitations from block attributes.
  *
- * @param array $data The data array to be modified with path options.
- * @param array $attributes An array of attributes containing path options and limits. Passed by reference to cleanup the attributes.
+ * This function handles different path configurations and content limitations
+ * based on the attributes provided by the block. It configures settings such as
+ * root path usage, subtree navigation, and various content limitations.
  *
- * @return array The modified data array reflecting the applied path options.
+ * @param array $attributes The block attributes containing configuration options.
+ * @param array $data The existing data array to be modified.
+ * @return array The updated data array with path and limitation settings.
  */
-function handle_path_options( array $data, array $attributes ): array {
+function handle_path_options( array $attributes, $data = array() ): array {
+
+	// Handle Path Options.
 	switch ( $attributes['pathOption'] ?? '' ) {
 		case 'useRoot':
 			$data['userootpath'] = 'true';
@@ -94,9 +103,9 @@ function handle_path_options( array $data, array $attributes ): array {
 			$data['userootpath']   = 'true';
 			$data['rootpathlevel'] = $attributes['rootPathLevel'] ?? 1;
 			break;
-		default:
-			break;
 	}
+
+	// Handle Limitaions.
 	switch ( $attributes['limitations'] ?? '' ) {
 		case 'subPages':
 			$data['excludetree'] = '';
@@ -107,14 +116,15 @@ function handle_path_options( array $data, array $attributes ): array {
 		case 'onPageLinks':
 			$data['filter_exclude_onpagelinks'] = 'true';
 			break;
-		default:
-			break;
 	}
 	return $data;
 }
 
 /**
  * Handles configuration for test mode settings.
+ *
+ * Checks if test mode is enabled and adds necessary project ID and secret key
+ * to the data array. Also configures mock data if that option is enabled.
  *
  * @param array $data Initial data array to populate with test mode settings.
  * @return array Data array with test mode settings if applicable.
