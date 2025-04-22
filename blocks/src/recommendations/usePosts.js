@@ -3,7 +3,7 @@ import { useState } from "@wordpress/element";
 let fetching = false;
 
 export default function usePosts(subtree, setTokenValue, separator) {
-  const url = "/wp-json/rekai/v1/posts";
+  const url = "/?rest_route=/rekai/v1/posts";
   const [postList, setPostList] = useState([]);
 
   if (!fetching && postList.length === 0) {
