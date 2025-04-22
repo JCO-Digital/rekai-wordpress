@@ -88,7 +88,7 @@ export default function Edit({ attributes, setAttributes, context }) {
             label={__("Number of Hits", "rekai-wordpress")}
             type="number"
             onChange={(newValue) => {
-              setAttributes({ nrOfHits: newValue });
+              setAttributes({ nrOfHits: parseInt(newValue) });
             }}
             value={nrOfHits}
             __next40pxDefaultSize
@@ -336,7 +336,7 @@ function renderStyle(attributes, setAttributes) {
           label={__("Number of Columns", "rekai-wordpress")}
           type="number"
           onChange={(newValue) => {
-            setAttributes({ listcols: newValue });
+            setAttributes({ listcols: parseInt(newValue) });
           }}
           value={listcols}
           min="1"
@@ -350,7 +350,7 @@ function renderStyle(attributes, setAttributes) {
           label={__("Number of Columns", "rekai-wordpress")}
           type="number"
           onChange={(newValue) => {
-            setAttributes({ cols: newValue });
+            setAttributes({ cols: parseInt(newValue) });
           }}
           value={cols}
           min="1"

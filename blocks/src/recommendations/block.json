@@ -66,11 +66,11 @@
       "enum": ["list", "pills", "advanced"]
     },
     "listcols": {
-      "type": "string",
+      "type": "number",
       "default": "1"
     },
     "cols": {
-      "type": "string",
+      "type": "number",
       "default": "2"
     },
     "showImage": {
