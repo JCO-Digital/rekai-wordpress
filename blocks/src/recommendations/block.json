@@ -51,14 +51,10 @@
       "type": "number",
       "default": 1
     },
-    "limit": {
+    "limitations": {
       "type": "string",
       "default": "none",
-      "enum": ["none", "subPages", "minDepth"]
-    },
-    "limitDepth": {
-      "type": "number",
-      "default": 1
+      "enum": ["none", "subPages", "childNodes", "onPageLinks"]
     },
     "renderStyle": {
       "type": "string",

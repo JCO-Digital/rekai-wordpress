@@ -27,12 +27,16 @@ function generate_data_attributes( $attributes ) {
 	switch ( $attributes['blockType'] ?? '' ) {
 		case 'recommendations':
 			$passthrough[] = 'renderStyle';
-			$passthrough[] = 'listCols';
-			$passthrough[] = 'cols';
-			if ( 'advanced' === $attributes['renderStyle'] ) {
-				$passthrough[] = 'showImage';
-				$passthrough[] = 'showIngress';
-				$passthrough[] = 'ingressMaxLength';
+			switch ( $attributes['renderStyle'] ) {
+				case 'list':
+					$passthrough[] = 'listCols';
+					break;
+				case 'advanced':
+					$passthrough[] = 'cols';
+					$passthrough[] = 'showImage';
+					$passthrough[] = 'showIngress';
+					$passthrough[] = 'ingressMaxLength';
+					break;
 			}
 			break;
 		case 'qna':
@@ -47,10 +51,6 @@ function generate_data_attributes( $attributes ) {
 	}
 	if ( ! empty( $attributes['showHeader'] ) ) {
 		$passthrough[] = 'headerText';
-	}
-
-	if ( ! empty( $attributes['subTreeIds'] ) ) {
-		$attributes['subTree'] = generate_subtree( $attributes['subTreeIds'] );
 	}
 
 	foreach ( $passthrough as $key ) {
@@ -85,22 +85,27 @@ function handle_path_options( array $data, array $attributes ): array {
 		case 'useRoot':
 			$data['userootpath'] = 'true';
 			break;
-		case 'maxDepth':
-			$data['maxpathdepth'] = $attributes['depth'] ?? 1;
+		case 'subTree':
+			if ( ! empty( $attributes['subTreeIds'] ) ) {
+				$data['subtree'] = generate_subtree( $attributes['subTreeIds'] );
+			}
 			break;
 		case 'rootPathLevel':
 			$data['userootpath']   = 'true';
-			$data['rootpathlevel'] = $attributes['depth'] ?? 1;
+			$data['rootpathlevel'] = $attributes['rootPathLevel'] ?? 1;
 			break;
 		default:
 			break;
 	}
-	switch ( $attributes['limit'] ?? '' ) {
+	switch ( $attributes['limitations'] ?? '' ) {
 		case 'subPages':
+			$data['excludetree'] = '';
+			break;
+		case 'childNodes':
 			$data['excludechildnodes'] = 'true';
 			break;
-		case 'minDepth':
-			$data['minpathdepth'] = $attributes['limitDepth'] ?? 1;
+		case 'onPageLinks':
+			$data['filter_exclude_onpagelinks'] = 'true';
 			break;
 		default:
 			break;

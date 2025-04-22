@@ -36,7 +36,7 @@ export default function Edit({ attributes, setAttributes }) {
     nrOfHits,
     tags,
     pathOption,
-    limit,
+    limitations,
     rootPathLevel,
     limitDepth,
     subTree,
@@ -200,8 +200,8 @@ export default function Edit({ attributes, setAttributes }) {
             />
           )}
           <RadioControl
-            label={__("Exclude content from subpages?", "rekai-wordpress")}
-            selected={limit}
+            label={__("Limitations:", "rekai-wordpress")}
+            selected={limitations}
             options={[
               {
                 value: "none",
@@ -209,26 +209,25 @@ export default function Edit({ attributes, setAttributes }) {
               },
               {
                 value: "subPages",
-                label: __("Subpages of current page", "rekai-wordpress"),
+                label: __(
+                  "Exclude subpages from starting point",
+                  "rekai-wordpress",
+                ),
               },
               {
-                value: "minDepth",
-                label: __("Exclude subpages until depth", "rekai-wordpress"),
+                value: "childNodes",
+                label: __("Exclude pages on the next level", "rekai-wordpress"),
+              },
+              {
+                value: "onPageLinks",
+                label: __(
+                  "Exclude links already on the page",
+                  "rekai-wordpress",
+                ),
               },
             ]}
-            onChange={(value) => setAttributes({ limit: value })}
+            onChange={(value) => setAttributes({ limitations: value })}
           />
-          {limit === "minDepth" && (
-            <TextControl
-              type="number"
-              value={parseInt(limitDepth)}
-              label={__("Exclude subpages until depth")}
-              min={0}
-              onChange={(value) =>
-                setAttributes({ limitDepth: parseInt(value) })
-              }
-            />
-          )}
         </PanelBody>
       </InspectorControls>
       <InspectorAdvancedControls>
