@@ -2,7 +2,7 @@ import { useState } from "@wordpress/element";
 
 let fetching = false;
 
-export default function usePosts(subtree, setTokenValue, separator) {
+export default function usePosts(subTree, setTokenValue, separator) {
   const url = "/?rest_route=/rekai/v1/posts";
   const [postList, setPostList] = useState([]);
 
@@ -21,7 +21,7 @@ export default function usePosts(subtree, setTokenValue, separator) {
             const index = post.id ? post.id : post.link;
             const token = post.label + separator + index;
             list.push(token);
-            if (subtree.includes(index)) {
+            if (subTree.includes(String(index))) {
               tokenList.push(token);
             }
           });

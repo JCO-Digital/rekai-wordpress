@@ -45,9 +45,9 @@
     "pathOption": {
       "type": "string",
       "default": "all",
-      "enum": ["all", "rootPath", "maxDepth", "rootPathLevel"]
+      "enum": ["all", "rootPath", "subTree", "rootPathLevel"]
     },
-    "depth": {
+    "rootPathLevel": {
       "type": "number",
       "default": 1
     },
@@ -60,12 +60,12 @@
       "type": "number",
       "default": 1
     },
-    "renderstyle": {
+    "renderStyle": {
       "type": "string",
       "default": "list",
       "enum": ["list", "pills", "advanced"]
     },
-    "listcols": {
+    "listCols": {
       "type": "number",
       "default": "1"
     },
@@ -77,7 +77,7 @@
       "type": "boolean",
       "default": true
     },
-    "fallbackimgsrc": {
+    "fallbackImgSrc": {
       "type": "string",
       "default": ""
     },
@@ -97,7 +97,7 @@
       "type": "array",
       "default": []
     },
-    "subtree": {
+    "subTree": {
       "type": "array",
       "default": []
     },
