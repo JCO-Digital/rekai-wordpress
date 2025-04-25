@@ -19,6 +19,7 @@ import {
 import logo from "../../../assets/img/logo-rekai-blue.svg";
 import "./editor.scss";
 import usePosts from "./usePosts";
+import { tokenFieldHandler, displayTransform } from "./tokenFieldHandler";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -38,15 +39,20 @@ export default function Edit({ attributes, setAttributes }) {
     pathOption,
     limitations,
     rootPathLevel,
-    limitDepth,
     subTree,
+    excludeTree,
     extraAttributes,
   } = attributes;
-  const separator = "##!!##";
   const isRecommendations = blockType === "recommendations";
   const isQna = !isRecommendations;
-  const [tokenValue, setTokenValue] = useState([]);
-  const postList = usePosts(subTree, setTokenValue, separator);
+  const [subTreeTokenValue, setSubTreeTokenValue] = useState([]);
+  const [excludeTreeTokenValue, setExcludeTreeTokenValue] = useState([]);
+  const postList = usePosts(
+    subTree,
+    excludeTree,
+    setSubTreeTokenValue,
+    setExcludeTreeTokenValue,
+  );
 
   return (
     <div {...useBlockProps({ className: blockType })}>
@@ -179,23 +185,11 @@ export default function Edit({ attributes, setAttributes }) {
               label={__("Starting point", "rekai-wordpress")}
               placeholder={__("Search for Page", "jcore")}
               suggestions={postList}
-              displayTransform={(token) => {
-                const field = token.split(separator);
-                return field[0] ?? "";
-              }}
-              value={tokenValue}
+              displayTransform={displayTransform}
+              value={subTreeTokenValue}
               onChange={(token) => {
-                setTokenValue(token);
-                let value = token.map((t) => {
-                  const field = t.split(separator);
-                  if (field.length === 1) {
-                    return field[0];
-                  } else if (field.length === 2) {
-                    return field[1];
-                  }
-                  return undefined;
-                });
-                setAttributes({ subTree: value });
+                setSubTreeTokenValue(token);
+                setAttributes({ subTree: tokenFieldHandler(token) });
               }}
             />
           )}
@@ -228,6 +222,22 @@ export default function Edit({ attributes, setAttributes }) {
             ]}
             onChange={(value) => setAttributes({ limitations: value })}
           />
+          {limitations === "subPages" && (
+            <FormTokenField
+              __experimentalExpandOnFocus
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+              label={__("Starting point", "rekai-wordpress")}
+              placeholder={__("Search for Page", "jcore")}
+              suggestions={postList}
+              displayTransform={displayTransform}
+              value={excludeTreeTokenValue}
+              onChange={(token) => {
+                setExcludeTreeTokenValue(token);
+                setAttributes({ excludeTree: tokenFieldHandler(token) });
+              }}
+            />
+          )}
         </PanelBody>
       </InspectorControls>
       <InspectorAdvancedControls>
