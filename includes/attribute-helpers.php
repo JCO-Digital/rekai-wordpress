@@ -95,8 +95,8 @@ function handle_path_options( array $attributes, $data = array() ): array {
 			$data['userootpath'] = 'true';
 			break;
 		case 'subTree':
-			if ( ! empty( $attributes['subTreeIds'] ) ) {
-				$data['subtree'] = generate_subtree( $attributes['subTreeIds'] );
+			if ( ! empty( $attributes['subTree'] ) ) {
+				$data['subtree'] = generate_subtree( $attributes['subTree'] );
 			}
 			break;
 		case 'rootPathLevel':
@@ -108,7 +108,9 @@ function handle_path_options( array $attributes, $data = array() ): array {
 	// Handle Limitaions.
 	switch ( $attributes['limitations'] ?? '' ) {
 		case 'subPages':
-			$data['excludetree'] = '';
+			if ( ! empty( $attributes['excludeTree'] ) ) {
+				$data['excludetree'] = generate_subtree( $attributes['excludeTree'] );
+			}
 			break;
 		case 'childNodes':
 			$data['excludechildnodes'] = 'true';
@@ -164,15 +166,12 @@ function handle_testing_mode( $data = array() ) {
  * @return string A comma-separated string of permalinks, or an empty string if input is invalid.
  */
 function generate_subtree( array $ids ): string {
-	$subtree = '';
+	$subtree = array();
 	foreach ( $ids as $id ) {
-		$link = preg_replace( '|^https?://[^/]+/|', '^/', get_permalink( $id ) );
-		if ( ! empty( $subtree ) ) {
-			$subtree .= ',';
-		}
-		$subtree .= $link;
+		$link      = preg_replace( '|^https?://[^/]+/|', '^/', get_permalink( $id ) );
+		$subtree[] = $link ?: $id;
 	}
-	return $subtree;
+	return implode( ',', $subtree );
 }
 
 /**
