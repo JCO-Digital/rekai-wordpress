@@ -83,9 +83,9 @@ class ShortcodeGenerator extends Singleton {
 				'nrofhits'     => array(
 					'label'   => esc_html__( 'Number of Hits', 'rekai-wordpress' ),
 					'type'    => 'number',
-					'default' => 5,
+					'default' => 10,
 					'min'     => 1,
-					'max'     => 10,
+					'max'     => 100,
 				),
 				'subtree'      => array(
 					'label'       => esc_html__( 'Subtree', 'rekai-wordpress' ),
