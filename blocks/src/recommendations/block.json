@@ -87,7 +87,7 @@
     },
     "currentLanguage": {
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "tags": {
       "type": "array",
