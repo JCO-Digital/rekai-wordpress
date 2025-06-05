@@ -213,7 +213,7 @@ class OptionsPage extends Singleton {
 		render_text_field(
 			array(
 				'id'          => 'rekai_autocomplete_automatic_selector',
-				'value'       => get_option( 'rekai_autocomplete_automatic_selector', '' ),
+				'value'       => get_option( 'rekai_autocomplete_automatic_selector', 'input[name=s]' ),
 				'placeholder' => esc_html__( '#search-input', 'rekai-wordpress' ),
 				'help'        => esc_html__( 'Enter the HTML selector for the field you want to enable autocomplete for.', 'rekai-wordpress' ),
 			)
