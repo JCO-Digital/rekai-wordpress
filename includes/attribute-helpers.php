@@ -175,17 +175,19 @@ function generate_subtree( array $ids ): string {
 }
 
 /**
- * Handles extra attributes supplied by the user in a string format.
+ * Handles extra attributes provided by the user, merging or adding them to the existing attributes.
  *
- * This function parses a string of attributes (e.g., `data-attribute="value"`)
- * and adds them to an existing array of attributes. It ensures that all added
- * attributes have the `data-` prefix and that values are properly escaped.
- * It also has special handling for `data-subtree` attributes, concatenating
- * new values to existing ones.
+ * This function parses a string of HTML-like attributes, extracts attribute names and values,
+ * sanitizes the values, and adds them to the existing array of attributes.  It specially handles
+ * `data-subtree` attributes by appending values to any existing `data-subtree` attribute. All
+ * other attributes are added or overwritten with the user-supplied value.
+ *
+ * It uses a regular expression to find attributes in the format `attribute="value"`.
+ *
+ * Note: The `attributes` array is passed by reference and will be modified directly.
  *
  * @param string $attributes_string The user-supplied attributes string.
- * @param array  &$attributes The array of attributes to add the user-supplied attributes.
- *                           This will be updated by reference.
+ * @param array  &$attributes The array of attributes to add the user-supplied attributes. This will be updated by reference.
  *
  * @return void
  */
@@ -202,7 +204,7 @@ function handle_extra_attributes(
 		)
 	) {
 		foreach ( $attr_array as $match ) {
-			$attr_name     = ( strpos( $match[1], 'data-' ) === false ? 'data-' : '' ) . $match[1];
+			$attr_name     = $match[1];
 			$cleaned_value = esc_attr( str_replace( array( '"', "'" ), '', $match[2] ) );
 			$old_value     = $attributes[ $attr_name ] ?? '';
 			switch ( $attr_name ) {

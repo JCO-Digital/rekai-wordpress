@@ -248,8 +248,8 @@ export default function Edit({ attributes, setAttributes }) {
           onChange={(value) => {
             setAttributes({ extraAttributes: value });
           }}
-          label={__("Extra Rek.ai attributes", "rekai-wordpress")}
-          help={__("Add extra Rek.ai attributes here.", "rekai-wordpress")}
+          label={__("Extra attributes", "rekai-wordpress")}
+          help={__("Add extra attributes here.", "rekai-wordpress")}
         />
       </InspectorAdvancedControls>
     </div>
