@@ -480,7 +480,7 @@ class OptionsPage extends Singleton {
 		$this->register_section(
 			$page,
 			$section,
-			__( 'Automatic Selector', 'rekai-wordpress' ),
+			__( 'Autocomplete Settings', 'rekai-wordpress' ),
 			array( $this, 'render_selector_section' )
 		);
 

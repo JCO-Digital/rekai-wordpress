@@ -50,8 +50,14 @@ function generate_data_attributes( $attributes ) {
 	}
 
 	// Add site language to only display current language.
-	if ( ! empty( $attributes['currentLanguage'] ) ) {
-		$data['allowedlangs'] = get_bloginfo( 'language' );
+	if ( ! empty( $attributes['showLangs'] ) ) {
+		if ( empty( $attributes['allowedLangs'] ) ) {
+			// Set current language as allowedLangs.
+			$data['allowedlangs'] = get_bloginfo( 'language' );
+		} else {
+			// Pass through set allowedLangs.
+			$passthrough[] = 'allowedLangs';
+		}
 	}
 	if ( ! empty( $attributes['showHeader'] ) ) {
 		$passthrough[] = 'headerText';

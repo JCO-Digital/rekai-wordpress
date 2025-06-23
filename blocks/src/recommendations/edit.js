@@ -1,13 +1,11 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useEffect } from "@wordpress/element";
-import { useEntityRecords } from "@wordpress/core-data";
+import { useState } from "@wordpress/element";
 import {
   FormTokenField,
   PanelBody,
   TextControl,
   ToggleControl,
   RadioControl,
-  Spinner,
   SelectControl,
 } from "@wordpress/components";
 import {
@@ -40,6 +38,8 @@ export default function Edit({ attributes, setAttributes }) {
     limitations,
     rootPathLevel,
     subTree,
+    showLangs,
+    allowedLangs,
     excludeTree,
     extraAttributes,
   } = attributes;
@@ -106,22 +106,34 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
         <PanelBody title={__("Filter", "rekai-wordpress")}>
           <ToggleControl
-            label={__("Show only current language", "rekai-wordpress")}
-            help={
-              attributes.currentLanguage
-                ? __(
-                    "Shows only content in current language.",
-                    "rekai-wordpress",
-                  )
-                : __("Shows content in all languages.", "rekai-wordpress")
-            }
-            checked={attributes.currentLanguage}
+            label={__("Set Language", "rekai-wordpress")}
+            help={__(
+              "Enable to set which languages are shown.",
+              "rekai-wordpress",
+            )}
+            checked={showLangs}
             onChange={(newValue) => {
-              setAttributes({ currentLanguage: newValue });
+              setAttributes({ showLangs: newValue });
             }}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
+          {showLangs && (
+            <TextControl
+              label={__("Allowed Languages", "rekai-wordpress")}
+              onChange={(newValue) => {
+                setAttributes({ allowedLangs: newValue });
+              }}
+              value={allowedLangs}
+              help={__(
+                "If left empty, will use the language of the page.",
+                "rekai-wordpress",
+              )}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+
           {isQna && (
             <FormTokenField
               __next40pxDefaultSize

@@ -85,9 +85,13 @@
       "type": "number",
       "default": 100
     },
-    "currentLanguage": {
+    "showLangs": {
       "type": "boolean",
       "default": false
+    },
+    "allowedLangs": {
+      "type": "string",
+      "default": ""
     },
     "tags": {
       "type": "array",
