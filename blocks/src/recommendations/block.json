@@ -34,6 +34,10 @@
       "type": "number",
       "default": 10
     },
+    "headerHeadingLevel": {
+      "type": "number",
+      "default": 2
+    },
     "headerText": {
       "type": "string",
       "default": ""

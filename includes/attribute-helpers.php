@@ -61,6 +61,7 @@ function generate_data_attributes( $attributes ) {
 	}
 	if ( ! empty( $attributes['showHeader'] ) ) {
 		$passthrough[] = 'headerText';
+		$passthrough[] = 'headerHeadingLevel';
 	}
 
 	foreach ( $passthrough as $key ) {

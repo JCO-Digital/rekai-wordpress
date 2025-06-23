@@ -7,10 +7,14 @@ import {
   ToggleControl,
   RadioControl,
   SelectControl,
+  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
 } from "@wordpress/components";
 import {
   InspectorAdvancedControls,
   InspectorControls,
+  BlockControls,
   RichText,
   useBlockProps,
 } from "@wordpress/block-editor";
@@ -18,6 +22,7 @@ import logo from "../../../assets/img/logo-rekai-blue.svg";
 import "./editor.scss";
 import usePosts from "./usePosts";
 import { tokenFieldHandler, displayTransform } from "./tokenFieldHandler";
+import HeadingLevelIcon from "./headingIcon";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -30,6 +35,7 @@ import { tokenFieldHandler, displayTransform } from "./tokenFieldHandler";
 export default function Edit({ attributes, setAttributes }) {
   const {
     blockType,
+    headerHeadingLevel,
     headerText,
     showHeader,
     nrOfHits,
@@ -55,216 +61,239 @@ export default function Edit({ attributes, setAttributes }) {
   );
 
   return (
-    <div {...useBlockProps({ className: blockType })}>
-      <div className="logoHeader">
-        <img src={logo} alt={"Rek.ai Logo"} />
-        <h4>
-          {(blockType === "recommendations" &&
-            __("Recommendations", "rekai-wordpress")) ||
-            __("Questions & Answers", "rekai-wordpress")}
-        </h4>
-      </div>
+    <>
       {showHeader && (
-        <RichText
-          identifier="headerText"
-          tagName={"h2"}
-          value={headerText}
-          onChange={(newValue) => {
-            setAttributes({ headerText: newValue });
-          }}
-          placeholder={__("Heading Text", "rekai-wordpress")}
-        />
+        <BlockControls group="block">
+          <ToolbarGroup
+            icon="heading"
+            isCollapsed={false}
+            controls={[1, 2, 3, 4, 5, 6].map((level) => {
+              const selected = level === headerHeadingLevel;
+              return (
+                <ToolbarButton
+                  label={"H" + level}
+                  icon={<HeadingLevelIcon level={level} isPressed={selected} />}
+                  onClick={() => setAttributes({ headerHeadingLevel: level })}
+                />
+              );
+            })}
+          />
+        </BlockControls>
       )}
+      <div {...useBlockProps({ className: blockType })}>
+        <div className="logoHeader">
+          <img src={logo} alt={"Rek.ai Logo"} />
+          <h4>
+            {(blockType === "recommendations" &&
+              __("Recommendations", "rekai-wordpress")) ||
+              __("Questions & Answers", "rekai-wordpress")}
+          </h4>
+        </div>
+        {showHeader && (
+          <RichText
+            identifier="headerText"
+            tagName={"h" + headerHeadingLevel}
+            value={headerText}
+            onChange={(newValue) => {
+              setAttributes({ headerText: newValue });
+            }}
+            placeholder={__("Heading Text", "rekai-wordpress")}
+          />
+        )}
 
-      {(isRecommendations && renderRecommendations(attributes)) ||
-        renderQna(attributes)}
+        {(isRecommendations && renderRecommendations(attributes)) ||
+          renderQna(attributes)}
 
-      <InspectorControls>
-        <PanelBody title={__("Display", "rekai-wordpress")}>
-          <ToggleControl
-            label={__("Show Header", "rekai-wordpress")}
-            checked={showHeader}
-            onChange={(newValue) => {
-              setAttributes({ showHeader: newValue });
-            }}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <TextControl
-            label={__("Number of Hits", "rekai-wordpress")}
-            type="number"
-            onChange={(newValue) => {
-              setAttributes({ nrOfHits: limitValue(newValue, 1, 100) });
-            }}
-            value={nrOfHits}
-            min={1}
-            max={100}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          {isRecommendations && renderStyleHandler(attributes, setAttributes)}
-        </PanelBody>
-        <PanelBody title={__("Filter", "rekai-wordpress")}>
-          <ToggleControl
-            label={__("Set Language", "rekai-wordpress")}
-            help={__(
-              "Enable to set which languages are shown.",
-              "rekai-wordpress",
-            )}
-            checked={showLangs}
-            onChange={(newValue) => {
-              setAttributes({ showLangs: newValue });
-            }}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          {showLangs && (
-            <TextControl
-              label={__("Allowed Languages", "rekai-wordpress")}
+        <InspectorControls>
+          <PanelBody title={__("Display", "rekai-wordpress")}>
+            <ToggleControl
+              label={__("Show Header", "rekai-wordpress")}
+              checked={showHeader}
               onChange={(newValue) => {
-                setAttributes({ allowedLangs: newValue });
+                setAttributes({ showHeader: newValue });
               }}
-              value={allowedLangs}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+            <TextControl
+              label={__("Number of Hits", "rekai-wordpress")}
+              type="number"
+              onChange={(newValue) => {
+                setAttributes({ nrOfHits: limitValue(newValue, 1, 100) });
+              }}
+              value={nrOfHits}
+              min={1}
+              max={100}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+            {isRecommendations && renderStyleHandler(attributes, setAttributes)}
+          </PanelBody>
+          <PanelBody title={__("Filter", "rekai-wordpress")}>
+            <ToggleControl
+              label={__("Set Language", "rekai-wordpress")}
               help={__(
-                "If left empty, will use the language of the page.",
+                "Enable to set which languages are shown.",
                 "rekai-wordpress",
               )}
+              checked={showLangs}
+              onChange={(newValue) => {
+                setAttributes({ showLangs: newValue });
+              }}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
             />
-          )}
+            {showLangs && (
+              <TextControl
+                label={__("Allowed Languages", "rekai-wordpress")}
+                onChange={(newValue) => {
+                  setAttributes({ allowedLangs: newValue });
+                }}
+                value={allowedLangs}
+                help={__(
+                  "If left empty, will use the language of the page.",
+                  "rekai-wordpress",
+                )}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+            )}
 
-          {isQna && (
-            <FormTokenField
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-              label="Tags"
-              onChange={(values) => {
-                setAttributes({ tags: values });
-              }}
-              suggestions={[]}
-              value={tags}
+            {isQna && (
+              <FormTokenField
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+                label="Tags"
+                onChange={(values) => {
+                  setAttributes({ tags: values });
+                }}
+                suggestions={[]}
+                value={tags}
+              />
+            )}
+            <RadioControl
+              label={__("Recommendation source:", "rekai-wordpress")}
+              selected={pathOption}
+              options={[
+                {
+                  value: "all",
+                  label: __("Entire website", "rekai-wordpress"),
+                },
+                {
+                  value: "rootPath",
+                  label: __(
+                    "Only subpages to the currently visited page",
+                    "rekai-wordpress",
+                  ),
+                },
+                {
+                  value: "subTree",
+                  label: __(
+                    "Only subpages to a specific starting point",
+                    "rekai-wordpress",
+                  ),
+                },
+                {
+                  value: "rootPathLevel",
+                  label: __(
+                    "Only subpages in the current website segment from level",
+                    "rekai-wordpress",
+                  ),
+                },
+              ]}
+              onChange={(value) => setAttributes({ pathOption: value })}
             />
-          )}
-          <RadioControl
-            label={__("Recommendation source:", "rekai-wordpress")}
-            selected={pathOption}
-            options={[
-              {
-                value: "all",
-                label: __("Entire website", "rekai-wordpress"),
-              },
-              {
-                value: "rootPath",
-                label: __(
-                  "Only subpages to the currently visited page",
-                  "rekai-wordpress",
-                ),
-              },
-              {
-                value: "subTree",
-                label: __(
-                  "Only subpages to a specific starting point",
-                  "rekai-wordpress",
-                ),
-              },
-              {
-                value: "rootPathLevel",
-                label: __(
-                  "Only subpages in the current website segment from level",
-                  "rekai-wordpress",
-                ),
-              },
-            ]}
-            onChange={(value) => setAttributes({ pathOption: value })}
+            {pathOption === "rootPathLevel" && (
+              <TextControl
+                type="number"
+                value={parseInt(rootPathLevel)}
+                label={__("Level", "rekai-wordpress")}
+                min={0}
+                onChange={(value) =>
+                  setAttributes({ rootPathLevel: parseInt(value) })
+                }
+              />
+            )}
+            {pathOption === "subTree" && (
+              <FormTokenField
+                __experimentalExpandOnFocus
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+                label={__("Starting point", "rekai-wordpress")}
+                placeholder={__("Search for Page", "jcore")}
+                suggestions={postList}
+                displayTransform={displayTransform}
+                value={subTreeTokenValue}
+                onChange={(token) => {
+                  setSubTreeTokenValue(token);
+                  setAttributes({ subTree: tokenFieldHandler(token) });
+                }}
+              />
+            )}
+            <RadioControl
+              label={__("Limitations:", "rekai-wordpress")}
+              selected={limitations}
+              options={[
+                {
+                  value: "none",
+                  label: __("None", "rekai-wordpress"),
+                },
+                {
+                  value: "subPages",
+                  label: __(
+                    "Exclude subpages from starting point",
+                    "rekai-wordpress",
+                  ),
+                },
+                {
+                  value: "childNodes",
+                  label: __(
+                    "Exclude pages on the next level",
+                    "rekai-wordpress",
+                  ),
+                },
+                {
+                  value: "onPageLinks",
+                  label: __(
+                    "Exclude links already on the page",
+                    "rekai-wordpress",
+                  ),
+                },
+              ]}
+              onChange={(value) => setAttributes({ limitations: value })}
+            />
+            {limitations === "subPages" && (
+              <FormTokenField
+                __experimentalExpandOnFocus
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+                label={__("Starting point", "rekai-wordpress")}
+                placeholder={__("Search for Page", "jcore")}
+                suggestions={postList}
+                displayTransform={displayTransform}
+                value={excludeTreeTokenValue}
+                onChange={(token) => {
+                  setExcludeTreeTokenValue(token);
+                  setAttributes({ excludeTree: tokenFieldHandler(token) });
+                }}
+              />
+            )}
+          </PanelBody>
+        </InspectorControls>
+        <InspectorAdvancedControls>
+          <TextControl
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+            value={extraAttributes}
+            onChange={(value) => {
+              setAttributes({ extraAttributes: value });
+            }}
+            label={__("Extra attributes", "rekai-wordpress")}
+            help={__("Add extra attributes here.", "rekai-wordpress")}
           />
-          {pathOption === "rootPathLevel" && (
-            <TextControl
-              type="number"
-              value={parseInt(rootPathLevel)}
-              label={__("Level", "rekai-wordpress")}
-              min={0}
-              onChange={(value) =>
-                setAttributes({ rootPathLevel: parseInt(value) })
-              }
-            />
-          )}
-          {pathOption === "subTree" && (
-            <FormTokenField
-              __experimentalExpandOnFocus
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-              label={__("Starting point", "rekai-wordpress")}
-              placeholder={__("Search for Page", "jcore")}
-              suggestions={postList}
-              displayTransform={displayTransform}
-              value={subTreeTokenValue}
-              onChange={(token) => {
-                setSubTreeTokenValue(token);
-                setAttributes({ subTree: tokenFieldHandler(token) });
-              }}
-            />
-          )}
-          <RadioControl
-            label={__("Limitations:", "rekai-wordpress")}
-            selected={limitations}
-            options={[
-              {
-                value: "none",
-                label: __("None", "rekai-wordpress"),
-              },
-              {
-                value: "subPages",
-                label: __(
-                  "Exclude subpages from starting point",
-                  "rekai-wordpress",
-                ),
-              },
-              {
-                value: "childNodes",
-                label: __("Exclude pages on the next level", "rekai-wordpress"),
-              },
-              {
-                value: "onPageLinks",
-                label: __(
-                  "Exclude links already on the page",
-                  "rekai-wordpress",
-                ),
-              },
-            ]}
-            onChange={(value) => setAttributes({ limitations: value })}
-          />
-          {limitations === "subPages" && (
-            <FormTokenField
-              __experimentalExpandOnFocus
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-              label={__("Starting point", "rekai-wordpress")}
-              placeholder={__("Search for Page", "jcore")}
-              suggestions={postList}
-              displayTransform={displayTransform}
-              value={excludeTreeTokenValue}
-              onChange={(token) => {
-                setExcludeTreeTokenValue(token);
-                setAttributes({ excludeTree: tokenFieldHandler(token) });
-              }}
-            />
-          )}
-        </PanelBody>
-      </InspectorControls>
-      <InspectorAdvancedControls>
-        <TextControl
-          __next40pxDefaultSize
-          __nextHasNoMarginBottom
-          value={extraAttributes}
-          onChange={(value) => {
-            setAttributes({ extraAttributes: value });
-          }}
-          label={__("Extra attributes", "rekai-wordpress")}
-          help={__("Add extra attributes here.", "rekai-wordpress")}
-        />
-      </InspectorAdvancedControls>
-    </div>
+        </InspectorAdvancedControls>
+      </div>
+    </>
   );
 }
 
