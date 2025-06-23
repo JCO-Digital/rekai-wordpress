@@ -97,7 +97,7 @@ function handle_path_options( array $attributes, $data = array() ): array {
 
 	// Handle Path Options.
 	switch ( $attributes['pathOption'] ?? '' ) {
-		case 'useRoot':
+		case 'rootPath':
 			$data['userootpath'] = 'true';
 			break;
 		case 'subTree':
