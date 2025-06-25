@@ -1,11 +1,11 @@
 <?php // phpcs:ignore Squiz.Commenting.FileComment.Missing ?>
 <div class="wrap">
-	<h1><?php echo esc_html__( 'Rek.ai Shortcode Generator', 'rekai-wordpress' ); ?></h1>
-	<p><?php echo esc_html__( 'Use this tool to generate shortcodes for Rek.ai functionality.', 'rekai-wordpress' ); ?></p>
+	<h1><?php echo esc_html__( 'Rek.ai Shortcode Generator', 'rekai' ); ?></h1>
+	<p><?php echo esc_html__( 'Use this tool to generate shortcodes for Rek.ai functionality.', 'rekai' ); ?></p>
 
 	<div class="rekai-shortcode-generator">
 		<div class="rekai-shortcode-type">
-			<h2><?php echo esc_html__( 'Select Shortcode Type', 'rekai-wordpress' ); ?></h2>
+			<h2><?php echo esc_html__( 'Select Shortcode Type', 'rekai' ); ?></h2>
 			<select id="rekai-shortcode-type">
 				<?php foreach ( $rek_shortcode_types as $shortcode_type => $info ) : ?>
 					<option value="<?php echo esc_attr( $shortcode_type ); ?>" data-shortcode="<?php echo esc_attr( $info['shortcode'] ); ?>">
@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="rekai-shortcode-attributes">
-			<h2><?php echo esc_html__( 'Configure Attributes', 'rekai-wordpress' ); ?></h2>
+			<h2><?php echo esc_html__( 'Configure Attributes', 'rekai' ); ?></h2>
 			<table class="form-table">
 				<tbody>
 					<?php foreach ( $rek_common_attributes as $attr => $config ) : ?>
@@ -61,11 +61,11 @@
 		</div>
 
 		<div class="rekai-shortcode-preview">
-			<h2><?php echo esc_html__( 'Generated Shortcode', 'rekai-wordpress' ); ?></h2>
+			<h2><?php echo esc_html__( 'Generated Shortcode', 'rekai' ); ?></h2>
 			<div class="rekai-shortcode-output">
 				<code id="rekai-shortcode-output"></code>
 				<button type="button" class="button" id="rekai-copy-shortcode">
-					<?php echo esc_html__( 'Copy Shortcode', 'rekai-wordpress' ); ?>
+					<?php echo esc_html__( 'Copy Shortcode', 'rekai' ); ?>
 				</button>
 			</div>
 		</div>
@@ -121,7 +121,7 @@ jQuery(document).ready(function($) {
 		navigator.clipboard.writeText(shortcode).then(function() {
 			var $button = $('#rekai-copy-shortcode');
 			var originalText = $button.text();
-			$button.text(<?php echo wp_json_encode( esc_html__( 'Copied!', 'rekai-wordpress' ) ); ?>);
+			$button.text(<?php echo wp_json_encode( esc_html__( 'Copied!', 'rekai' ) ); ?>);
 			setTimeout(function() {
 				$button.text(originalText);
 			}, 2000);

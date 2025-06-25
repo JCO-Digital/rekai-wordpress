@@ -1,10 +1,10 @@
 # Copyright (C) 2025 J&Co Digital Oy
-# This file is distributed under the same license as the Rekai WordPress package.
+# This file is distributed under the same license as the Rekai package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rekai WordPress 0.1.0\n"
+"Project-Id-Version: Rekai 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rekai-wordpress\n"
-"POT-Creation-Date: 2025-03-07 13:16:28+00:00\n"
+"POT-Creation-Date: 2025-06-25 09:35:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,211 +24,215 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: classes/Options/OptionsPage.php:279
+#: classes/Options/OptionsPage.php:249
 msgid "10"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:121
+#: classes/Options/OptionsPage.php:104
 msgid "Settings"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:136
+#: classes/Options/OptionsPage.php:119
 msgid "General settings required for Rek.ai integration."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:145
-msgid "Settings for autocomplete search."
+#: classes/Options/OptionsPage.php:128
+msgid "Settings for autocomplete."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:154
-msgid ""
-"Automatic mode will load the autocomplete script and attach to the provided "
-"input."
+#: classes/Options/OptionsPage.php:137
+msgid "Settings autocomplete selector."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:163
+#: classes/Options/OptionsPage.php:146
 msgid "Advanced settings for Rek.ai."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:176
+#: classes/Options/OptionsPage.php:159
 msgid "Enable Rek.ai"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:191
+#: classes/Options/OptionsPage.php:160
+msgid ""
+"Should the Rek.ai scripts be loaded? With this disabled no Rek.ai functions "
+"work."
+msgstr ""
+
+#: classes/Options/OptionsPage.php:175
 msgid "https://static.rekai.se/XXXXXXXX.js"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:195
+#: classes/Options/OptionsPage.php:179
 #. translators: 1: is a link to a support document. 2: closing link
 msgid ""
 "The embed code can be found in your dashboard, %1$splease refer to this "
 "document%2$s for more information."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:213
-msgid "Enable Autocomplete"
+#: classes/Options/OptionsPage.php:198
+msgid "Disabled"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:214
-msgid "Enables autocomplete for the Rek.ai plugin."
+#: classes/Options/OptionsPage.php:199
+msgid "Enabled with selector"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:229 classes/Options/OptionsPage.php:616
-msgid "Autocomplete mode"
+#: classes/Options/OptionsPage.php:200
+msgid "Enabled with custom script"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:230
-msgid "Select the mode for the autocomplete."
+#: classes/Options/OptionsPage.php:202
+msgid "Should the plugin load the autocomplete script"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:231
-msgid "Auto"
+#: classes/Options/OptionsPage.php:217
+msgid "#search-input"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:232
-msgid "Manual"
+#: classes/Options/OptionsPage.php:218
+msgid "Enter the HTML selector for the field you want to enable autocomplete for."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:247 classes/Options/OptionsPage.php:627
-msgid "Autocomplete selector"
-msgstr ""
-
-#: classes/Options/OptionsPage.php:248
-msgid "Insert the selector for the autocomplete."
-msgstr ""
-
-#: classes/Options/OptionsPage.php:263 classes/Options/OptionsPage.php:648
+#: classes/Options/OptionsPage.php:233 classes/Options/OptionsPage.php:516
 msgid "Use current language"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:264
+#: classes/Options/OptionsPage.php:234
 msgid "Use the current language for the autocomplete."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:280
+#: classes/Options/OptionsPage.php:250
 msgid "Number of results to show in the autocomplete dropdown."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:297
+#: classes/Options/OptionsPage.php:267
 msgid "Navigate on click"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:298
+#: classes/Options/OptionsPage.php:268
 msgid "Navigate to the selected item when clicking on it."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:313 classes/Options/OptionsPage.php:510
+#: classes/Options/OptionsPage.php:283 classes/Options/OptionsPage.php:560
 msgid "Test Mode"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:314
+#: classes/Options/OptionsPage.php:284
 msgid "Enables test mode. This will not send any data to Rek.ai."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:329 classes/Options/OptionsPage.php:521
+#: classes/Options/OptionsPage.php:299 classes/Options/OptionsPage.php:573
 msgid "Use Mock Data"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:330
+#: classes/Options/OptionsPage.php:300
 msgid "Use mock data instead of getting real data from Rek.ai."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:345 classes/Options/OptionsPage.php:532
+#: classes/Options/OptionsPage.php:315 classes/Options/OptionsPage.php:586
 msgid "Project ID"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:348
+#: classes/Options/OptionsPage.php:318
 #. translators: 1: is a link to a support document. 2: closing link
 msgid ""
 "The project ID can be found in your dashboard, %1$splease refer to this "
 "document%2$s for more information."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:366 classes/Options/OptionsPage.php:542
+#: classes/Options/OptionsPage.php:336 classes/Options/OptionsPage.php:598
 msgid "Secret Key"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:369
+#: classes/Options/OptionsPage.php:339
 #. translators: 1: is a link to a support document. 2: closing link
 msgid ""
 "The secret key can be found in your dashboard, %1$splease refer to this "
 "document%2$s for more information."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:394
-#: classes/Options/ShortcodeGenerator.php:62
+#: classes/Options/OptionsPage.php:368
+#: classes/Options/ShortcodeGenerator.php:66
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: classes/Options/OptionsPage.php:400 classes/Options/OptionsPage.php:446
+#: classes/Options/OptionsPage.php:374 classes/Options/OptionsPage.php:409
 msgid "General"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:404 classes/Options/OptionsPage.php:591
-msgid "Autocomplete"
-msgstr ""
-
-#: classes/Options/OptionsPage.php:408 classes/Options/OptionsPage.php:503
+#: classes/Options/OptionsPage.php:378 classes/Options/OptionsPage.php:552
 msgid "Advanced"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:412
+#: classes/Options/OptionsPage.php:382
 msgid "Documentation"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:416
+#: classes/Options/OptionsPage.php:386
 msgid "Shortcode Generator"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:453 classes/Options/OptionsPage.php:605
-msgid "Enabled"
+#: classes/Options/OptionsPage.php:418
+msgid "Load Scripts"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:464
+#: classes/Options/OptionsPage.php:432
 msgid "Embed Code"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:598
-msgid "Automatic settings"
+#: classes/Options/OptionsPage.php:454
+msgid "Autocomplete"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:637
+#: classes/Options/OptionsPage.php:462
+msgid "Autocomplete mode"
+msgstr ""
+
+#: classes/Options/OptionsPage.php:483
+msgid "Autocomplete Settings"
+msgstr ""
+
+#: classes/Options/OptionsPage.php:491
+msgid "Autocomplete selector"
+msgstr ""
+
+#: classes/Options/OptionsPage.php:503
 msgid "Open on click"
 msgstr ""
 
-#: classes/Options/OptionsPage.php:659
+#: classes/Options/OptionsPage.php:529
 msgid "Number of results"
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:68
+#: classes/Options/ShortcodeGenerator.php:72
 msgid "Prediction"
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:70
+#: classes/Options/ShortcodeGenerator.php:74
 msgid "Generate a prediction shortcode for displaying Rek.ai predictions."
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:73
+#: classes/Options/ShortcodeGenerator.php:77
 msgid "Questions & Answers"
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:75
+#: classes/Options/ShortcodeGenerator.php:79
 msgid "Generate a Q&A shortcode for displaying Rek.ai questions and answers."
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:80
+#: classes/Options/ShortcodeGenerator.php:84
 msgid "Number of Hits"
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:87
+#: classes/Options/ShortcodeGenerator.php:91
 msgid "Subtree"
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:92
+#: classes/Options/ShortcodeGenerator.php:96
 msgid "Tags"
 msgstr ""
 
-#: classes/Options/ShortcodeGenerator.php:97
+#: classes/Options/ShortcodeGenerator.php:101
 msgid "Allowed Languages"
 msgstr ""
 
@@ -255,7 +259,7 @@ msgid ""
 "href=\"%s\">here</a>."
 msgstr ""
 
-#: views/admin-settings.php:12
+#: views/admin-settings.php:11
 msgid "Rek.ai Settings"
 msgstr ""
 
@@ -287,16 +291,8 @@ msgstr ""
 msgid "Copied!"
 msgstr ""
 
-#: views/fields/secret.php:32
-msgid "Show"
-msgstr ""
-
-#: views/fields/secret.php:36
-msgid "Hide"
-msgstr ""
-
 #. Plugin Name of the plugin/theme
-msgid "Rekai WordPress"
+msgid "Rekai"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

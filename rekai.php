@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Rekai WordPress
+ * Plugin Name: Rekai
  * Plugin URI: https://github.com/jco-digital/rekai-wordpress
  * Description: Rek.ai integration for WordPress
  * Version: 1.3.0
  * Author: J&Co Digital Oy
  * Author URI: https://jco.fi
  * Domain Path: /languages
- * Text Domain: rekai-wordpress
+ * Text Domain: rekai
  *
  * @package Rekai
  */

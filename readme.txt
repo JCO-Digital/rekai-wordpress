@@ -1,4 +1,4 @@
-=== Rek.ai WordPress ===
+=== Rek.ai ===
 Contributors: jcodigital
 Donate link: -
 Tags: rekai, ai, integration
@@ -14,6 +14,8 @@ Integrates Rek.ai into WordPress.
 == Description ==
 
 This plugin loads the Rek.ai scripts into WordPress. It can be used to configure search autocomplete, and it provides Gutenberg blocks to load recommendations and Questions & Answers.
+
+This plugin requires a Rek.ai account to use.
 
 = Features =
  - Loads Rek.ai scripts into WordPress.

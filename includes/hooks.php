@@ -36,7 +36,7 @@ add_action(
 
 // Add filter to add settings link to plugin page.
 add_filter(
-	'plugin_action_links_rekai-wordpress/rekai-wordpress.php',
+	'plugin_action_links_rekai/rekai.php',
 	array(
 		OptionsPage::get_instance(),
 		'settings_link',

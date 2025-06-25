@@ -1,5 +1,5 @@
 {
-  "name": "jcodigital/rekai-wordpress",
+  "name": "jcodigital/rekai",
   "description": "Rek.ai integration for WordPress",
   "type": "wordpress-plugin",
   "autoload": {

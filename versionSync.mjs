@@ -2,11 +2,11 @@ import { readFileSync, writeFileSync } from "fs";
 
 try {
   const pack = JSON.parse(readFileSync("package.json"));
-  const baseFile = readFileSync("rekai-wordpress.php");
+  const baseFile = readFileSync("rekai.php");
   const baseString = baseFile
     .toString()
     .replace(/^(.*)Version:.*$/m, `$1Version: ${pack.version}`);
-  writeFileSync("rekai-wordpress.php", baseString);
+  writeFileSync("rekai.php", baseString);
   const readmeFile = readFileSync("readme.txt");
   const readmeString = readmeFile
     .toString()

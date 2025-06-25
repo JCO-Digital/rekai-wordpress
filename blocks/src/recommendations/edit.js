@@ -74,8 +74,8 @@ export default function Edit({ attributes, setAttributes }) {
           <img src={logo} alt={"Rek.ai Logo"} />
           <h4>
             {(blockType === "recommendations" &&
-              __("Recommendations", "rekai-wordpress")) ||
-              __("Questions & Answers", "rekai-wordpress")}
+              __("Recommendations", "rekai")) ||
+              __("Questions & Answers", "rekai")}
           </h4>
         </div>
         {showHeader && (
@@ -86,7 +86,7 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(newValue) => {
               setAttributes({ headerText: newValue });
             }}
-            placeholder={__("Heading Text", "rekai-wordpress")}
+            placeholder={__("Heading Text", "rekai")}
           />
         )}
 
@@ -94,9 +94,9 @@ export default function Edit({ attributes, setAttributes }) {
           renderQna(attributes)}
 
         <InspectorControls>
-          <PanelBody title={__("Display", "rekai-wordpress")}>
+          <PanelBody title={__("Display", "rekai")}>
             <ToggleControl
-              label={__("Show Header", "rekai-wordpress")}
+              label={__("Show Header", "rekai")}
               checked={showHeader}
               onChange={(newValue) => {
                 setAttributes({ showHeader: newValue });
@@ -105,7 +105,7 @@ export default function Edit({ attributes, setAttributes }) {
               __nextHasNoMarginBottom
             />
             <TextControl
-              label={__("Number of Hits", "rekai-wordpress")}
+              label={__("Number of Hits", "rekai")}
               type="number"
               onChange={(newValue) => {
                 setAttributes({ nrOfHits: limitValue(newValue, 1, 100) });
@@ -118,13 +118,10 @@ export default function Edit({ attributes, setAttributes }) {
             />
             {isRecommendations && renderStyleHandler(attributes, setAttributes)}
           </PanelBody>
-          <PanelBody title={__("Filter", "rekai-wordpress")}>
+          <PanelBody title={__("Filter", "rekai")}>
             <ToggleControl
-              label={__("Set Language", "rekai-wordpress")}
-              help={__(
-                "Enable to set which languages are shown.",
-                "rekai-wordpress",
-              )}
+              label={__("Set Language", "rekai")}
+              help={__("Enable to set which languages are shown.", "rekai")}
               checked={showLangs}
               onChange={(newValue) => {
                 setAttributes({ showLangs: newValue });
@@ -134,14 +131,14 @@ export default function Edit({ attributes, setAttributes }) {
             />
             {showLangs && (
               <TextControl
-                label={__("Allowed Languages", "rekai-wordpress")}
+                label={__("Allowed Languages", "rekai")}
                 onChange={(newValue) => {
                   setAttributes({ allowedLangs: newValue });
                 }}
                 value={allowedLangs}
                 help={__(
                   "If left empty, will use the language of the page.",
-                  "rekai-wordpress",
+                  "rekai",
                 )}
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
@@ -161,32 +158,32 @@ export default function Edit({ attributes, setAttributes }) {
               />
             )}
             <RadioControl
-              label={__("Recommendation source:", "rekai-wordpress")}
+              label={__("Recommendation source:", "rekai")}
               selected={pathOption}
               options={[
                 {
                   value: "all",
-                  label: __("Entire website", "rekai-wordpress"),
+                  label: __("Entire website", "rekai"),
                 },
                 {
                   value: "rootPath",
                   label: __(
                     "Only subpages to the currently visited page",
-                    "rekai-wordpress",
+                    "rekai",
                   ),
                 },
                 {
                   value: "subTree",
                   label: __(
                     "Only subpages to a specific starting point",
-                    "rekai-wordpress",
+                    "rekai",
                   ),
                 },
                 {
                   value: "rootPathLevel",
                   label: __(
                     "Only subpages in the current website segment from level",
-                    "rekai-wordpress",
+                    "rekai",
                   ),
                 },
               ]}
@@ -196,7 +193,7 @@ export default function Edit({ attributes, setAttributes }) {
               <TextControl
                 type="number"
                 value={parseInt(rootPathLevel)}
-                label={__("Level", "rekai-wordpress")}
+                label={__("Level", "rekai")}
                 min={0}
                 onChange={(value) =>
                   setAttributes({ rootPathLevel: parseInt(value) })
@@ -208,7 +205,7 @@ export default function Edit({ attributes, setAttributes }) {
                 __experimentalExpandOnFocus
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
-                label={__("Starting point", "rekai-wordpress")}
+                label={__("Starting point", "rekai")}
                 placeholder={__("Search for Page", "jcore")}
                 suggestions={postList}
                 displayTransform={displayTransform}
@@ -220,33 +217,24 @@ export default function Edit({ attributes, setAttributes }) {
               />
             )}
             <RadioControl
-              label={__("Limitations:", "rekai-wordpress")}
+              label={__("Limitations:", "rekai")}
               selected={limitations}
               options={[
                 {
                   value: "none",
-                  label: __("None", "rekai-wordpress"),
+                  label: __("None", "rekai"),
                 },
                 {
                   value: "subPages",
-                  label: __(
-                    "Exclude subpages from starting point",
-                    "rekai-wordpress",
-                  ),
+                  label: __("Exclude subpages from starting point", "rekai"),
                 },
                 {
                   value: "childNodes",
-                  label: __(
-                    "Exclude pages on the next level",
-                    "rekai-wordpress",
-                  ),
+                  label: __("Exclude pages on the next level", "rekai"),
                 },
                 {
                   value: "onPageLinks",
-                  label: __(
-                    "Exclude links already on the page",
-                    "rekai-wordpress",
-                  ),
+                  label: __("Exclude links already on the page", "rekai"),
                 },
               ]}
               onChange={(value) => setAttributes({ limitations: value })}
@@ -256,7 +244,7 @@ export default function Edit({ attributes, setAttributes }) {
                 __experimentalExpandOnFocus
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
-                label={__("Starting point", "rekai-wordpress")}
+                label={__("Starting point", "rekai")}
                 placeholder={__("Search for Page", "jcore")}
                 suggestions={postList}
                 displayTransform={displayTransform}
@@ -277,8 +265,8 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(value) => {
               setAttributes({ extraAttributes: value });
             }}
-            label={__("Extra attributes", "rekai-wordpress")}
-            help={__("Add extra attributes here.", "rekai-wordpress")}
+            label={__("Extra attributes", "rekai")}
+            help={__("Add extra attributes here.", "rekai")}
           />
         </InspectorAdvancedControls>
       </div>
@@ -359,13 +347,13 @@ function renderStyleHandler(attributes, setAttributes) {
   return (
     <div>
       <SelectControl
-        label={__("Render Style", "rekai-wordpress")}
+        label={__("Render Style", "rekai")}
         value={renderStyle}
         options={[
-          { label: __("Pills", "rekai-wordpress"), value: "pills" },
-          { label: __("List", "rekai-wordpress"), value: "list" },
+          { label: __("Pills", "rekai"), value: "pills" },
+          { label: __("List", "rekai"), value: "list" },
           {
-            label: __("Advanced", "rekai-wordpress"),
+            label: __("Advanced", "rekai"),
             value: "advanced",
           },
         ]}
@@ -375,7 +363,7 @@ function renderStyleHandler(attributes, setAttributes) {
       />
       {renderStyle === "list" && (
         <TextControl
-          label={__("Number of Columns", "rekai-wordpress")}
+          label={__("Number of Columns", "rekai")}
           type="number"
           onChange={(newValue) => {
             setAttributes({ listCols: limitValue(newValue, 1, 3) });
@@ -389,7 +377,7 @@ function renderStyleHandler(attributes, setAttributes) {
       )}
       {renderStyle === "advanced" && (
         <TextControl
-          label={__("Number of Columns", "rekai-wordpress")}
+          label={__("Number of Columns", "rekai")}
           type="number"
           onChange={(newValue) => {
             setAttributes({ cols: limitValue(newValue, 1, 3) });
@@ -403,7 +391,7 @@ function renderStyleHandler(attributes, setAttributes) {
       )}
       {renderStyle === "advanced" && (
         <ToggleControl
-          label={__("Show Image", "rekai-wordpress")}
+          label={__("Show Image", "rekai")}
           checked={showImage}
           onChange={(newValue) => {
             setAttributes({ showImage: newValue });
@@ -414,7 +402,7 @@ function renderStyleHandler(attributes, setAttributes) {
       )}
       {renderStyle === "advanced" && (
         <ToggleControl
-          label={__("Show Ingress", "rekai-wordpress")}
+          label={__("Show Ingress", "rekai")}
           checked={showIngress}
           onChange={(newValue) => {
             setAttributes({ showIngress: newValue });
@@ -425,7 +413,7 @@ function renderStyleHandler(attributes, setAttributes) {
       )}
       {renderStyle === "advanced" && (
         <TextControl
-          label={__("Ingress Max Length", "rekai-wordpress")}
+          label={__("Ingress Max Length", "rekai")}
           type="number"
           value={ingressMaxLength}
           onChange={(newValue) => {
