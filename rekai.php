@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Rekai
+ * Plugin Name: Rek.ai
  * Plugin URI: https://github.com/jco-digital/rekai-wordpress
  * Description: Rek.ai integration for WordPress
  * Version: 1.4.1
@@ -8,6 +8,8 @@
  * Author URI: https://jco.fi
  * Domain Path: /languages
  * Text Domain: rekai
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @package Rekai
  */
