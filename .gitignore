@@ -273,3 +273,5 @@ dist
 blocks/build
 build/
 plugin/
+
+README.md
