@@ -18,11 +18,11 @@ This plugin loads the Rek.ai scripts into WordPress. It can be used to configure
 This plugin requires a Rek.ai account to use.
 
 = Features =
- - Loads Rek.ai scripts into WordPress.
- - A recommendations block.
- - A Q&A block.
- - Loads and configures search autocomplete.
- - Provides test mode.
+- Loads Rek.ai scripts into WordPress.
+- A recommendations block.
+- A Q&A block.
+- Loads and configures search autocomplete.
+- Provides test mode.
 
 == Installation ==
 
