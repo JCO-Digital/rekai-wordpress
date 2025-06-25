@@ -7,9 +7,6 @@ import {
   ToggleControl,
   RadioControl,
   SelectControl,
-  Toolbar,
-  ToolbarButton,
-  ToolbarGroup,
 } from "@wordpress/components";
 import {
   InspectorAdvancedControls,
@@ -22,7 +19,7 @@ import logo from "../../../assets/img/logo-rekai-blue.svg";
 import "./editor.scss";
 import usePosts from "./usePosts";
 import { tokenFieldHandler, displayTransform } from "./tokenFieldHandler";
-import HeadingLevelIcon from "./headingIcon";
+import HeadingLevelDropdown from "./headingDropdown";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -64,19 +61,11 @@ export default function Edit({ attributes, setAttributes }) {
     <>
       {showHeader && (
         <BlockControls group="block">
-          <ToolbarGroup
-            icon="heading"
-            isCollapsed={false}
-            controls={[1, 2, 3, 4, 5, 6].map((level) => {
-              const selected = level === headerHeadingLevel;
-              return (
-                <ToolbarButton
-                  label={"H" + level}
-                  icon={<HeadingLevelIcon level={level} isPressed={selected} />}
-                  onClick={() => setAttributes({ headerHeadingLevel: level })}
-                />
-              );
-            })}
+          <HeadingLevelDropdown
+            selectedLevel={headerHeadingLevel}
+            onChange={(newLevel) =>
+              setAttributes({ headerHeadingLevel: newLevel })
+            }
           />
         </BlockControls>
       )}
