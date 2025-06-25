@@ -58,7 +58,7 @@ function get_posts( WP_REST_Request $request ): WP_REST_Response {
 	foreach ( \get_posts( $args ) as $post ) {
 		$results[] = array(
 			'id'    => $post->ID,
-			'link'  => get_link( $post->ID ),
+			'link'  => get_post_link( $post->ID ),
 			'label' => $post->post_title,
 		);
 	}
@@ -68,6 +68,6 @@ function get_posts( WP_REST_Request $request ): WP_REST_Response {
 	return $response;
 }
 
-function get_link( $id ) {
+function get_post_link( $id ) {
 	return wp_make_link_relative( get_permalink( $id ) );
 }
