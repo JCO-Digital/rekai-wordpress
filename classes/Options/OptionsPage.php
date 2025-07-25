@@ -46,6 +46,7 @@ class OptionsPage extends Singleton {
 		add_action( 'admin_menu', array( $this, 'add_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_init', array( $this, 'enqueue_assets' ) );
+		add_action( 'updated_option', array( $this, 'updated_option' ), 10, 3 );
 	}
 
 	/**
@@ -61,16 +62,22 @@ class OptionsPage extends Singleton {
 			'rekai-settings',
 			array( $this, 'render_page' )
 		);
-		add_action( "load-{$hook_suffix}", array( $this, 'prime_options' ) );
 	}
 
 	/**
-	 * Primes the option caches for various groups of settings.
+	 * Checks if cache should be cleared.
+	 *
+	 * @param string $option  The name of the option that was updated.
+	 * @param mixed  $old_value The old value of the option.
+	 * @param mixed  $value   The new value of the option.
 	 *
 	 * @return void
 	 */
-	final public function prime_options(): void {
-		// wp_prime_option_caches_by_group( $this->sections['general'] );
+	final public function updated_option( $option, $old_value, $value ): void {
+		if ( in_array( $option, self::$autoload_options ) && $old_value !== $value ) {
+			wp_cache_delete( $option, '' );
+			wp_cache_delete( 'alloptions', 'options' );
+		}
 	}
 
 	/**
@@ -370,22 +377,17 @@ class OptionsPage extends Singleton {
 		$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$data = array(
 			'tabs'       => array(
-				'general'   => array(
+				'general'  => array(
 					'label' => esc_html__( 'General', 'rekai' ),
 					'url'   => add_query_arg( array( 'tab' => 'general' ), admin_url( 'admin.php?page=rekai-settings' ) ),
 				),
-				'advanced'  => array(
+				'advanced' => array(
 					'label' => esc_html__( 'Advanced', 'rekai' ),
 					'url'   => add_query_arg( array( 'tab' => 'advanced' ), admin_url( 'admin.php?page=rekai-settings' ) ),
 				),
-				'docs'      => array(
+				'docs'     => array(
 					'label' => esc_html__( 'Documentation', 'rekai' ),
 					'url'   => add_query_arg( array( 'tab' => 'docs' ), admin_url( 'admin.php?page=rekai-settings' ) ),
-				),
-				'shortcode' => array(
-					'label' => esc_html__( 'Shortcode Generator', 'rekai' ),
-					'icon'  => 'dashicons dashicons-external',
-					'url'   => admin_url( 'admin.php?page=rekai-shortcodes' ),
 				),
 			),
 			'active_tab' => $tab,
