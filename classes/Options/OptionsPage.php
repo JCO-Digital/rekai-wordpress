@@ -33,6 +33,7 @@ class OptionsPage extends Singleton {
 		'rekai_autocomplete_automatic_selector',
 		'rekai_autocomplete_nrofhits',
 		'rekai_autocomplete_navigate_on_click',
+		'rekai_autocomplete_usecurrentlang',
 		'rekai_test_mode',
 		'rekai_use_mock_data',
 		'rekai_project_id',
@@ -75,7 +76,7 @@ class OptionsPage extends Singleton {
 	 */
 	final public function updated_option( $option, $old_value, $value ): void {
 		if ( in_array( $option, self::$autoload_options ) && $old_value !== $value ) {
-			wp_cache_delete( $option, '' );
+			wp_cache_delete( $option, 'options' );
 			wp_cache_delete( 'alloptions', 'options' );
 		}
 	}
