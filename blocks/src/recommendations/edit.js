@@ -102,7 +102,6 @@ export default function Edit({ attributes, setAttributes }) {
                 setAttributes({ showHeader: newValue });
               }}
               __next40pxDefaultSize
-              __nextHasNoMarginBottom
             />
             <TextControl
               label={__("Number of Hits", "rekai")}
@@ -114,7 +113,6 @@ export default function Edit({ attributes, setAttributes }) {
               min={1}
               max={100}
               __next40pxDefaultSize
-              __nextHasNoMarginBottom
             />
             {isRecommendations && renderStyleHandler(attributes, setAttributes)}
           </PanelBody>
@@ -127,7 +125,6 @@ export default function Edit({ attributes, setAttributes }) {
                 setAttributes({ showLangs: newValue });
               }}
               __next40pxDefaultSize
-              __nextHasNoMarginBottom
             />
             {showLangs && (
               <TextControl
@@ -141,14 +138,12 @@ export default function Edit({ attributes, setAttributes }) {
                   "rekai",
                 )}
                 __next40pxDefaultSize
-                __nextHasNoMarginBottom
               />
             )}
 
             {isQna && (
               <FormTokenField
                 __next40pxDefaultSize
-                __nextHasNoMarginBottom
                 label="Tags"
                 onChange={(values) => {
                   setAttributes({ tags: values });
@@ -204,7 +199,6 @@ export default function Edit({ attributes, setAttributes }) {
               <FormTokenField
                 __experimentalExpandOnFocus
                 __next40pxDefaultSize
-                __nextHasNoMarginBottom
                 label={__("Starting point", "rekai")}
                 placeholder={__("Search for Page", "jcore")}
                 suggestions={postList}
@@ -243,7 +237,6 @@ export default function Edit({ attributes, setAttributes }) {
               <FormTokenField
                 __experimentalExpandOnFocus
                 __next40pxDefaultSize
-                __nextHasNoMarginBottom
                 label={__("Starting point", "rekai")}
                 placeholder={__("Search for Page", "jcore")}
                 suggestions={postList}
@@ -260,7 +253,6 @@ export default function Edit({ attributes, setAttributes }) {
         <InspectorAdvancedControls>
           <TextControl
             __next40pxDefaultSize
-            __nextHasNoMarginBottom
             value={extraAttributes}
             onChange={(value) => {
               setAttributes({ extraAttributes: value });
