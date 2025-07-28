@@ -249,18 +249,18 @@ export default function Edit({ attributes, setAttributes }) {
               />
             )}
           </PanelBody>
+          <PanelBody title={__("Additional Settings", "rekai")}>
+            <TextControl
+              __next40pxDefaultSize
+              value={extraAttributes}
+              onChange={(value) => {
+                setAttributes({ extraAttributes: value });
+              }}
+              label={__("Extra attributes", "rekai")}
+              help={__("Add extra attributes here.", "rekai")}
+            />
+          </PanelBody>
         </InspectorControls>
-        <InspectorAdvancedControls>
-          <TextControl
-            __next40pxDefaultSize
-            value={extraAttributes}
-            onChange={(value) => {
-              setAttributes({ extraAttributes: value });
-            }}
-            label={__("Extra attributes", "rekai")}
-            help={__("Add extra attributes here.", "rekai")}
-          />
-        </InspectorAdvancedControls>
       </div>
     </>
   );
