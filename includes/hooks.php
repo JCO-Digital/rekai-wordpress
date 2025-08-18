@@ -42,12 +42,3 @@ add_filter(
 		'settings_link',
 	)
 );
-
-// Legacy filter for versions using the old slug.
-add_filter(
-	'plugin_action_links_rekai_wordpress/rekai.php',
-	array(
-		OptionsPage::get_instance(),
-		'settings_link',
-	)
-);

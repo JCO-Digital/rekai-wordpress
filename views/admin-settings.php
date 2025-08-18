@@ -8,7 +8,7 @@ $options_page = new OptionsPage();
 <div
 	class="wrap"
 >
-	<h1><?php esc_html_e( 'Rek.ai Settings', 'rekai' ); ?></h1>
+	<h1><?php esc_html_e( 'Rek.ai Settings', 'rek-ai' ); ?></h1>
 
 	<div class="nav-tab-wrapper">
 		<?php foreach ( $rek_tabs as $rek_tab => $tab_data ) : ?>

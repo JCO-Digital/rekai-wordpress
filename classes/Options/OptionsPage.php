@@ -109,7 +109,7 @@ class OptionsPage extends Singleton {
 			)
 		);
 		// Create the link.
-		$settings_link = "<a href='$url'>" . __( 'Settings', 'rekai' ) . '</a>';
+		$settings_link = "<a href='$url'>" . __( 'Settings', 'rek-ai' ) . '</a>';
 		// Add the link to the end of the array.
 		array_unshift(
 			$links,
@@ -124,7 +124,7 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function render_general_section(): void {
-		echo '<p>' . esc_html__( 'General settings required for Rek.ai integration.', 'rekai' ) . '</p>';
+		echo '<p>' . esc_html__( 'General settings required for Rek.ai integration.', 'rek-ai' ) . '</p>';
 	}
 
 	/**
@@ -133,7 +133,7 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function render_autocomplete_section(): void {
-		echo '<p>' . esc_html__( 'Settings for autocomplete.', 'rekai' ) . '</p>';
+		echo '<p>' . esc_html__( 'Settings for autocomplete.', 'rek-ai' ) . '</p>';
 	}
 
 	/**
@@ -142,7 +142,7 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function render_selector_section(): void {
-		echo '<p>' . esc_html__( 'Settings autocomplete selector.', 'rekai' ) . '</p>';
+		echo '<p>' . esc_html__( 'Settings autocomplete selector.', 'rek-ai' ) . '</p>';
 	}
 
 	/**
@@ -151,7 +151,7 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function render_advanced_section(): void {
-		echo '<p>' . esc_html__( 'Advanced settings for Rek.ai.', 'rekai' ) . '</p>';
+		echo '<p>' . esc_html__( 'Advanced settings for Rek.ai.', 'rek-ai' ) . '</p>';
 	}
 
 	/**
@@ -164,8 +164,8 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_is_enabled',
 				'value'       => get_option( 'rekai_is_enabled', '' ),
-				'placeholder' => esc_html__( 'Enable Rek.ai', 'rekai' ),
-				'help'        => esc_html__( 'Should the Rek.ai scripts be loaded? With this disabled no Rek.ai functions work.', 'rekai' ),
+				'placeholder' => esc_html__( 'Enable Rek.ai', 'rek-ai' ),
+				'help'        => esc_html__( 'Should the Rek.ai scripts be loaded? With this disabled no Rek.ai functions work.', 'rek-ai' ),
 			)
 		);
 	}
@@ -180,11 +180,11 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_embed_code',
 				'value'       => get_option( 'rekai_embed_code', '' ),
-				'placeholder' => esc_html__( 'https://static.rekai.se/XXXXXXXX.js', 'rekai' ),
+				'placeholder' => esc_html__( 'https://static.rekai.se/XXXXXXXX.js', 'rek-ai' ),
 				'size'        => '40',
 				'help'        => sprintf(
 					/* translators: 1: is a link to a support document. 2: closing link */
-					esc_html__( 'The embed code can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai' ),
+					esc_html__( 'The embed code can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rek-ai' ),
 					'<a href="' . esc_url( 'https://docs.rek.ai/dashboard-guide#embed-code' ) . '" target="_blank" rel="noopener noreferrer">',
 					'</a>'
 				),
@@ -203,11 +203,11 @@ class OptionsPage extends Singleton {
 				'id'      => 'rekai_autocomplete_mode',
 				'value'   => get_option( 'rekai_autocomplete_mode', 'disabled' ),
 				'options' => array(
-					'disabled' => esc_html__( 'Disabled', 'rekai' ),
-					'auto'     => esc_html__( 'Enabled with selector', 'rekai' ),
-					'manual'   => esc_html__( 'Enabled with custom script', 'rekai' ),
+					'disabled' => esc_html__( 'Disabled', 'rek-ai' ),
+					'auto'     => esc_html__( 'Enabled with selector', 'rek-ai' ),
+					'manual'   => esc_html__( 'Enabled with custom script', 'rek-ai' ),
 				),
-				'help'    => esc_html__( 'Should the plugin load the autocomplete script', 'rekai' ),
+				'help'    => esc_html__( 'Should the plugin load the autocomplete script', 'rek-ai' ),
 			),
 		);
 	}
@@ -222,8 +222,8 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_autocomplete_automatic_selector',
 				'value'       => get_option( 'rekai_autocomplete_automatic_selector', 'input[name=s]' ),
-				'placeholder' => esc_html__( '#search-input', 'rekai' ),
-				'help'        => esc_html__( 'Enter the HTML selector for the field you want to enable autocomplete for.', 'rekai' ),
+				'placeholder' => esc_html__( '#search-input', 'rek-ai' ),
+				'help'        => esc_html__( 'Enter the HTML selector for the field you want to enable autocomplete for.', 'rek-ai' ),
 			)
 		);
 	}
@@ -238,8 +238,8 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_autocomplete_usecurrentlang',
 				'value'       => get_option( 'rekai_autocomplete_usecurrentlang', '' ),
-				'placeholder' => esc_html__( 'Use current language', 'rekai' ),
-				'help'        => esc_html__( 'Use the current language for the autocomplete.', 'rekai' ),
+				'placeholder' => esc_html__( 'Use current language', 'rek-ai' ),
+				'help'        => esc_html__( 'Use the current language for the autocomplete.', 'rek-ai' ),
 			)
 		);
 	}
@@ -254,8 +254,8 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_autocomplete_nrofhits',
 				'value'       => get_option( 'rekai_autocomplete_nrofhits', 10 ),
-				'placeholder' => esc_html__( '10', 'rekai' ),
-				'help'        => esc_html__( 'Number of results to show in the autocomplete dropdown.', 'rekai' ),
+				'placeholder' => esc_html__( '10', 'rek-ai' ),
+				'help'        => esc_html__( 'Number of results to show in the autocomplete dropdown.', 'rek-ai' ),
 				'min'         => 1,
 				'max'         => 100,
 			)
@@ -272,8 +272,8 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_autocomplete_navigate_on_click',
 				'value'       => get_option( 'rekai_autocomplete_navigate_on_click', false ),
-				'placeholder' => esc_html__( 'Navigate on click', 'rekai' ),
-				'help'        => esc_html__( 'Navigate to the selected item when clicking on it.', 'rekai' ),
+				'placeholder' => esc_html__( 'Navigate on click', 'rek-ai' ),
+				'help'        => esc_html__( 'Navigate to the selected item when clicking on it.', 'rek-ai' ),
 			)
 		);
 	}
@@ -288,8 +288,8 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_test_mode',
 				'value'       => get_option( 'rekai_test_mode', '' ),
-				'placeholder' => esc_html__( 'Test Mode', 'rekai' ),
-				'help'        => esc_html__( 'Enables test mode. This will not send any data to Rek.ai.', 'rekai' ),
+				'placeholder' => esc_html__( 'Test Mode', 'rek-ai' ),
+				'help'        => esc_html__( 'Enables test mode. This will not send any data to Rek.ai.', 'rek-ai' ),
 			)
 		);
 	}
@@ -304,8 +304,8 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_use_mock_data',
 				'value'       => get_option( 'rekai_use_mock_data', '' ),
-				'placeholder' => esc_html__( 'Use Mock Data', 'rekai' ),
-				'help'        => esc_html__( 'Use mock data instead of getting real data from Rek.ai.', 'rekai' ),
+				'placeholder' => esc_html__( 'Use Mock Data', 'rek-ai' ),
+				'help'        => esc_html__( 'Use mock data instead of getting real data from Rek.ai.', 'rek-ai' ),
 			)
 		);
 	}
@@ -320,10 +320,10 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_project_id',
 				'value'       => get_option( 'rekai_project_id', '' ),
-				'placeholder' => esc_html__( 'Project ID', 'rekai' ),
+				'placeholder' => esc_html__( 'Project ID', 'rek-ai' ),
 				'help'        => sprintf(
 					/* translators: 1: is a link to a support document. 2: closing link */
-					esc_html__( 'The project ID can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai' ),
+					esc_html__( 'The project ID can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rek-ai' ),
 					'<a href="' . esc_url( 'https://docs.rek.ai/getting-started/installation#how-do-i-know-which-project-id-and-secret-key-my-project-has' ) . '" target="_blank" rel="noopener noreferrer">',
 					'</a>'
 				),
@@ -341,10 +341,10 @@ class OptionsPage extends Singleton {
 			array(
 				'id'          => 'rekai_secret_key',
 				'value'       => get_option( 'rekai_secret_key', '' ),
-				'placeholder' => esc_html__( 'Secret Key', 'rekai' ),
+				'placeholder' => esc_html__( 'Secret Key', 'rek-ai' ),
 				'help'        => sprintf(
 					/* translators: 1: is a link to a support document. 2: closing link */
-					esc_html__( 'The secret key can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rekai' ),
+					esc_html__( 'The secret key can be found in your dashboard, %1$splease refer to this document%2$s for more information.', 'rek-ai' ),
 					'<a href="' . esc_url( 'https://docs.rek.ai/getting-started/installation#how-do-i-know-which-project-id-and-secret-key-my-project-has' ) . '" target="_blank" rel="noopener noreferrer">',
 					'</a>'
 				),
@@ -373,21 +373,21 @@ class OptionsPage extends Singleton {
 	 */
 	final public function render_page(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'rekai' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'rek-ai' ) );
 		}
 		$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$data = array(
 			'tabs'       => array(
 				'general'  => array(
-					'label' => esc_html__( 'General', 'rekai' ),
+					'label' => esc_html__( 'General', 'rek-ai' ),
 					'url'   => add_query_arg( array( 'tab' => 'general' ), admin_url( 'admin.php?page=rekai-settings' ) ),
 				),
 				'advanced' => array(
-					'label' => esc_html__( 'Advanced', 'rekai' ),
+					'label' => esc_html__( 'Advanced', 'rek-ai' ),
 					'url'   => add_query_arg( array( 'tab' => 'advanced' ), admin_url( 'admin.php?page=rekai-settings' ) ),
 				),
 				'docs'     => array(
-					'label' => esc_html__( 'Documentation', 'rekai' ),
+					'label' => esc_html__( 'Documentation', 'rek-ai' ),
 					'url'   => add_query_arg( array( 'tab' => 'docs' ), admin_url( 'admin.php?page=rekai-settings' ) ),
 				),
 			),
@@ -409,7 +409,7 @@ class OptionsPage extends Singleton {
 		$this->register_section(
 			$page,
 			$section,
-			__( 'General', 'rekai' ),
+			__( 'General', 'rek-ai' ),
 			array( $this, 'render_general_section' ),
 		);
 
@@ -418,7 +418,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_is_enabled',
-			__( 'Load Scripts', 'rekai' ),
+			__( 'Load Scripts', 'rek-ai' ),
 			'boolval',
 			array( $this, 'render_enabled_field' ),
 			array(
@@ -432,7 +432,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_embed_code',
-			__( 'Embed Code', 'rekai' ),
+			__( 'Embed Code', 'rek-ai' ),
 			array( $this, 'sanitize_embed_code' ),
 			array( $this, 'render_embed_code_field' ),
 			array(
@@ -454,7 +454,7 @@ class OptionsPage extends Singleton {
 		$this->register_section(
 			$page,
 			$section,
-			__( 'Autocomplete', 'rekai' ),
+			__( 'Autocomplete', 'rek-ai' ),
 			array( $this, 'render_autocomplete_section' ),
 		);
 
@@ -462,7 +462,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_autocomplete_mode',
-			__( 'Autocomplete mode', 'rekai' ),
+			__( 'Autocomplete mode', 'rek-ai' ),
 			array( $this, 'sanitize_autocomplete_mode' ),
 			array( $this, 'render_autocomplete_mode_field' ),
 			array(
@@ -483,7 +483,7 @@ class OptionsPage extends Singleton {
 		$this->register_section(
 			$page,
 			$section,
-			__( 'Autocomplete Settings', 'rekai' ),
+			__( 'Autocomplete Settings', 'rek-ai' ),
 			array( $this, 'render_selector_section' )
 		);
 
@@ -491,7 +491,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_autocomplete_automatic_selector',
-			__( 'Autocomplete selector', 'rekai' ),
+			__( 'Autocomplete selector', 'rek-ai' ),
 			'sanitize_text_field',
 			array( $this, 'render_autocomplete_selector_field' ),
 			array(
@@ -503,7 +503,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_autocomplete_navigate_on_click',
-			__( 'Open on click', 'rekai' ),
+			__( 'Open on click', 'rek-ai' ),
 			'boolval',
 			array( $this, 'render_autocomplete_navigate_on_click_field' ),
 			array(
@@ -516,7 +516,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_autocomplete_usecurrentlang',
-			__( 'Use current language', 'rekai' ),
+			__( 'Use current language', 'rek-ai' ),
 			'boolval',
 			array( $this, 'render_autocomplete_currentlang_field' ),
 			array(
@@ -529,7 +529,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_autocomplete_nrofhits',
-			__( 'Number of results', 'rekai' ),
+			__( 'Number of results', 'rek-ai' ),
 			'intval',
 			array( $this, 'render_autocomplete_nrofhits_field' ),
 			array(
@@ -552,7 +552,7 @@ class OptionsPage extends Singleton {
 		$this->register_section(
 			$page,
 			$section,
-			__( 'Advanced', 'rekai' ),
+			__( 'Advanced', 'rek-ai' ),
 			array( $this, 'render_advanced_section' ),
 		);
 
@@ -560,7 +560,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_test_mode',
-			__( 'Test Mode', 'rekai' ),
+			__( 'Test Mode', 'rek-ai' ),
 			'boolval',
 			array( $this, 'render_test_mode_field' ),
 			array(
@@ -573,7 +573,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_use_mock_data',
-			__( 'Use Mock Data', 'rekai' ),
+			__( 'Use Mock Data', 'rek-ai' ),
 			'boolval',
 			array( $this, 'render_use_mock_data_field' ),
 			array(
@@ -586,7 +586,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_project_id',
-			__( 'Project ID', 'rekai' ),
+			__( 'Project ID', 'rek-ai' ),
 			'sanitize_text_field',
 			array( $this, 'render_project_id_field' ),
 			array(
@@ -598,7 +598,7 @@ class OptionsPage extends Singleton {
 			$page,
 			$section,
 			'rekai_secret_key',
-			__( 'Secret Key', 'rekai' ),
+			__( 'Secret Key', 'rek-ai' ),
 			'sanitize_text_field',
 			array( $this, 'render_secret_key_field' ),
 			array(

@@ -63,42 +63,42 @@ class ShortcodeGenerator extends Singleton {
 	 */
 	final public function render_page(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'rekai' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'rek-ai' ) );
 		}
 
 		$data = array(
 			'shortcode_types'   => array(
 				'prediction' => array(
-					'label'       => esc_html__( 'Prediction', 'rekai' ),
+					'label'       => esc_html__( 'Prediction', 'rek-ai' ),
 					'shortcode'   => 'rek-prediction',
-					'description' => esc_html__( 'Generate a prediction shortcode for displaying Rek.ai predictions.', 'rekai' ),
+					'description' => esc_html__( 'Generate a prediction shortcode for displaying Rek.ai predictions.', 'rek-ai' ),
 				),
 				'qna'        => array(
-					'label'       => esc_html__( 'Questions & Answers', 'rekai' ),
+					'label'       => esc_html__( 'Questions & Answers', 'rek-ai' ),
 					'shortcode'   => 'rek-qna',
-					'description' => esc_html__( 'Generate a Q&A shortcode for displaying Rek.ai questions and answers.', 'rekai' ),
+					'description' => esc_html__( 'Generate a Q&A shortcode for displaying Rek.ai questions and answers.', 'rek-ai' ),
 				),
 			),
 			'common_attributes' => array(
 				'nrofhits'     => array(
-					'label'   => esc_html__( 'Number of Hits', 'rekai' ),
+					'label'   => esc_html__( 'Number of Hits', 'rek-ai' ),
 					'type'    => 'number',
 					'default' => 10,
 					'min'     => 1,
 					'max'     => 100,
 				),
 				'subtree'      => array(
-					'label'       => esc_html__( 'Subtree', 'rekai' ),
+					'label'       => esc_html__( 'Subtree', 'rek-ai' ),
 					'type'        => 'text',
 					'placeholder' => '/news',
 				),
 				'tags'         => array(
-					'label'       => esc_html__( 'Tags', 'rekai' ),
+					'label'       => esc_html__( 'Tags', 'rek-ai' ),
 					'type'        => 'text',
 					'placeholder' => 'tag1,tag2,tag3',
 				),
 				'allowedlangs' => array(
-					'label'       => esc_html__( 'Allowed Languages', 'rekai' ),
+					'label'       => esc_html__( 'Allowed Languages', 'rek-ai' ),
 					'type'        => 'text',
 					'placeholder' => 'sv,fi',
 				),
