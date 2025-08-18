@@ -1,6 +1,6 @@
 {
   "name": "rekai",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Rek.ai integration for WordPress",
   "main": "index.js",
   "scripts": {
