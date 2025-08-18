@@ -1,7 +1,15 @@
 <?php // phpcs:ignore Squiz.Commenting.FileComment.Missing ?>
 <p>
-	<?php _e( '<a href="https://docs.rek.ai/integration-modules/wordpress" target="_blank">Documentation for the plugin</a>.', 'rek-ai' ); ?>
+	<?php
+		$link = esc_attr__('https://docs.rek.ai/integration-modules/wordpress','rek-ai');
+		$text = esc_html__('Documentation for the plugin','rek-ai');
+		echo sprintf('<a href="%s" target="_blank">%s</a>.', $link, $text);
+	?>
 </p>
 <p>
-	<?php _e( '<a href="admin.php?page=rekai-shortcodes">Shortcode Generator</a>.', 'rek-ai' ); ?>
+	<?php
+		$link = esc_attr('admin.php?page=rekai-shortcodes');
+		$text = esc_html__('Shortcode Generator','rek-ai');
+		echo sprintf('<a href="%s" target="_blank">%s</a>.', $link, $text);
+	?>
 </p>
