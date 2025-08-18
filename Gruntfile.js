@@ -45,7 +45,7 @@ module.exports = function (grunt) {
 
     addtextdomain: {
       options: {
-        textdomain: "rekai",
+        textdomain: "rek-ai",
       },
       update_all_domains: {
         options: {
@@ -86,8 +86,8 @@ module.exports = function (grunt) {
             "vendor-prefixed/*",
             "plugin/*",
           ],
-          mainFile: "rekai.php",
-          potFilename: "rekai.pot",
+          mainFile: "rek-ai.php",
+          potFilename: "rek-ai.pot",
           potHeaders: {
             poedit: true,
             "x-poedit-keywordslist": true,
@@ -110,7 +110,7 @@ module.exports = function (grunt) {
           return filepath;
         },
         src: ["**/*"],
-        dest: "build/rekai.zip",
+        dest: "build/rek-ai.zip",
       },
     },
 
