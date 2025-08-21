@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rek.ai 1.7.2\n"
+"Project-Id-Version: Rek.ai 1.7.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rekai\n"
-"POT-Creation-Date: 2025-08-18 14:30:56+00:00\n"
+"POT-Creation-Date: 2025-08-21 05:41:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -287,7 +287,7 @@ msgstr ""
 msgid "Copied!"
 msgstr ""
 
-#: views/docs/docs.php:3
+#. Plugin URI of the plugin/theme
 msgid "https://docs.rek.ai/integration-modules/wordpress"
 msgstr ""
 
@@ -301,10 +301,6 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Rek.ai"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/jco-digital/rekai-wordpress"
 msgstr ""
 
 #. Description of the plugin/theme
