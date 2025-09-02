@@ -1,10 +1,10 @@
-# Copyright (C) 2025 J&Co Digital Oy
+# Copyright (C) 2025 Rek.ai
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rek.ai 1.7.4\n"
+"Project-Id-Version: Rek.ai 1.7.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rekai\n"
-"POT-Creation-Date: 2025-08-21 05:41:51+00:00\n"
+"POT-Creation-Date: 2025-09-02 07:13:05+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -255,7 +255,7 @@ msgid ""
 "href=\"%s\">here</a>."
 msgstr ""
 
-#: views/admin-settings.php:11
+#: views/admin-settings.php:10
 msgid "Rek.ai Settings"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgstr ""
 msgid "Shortcode Generator"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
+#. Author of the plugin/theme
 msgid "Rek.ai"
 msgstr ""
 
@@ -307,10 +307,6 @@ msgstr ""
 msgid "Rek.ai integration for WordPress"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "J&Co Digital Oy"
-msgstr ""
-
 #. Author URI of the plugin/theme
-msgid "https://jco.fi"
+msgid "https://rek.ai"
 msgstr ""
