@@ -25,7 +25,9 @@ function add_endpoints(): void {
 		array(
 			'methods'             => 'GET',
 			'callback'            => 'Rekai\get_posts',
-			'permission_callback' => '__return_true',
+			'permission_callback' => function () {
+				return current_user_can( 'edit_posts' );
+			},
 		)
 	);
 }
