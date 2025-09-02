@@ -107,9 +107,9 @@ module.exports = function (grunt) {
             return filepath.startsWith(f) || filepath.includes(f) || match;
           });
           if (isIgnored.length > 0) return null;
-          return filepath;
+          return filepath.replace(/^plugin\//, "");
         },
-        src: ["**/*"],
+        src: ["plugin/**/*"],
         dest: "build/rek-ai.zip",
       },
     },
