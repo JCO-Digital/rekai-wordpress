@@ -21,7 +21,7 @@ function prediction( $atts ) {
 	// Return custom embed code.
 	return '<div class="rek-prediction" ' . dataset_to_attributes( $dataset ) . '></div>';
 }
-add_shortcode( 'rek-prediction', '\Rekai\prediction' );
+add_shortcode( 'rekai-prediction', '\Rekai\prediction' );
 
 
 /**
@@ -34,4 +34,4 @@ function qna( $atts ) {
 	$atts['entitytype'] = 'rekai-qna';
 	return prediction( $atts );
 }
-add_shortcode( 'rek-qna', '\Rekai\qna' );
+add_shortcode( 'rekai-qna', '\Rekai\qna' );

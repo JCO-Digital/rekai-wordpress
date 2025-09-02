@@ -70,12 +70,12 @@ class ShortcodeGenerator extends Singleton {
 			'shortcode_types'   => array(
 				'prediction' => array(
 					'label'       => esc_html__( 'Prediction', 'rek-ai' ),
-					'shortcode'   => 'rek-prediction',
+					'shortcode'   => 'rekai-prediction',
 					'description' => esc_html__( 'Generate a prediction shortcode for displaying Rek.ai predictions.', 'rek-ai' ),
 				),
 				'qna'        => array(
 					'label'       => esc_html__( 'Questions & Answers', 'rek-ai' ),
-					'shortcode'   => 'rek-qna',
+					'shortcode'   => 'rekai-qna',
 					'description' => esc_html__( 'Generate a Q&A shortcode for displaying Rek.ai questions and answers.', 'rek-ai' ),
 				),
 			),
