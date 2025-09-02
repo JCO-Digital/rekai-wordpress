@@ -6,8 +6,7 @@ use Rekai\Options\OptionsPage;
 $options_page = new OptionsPage();
 ?>
 <div
-	class="wrap"
->
+	class="wrap">
 	<h1><?php esc_html_e( 'Rek.ai Settings', 'rek-ai' ); ?></h1>
 
 	<div class="nav-tab-wrapper">
@@ -29,8 +28,7 @@ $options_page = new OptionsPage();
 	<?php else : ?>
 		<form
 			method="post"
-			action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>"
-		>
+			action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
 			<?php
 			if ( $rek_active_tab === 'general' ) :
 				settings_fields( 'rekai-tab-general' );
