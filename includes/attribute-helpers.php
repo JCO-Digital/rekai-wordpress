@@ -7,6 +7,10 @@
 
 namespace Rekai;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use Rekai\Scripts\RekaiMain;
 
 /**

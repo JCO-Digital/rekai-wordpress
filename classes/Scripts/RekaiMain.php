@@ -7,28 +7,30 @@
 
 namespace Rekai\Scripts;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use Rekai\Scripts\RekaiBase;
-use function Rekai\render_template;
 
 /**
  * Handles the Rek.ai scripts.
  *
  * @since 0.1.0
  */
-class RekaiMain extends RekaiBase
-{
+class RekaiMain extends RekaiBase {
+
 	/**
 	 * Handles the Rek.ai scripts.
 	 *
 	 * @return void
 	 */
-	final public function enqueue(): void
-	{
-		if (! $this->should_load()) {
+	final public function enqueue(): void {
+		if ( ! $this->should_load() ) {
 			return;
 		}
-		$embed_code = get_option('rekai_embed_code');
-		if (empty($embed_code)) {
+		$embed_code = get_option( 'rekai_embed_code' );
+		if ( empty( $embed_code ) ) {
 			return;
 		}
 		$handle = 'rekai-main';
@@ -41,7 +43,7 @@ class RekaiMain extends RekaiBase
 			'1',
 			false
 		);
-		$this->create_inline($handle);
+		$this->create_inline( $handle );
 	}
 
 	/**
@@ -49,14 +51,13 @@ class RekaiMain extends RekaiBase
 	 *
 	 * @return void
 	 */
-	final public function create_inline($handle): void
-	{
-		if (! $this->should_load()) {
+	final public function create_inline( $handle ): void {
+		if ( ! $this->should_load() ) {
 			return;
 		}
 		$is_test = $this->get_test_mode();
-		$is_admin = current_user_can('manage_options');
-		if (!$is_admin && !$is_test) {
+		$is_admin = current_user_can( 'manage_options' );
+		if ( ! $is_admin && ! $is_test ) {
 			return;
 		}
 

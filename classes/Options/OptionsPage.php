@@ -7,6 +7,10 @@
 
 namespace Rekai\Options;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use Rekai\Singleton;
 use function Rekai\render_checkbox_field;
 use function Rekai\render_number_field;

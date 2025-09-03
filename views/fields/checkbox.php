@@ -1,4 +1,7 @@
 <?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 $input_id          = $rek_id ?? '';
 $input_value       = $rek_value ?? '';

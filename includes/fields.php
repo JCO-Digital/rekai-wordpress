@@ -8,6 +8,10 @@
 
 namespace Rekai;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Renders a text field.
  *

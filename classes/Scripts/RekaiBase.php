@@ -7,6 +7,10 @@
 
 namespace Rekai\Scripts;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use Rekai\Singleton;
 
 /**
@@ -14,8 +18,8 @@ use Rekai\Singleton;
  *
  * @since 0.1.0
  */
-abstract class RekaiBase extends Singleton
-{
+abstract class RekaiBase extends Singleton {
+
 	/**
 	 * The default static URL for Rek.ai resources.
 	 *
@@ -26,9 +30,8 @@ abstract class RekaiBase extends Singleton
 	/**
 	 * Initializes the script loading.
 	 */
-	protected function __construct()
-	{
-		add_action('wp_enqueue_scripts', array($this, 'enqueue'));
+	protected function __construct() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 	/**
@@ -43,11 +46,10 @@ abstract class RekaiBase extends Singleton
 	 *
 	 * @return bool Whether the scripts/assets should be loaded.
 	 */
-	public function should_load(): bool
-	{
+	public function should_load(): bool {
 		if (
-			get_option('rekai_is_enabled') !== '1'
-			|| empty(get_option('rekai_embed_code'))
+			get_option( 'rekai_is_enabled' ) !== '1'
+			|| empty( get_option( 'rekai_embed_code' ) )
 			|| $this->is_incomplete_test_mode()
 		) {
 			return false;
@@ -67,12 +69,11 @@ abstract class RekaiBase extends Singleton
 	 *
 	 * @return bool
 	 */
-	public function get_test_mode(): mixed
-	{
-		if (wp_get_environment_type() !== 'production') {
+	public function get_test_mode(): mixed {
+		if ( wp_get_environment_type() !== 'production' ) {
 			$is_test = true;
 		} else {
-			$is_test = get_option('rekai_test_mode') === '1';
+			$is_test = get_option( 'rekai_test_mode' ) === '1';
 		}
 
 		/**
@@ -84,7 +85,7 @@ abstract class RekaiBase extends Singleton
 		 *
 		 * @since 0.1.0
 		 */
-		return apply_filters('rekai_override_test_mode', $is_test, wp_get_environment_type(), get_option('rekai_test_mode') === '1');
+		return apply_filters( 'rekai_override_test_mode', $is_test, wp_get_environment_type(), get_option( 'rekai_test_mode' ) === '1' );
 	}
 
 	/**
@@ -92,21 +93,20 @@ abstract class RekaiBase extends Singleton
 	 *
 	 * @return bool
 	 */
-	public function is_incomplete_test_mode(): bool
-	{
-		if (! $this->get_test_mode()) {
+	public function is_incomplete_test_mode(): bool {
+		if ( ! $this->get_test_mode() ) {
 			// Not in test mode.
 			return false;
 		}
-		if (in_array(wp_get_environment_type(), array('production', 'local'))) {
+		if ( in_array( wp_get_environment_type(), array( 'production', 'local' ) ) ) {
 			// Allow test mode without id / secret for local and production, since it probably works there.
 			return false;
 		}
-		if (empty(get_option('rekai_project_id', ''))) {
+		if ( empty( get_option( 'rekai_project_id', '' ) ) ) {
 			// Invalid without ID.
 			return true;
 		}
-		if (empty(get_option('rekai_secret_key', ''))) {
+		if ( empty( get_option( 'rekai_secret_key', '' ) ) ) {
 			// Invalid without secret.
 			return true;
 		}
@@ -123,10 +123,9 @@ abstract class RekaiBase extends Singleton
 	 * @param string $url The URL path to append to the static URL base.
 	 * @return string The complete static URL.
 	 */
-	protected function get_static_url(string $url): string
-	{
-		$embed_code = get_option('rekai_embed_code', '');
-		if (! empty($embed_code) && preg_match('/^https:\/\/static\.[^\/]+/', $embed_code, $matches)) {
+	protected function get_static_url( string $url ): string {
+		$embed_code = get_option( 'rekai_embed_code', '' );
+		if ( ! empty( $embed_code ) && preg_match( '/^https:\/\/static\.[^\/]+/', $embed_code, $matches ) ) {
 			return $matches[0] . $url;
 		}
 		return self::DEFAULT_URL . $url;

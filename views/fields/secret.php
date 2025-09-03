@@ -1,4 +1,7 @@
 <?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 $input_id          = $rek_id ?? '';
 $input_value       = $rek_value ?? '';
@@ -17,7 +20,7 @@ $is_empty = empty( $input_value );
 		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
 		autocomplete="off"
 	/>
-	<button type="button" class="button button-secondary secret-toggle 
+	<button type="button" class="button button-secondary secret-toggle
 	<?php
 	if ( ! $is_empty ) :
 		?>

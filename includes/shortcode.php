@@ -7,6 +7,10 @@
 
 namespace Rekai;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Generates and returns a prediction shortcode. It passes the shortcode attributes to the HTML
  * element as data attributes.

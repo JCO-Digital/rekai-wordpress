@@ -1,5 +1,8 @@
 <?php
 // phpcs:ignore Squiz.Commenting.FileComment.Missing
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 use Rekai\Options\OptionsPage;
 

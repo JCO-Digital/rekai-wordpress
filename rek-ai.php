@@ -16,6 +16,10 @@
 
 namespace Rekai;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Composer autoloader.
 use Rekai\Options\OptionsPage;
 

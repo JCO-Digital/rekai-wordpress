@@ -7,6 +7,10 @@
 
 namespace Rekai;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $extra          = generate_data_attributes( $attributes ?? array() );
 $extra['class'] = 'rek-prediction';
 handle_extra_attributes( $attributes['extraAttributes'] ?? '', $extra );

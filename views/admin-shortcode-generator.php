@@ -1,4 +1,8 @@
-<?php // phpcs:ignore Squiz.Commenting.FileComment.Missing ?>
+<?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
 <div class="wrap">
 	<h1><?php echo esc_html__( 'Rek.ai Shortcode Generator', 'rek-ai' ); ?></h1>
 	<p><?php echo esc_html__( 'Use this tool to generate shortcodes for Rek.ai functionality.', 'rek-ai' ); ?></p>

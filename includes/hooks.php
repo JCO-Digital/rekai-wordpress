@@ -7,6 +7,10 @@
 
 namespace Rekai;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use Rekai\Options\OptionsPage;
 use Rekai\Options\ShortcodeGenerator;
 use Rekai\Scripts\RekaiAutocomplete;

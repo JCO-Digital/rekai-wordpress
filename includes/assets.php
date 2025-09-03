@@ -7,6 +7,10 @@
 
 namespace Rekai;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Handles registering the plugin styles and scripts.
  * These can be enqueued by the plugin as needed.
