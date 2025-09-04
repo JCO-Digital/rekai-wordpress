@@ -36,7 +36,12 @@ function add_endpoints(): void {
 	);
 }
 
-
+/**
+ * Get all posts and their paths.
+ *
+ * @param WP_REST_Request $request Full data about the request.
+ * @return WP_REST_Response
+ */
 function get_posts( WP_REST_Request $request ): WP_REST_Response {
 	$response      = new \WP_REST_Response();
 	$blocked_types = array( 'attachment' );
@@ -74,6 +79,12 @@ function get_posts( WP_REST_Request $request ): WP_REST_Response {
 	return $response;
 }
 
+/**
+ * Get post permalink and convert it to an absolute path.
+ *
+ * @param mixed $id Post ID.
+ * @return string
+ */
 function get_post_link( $id ) {
 	return wp_make_link_relative( get_permalink( $id ) );
 }

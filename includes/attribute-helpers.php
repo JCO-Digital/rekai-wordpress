@@ -180,7 +180,7 @@ function generate_subtree( array $ids ): string {
 	$subtree = array();
 	foreach ( $ids as $id ) {
 		$link      = preg_replace( '|^https?://[^/]+/|', '^/', get_permalink( $id ) );
-		$subtree[] = $link ?: $id;
+		$subtree[] = $link ? $link : $id;
 	}
 	return implode( ',', $subtree );
 }

@@ -30,8 +30,7 @@ $is_empty = empty( $input_value );
 
 	<p class="description">
 		<?php
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $input_help;
+			echo esc_html( $input_help );
 		?>
 	</p>
 </span>

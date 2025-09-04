@@ -47,11 +47,15 @@ class RekaiMain extends RekaiBase {
 	}
 
 	/**
-	 * Handles rendering head inline scripts.
+	 * Creates an inline script block rek.ai view saving.
 	 *
+	 * Block view saves if the user is either an administrator or test mode is enabled.
+	 *
+	 * @param string $handle The script handle to attach the inline script to.
 	 * @return void
 	 */
 	final public function create_inline( $handle ): void {
+
 		if ( ! $this->should_load() ) {
 			return;
 		}

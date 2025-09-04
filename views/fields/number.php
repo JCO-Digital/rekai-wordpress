@@ -30,7 +30,7 @@ $input_step        = $rek_step ?? 1;
 <?php if ( ! empty( $input_help ) ) : ?>
 	<p class="description">
 		<?php
-			echo $input_help; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo esc_html( $input_help );
 		?>
 	</p>
 <?php endif; ?>

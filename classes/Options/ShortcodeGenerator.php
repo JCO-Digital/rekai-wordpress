@@ -12,9 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Rekai\Singleton;
-use function Rekai\render_text_field;
-use function Rekai\render_number_field;
-use function Rekai\render_checkbox_field;
 use function Rekai\render_template;
 
 /**
@@ -109,7 +106,6 @@ class ShortcodeGenerator extends Singleton {
 			),
 		);
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo render_template( 'admin-shortcode-generator', $data );
+		render_template( 'admin-shortcode-generator', $data );
 	}
 }
