@@ -1,27 +1,28 @@
-<?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
+<?php
+/**
+ * Text field.
+ *
+ * @package Rekai
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-$input_id          = $rek_id ?? '';
-$input_value       = $rek_value ?? '';
-$input_placeholder = $rek_placeholder ?? '';
 $input_size        = $rek_size ?? '20';
-$input_help        = $rek_help ?? '';
 
 ?>
 <input
 		type="text"
-		id="<?php echo esc_attr( $input_id ); ?>"
-		name="<?php echo esc_attr( $input_id ); ?>"
-		value="<?php echo esc_attr( $input_value ); ?>"
-		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
+		id="<?php echo esc_attr( $rek_id ); ?>"
+		name="<?php echo esc_attr( $rek_id ); ?>"
+		value="<?php echo esc_attr( $rek_value ); ?>"
+		placeholder="<?php echo esc_attr( $rek_placeholder ); ?>"
 		size="<?php echo esc_attr( $input_size ); ?>"
 />
-<?php if ( ! empty( $input_help ) ) : ?>
+<?php if ( ! empty( $rek_help ) ) : ?>
 	<p class="description">
 		<?php
-			echo esc_html( $input_help );
+			echo esc_html( $rek_help );
 		?>
 	</p>
 <?php endif; ?>

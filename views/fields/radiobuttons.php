@@ -1,27 +1,26 @@
-<?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
+<?php
+/**
+ * Radiobuttons field.
+ *
+ * @package Rekai
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$input_id      = $rek_id ?? '';
-$input_value   = $rek_value ?? '';
-$input_options = $rek_options ?? array();
-$input_help    = $rek_help ?? '';
-
-?>
-<?php
 $counter = 0;
-foreach ( $input_options as $value => $label ) :
-	$item_id = $input_id . '_' . ( $counter++ );
+foreach ( $rek_options ?? array() as $value => $label ) :
+	$item_id = $rek_id . '_' . ( $counter++ );
 	?>
 	<div>
 		<input
 			type="radio"
 			id="<?php echo esc_attr( $item_id ); ?>"
-			name="<?php echo esc_attr( $input_id ); ?>"
+			name="<?php echo esc_attr( $rek_id ); ?>"
 			value="<?php echo esc_attr( $value ); ?>"
 			<?php
-			if ( $input_value === $value ) :
+			if ( $rek_value === $value ) :
 				?>
 				checked="checked"
 			<?php endif; ?>
@@ -29,10 +28,10 @@ foreach ( $input_options as $value => $label ) :
 		<label for="<?php echo esc_attr( $item_id ); ?>"><?php echo esc_html( $label ); ?></label>
 	</div>
 <?php endforeach; ?>
-<?php if ( ! empty( $input_help ) ) : ?>
+<?php if ( ! empty( $rek_help ) ) : ?>
 	<p class="description">
 		<?php
-			echo esc_html( $input_help );
+			echo esc_html( $rek_help );
 		?>
 	</p>
 <?php endif; ?>

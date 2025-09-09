@@ -108,12 +108,14 @@ function join_path( string $path, string ...$parts ): string {
  */
 function render_template( string $template, array $data = array() ): void {
 	// Validate that $template contains only aplhanumeric characters or dash.
-	if ( ! preg_match( '/^[a-z0-9-]+$/', $template ) ) {
+	if ( ! preg_match( '/^[a-z0-9-\/]+$/', $template ) ) {
+		echo 'Error: Invalid template name';
 		return;
 	}
 
 	$final_path = sprintf( '%s/views/%s.php', untrailingslashit( REKAI_PLUGIN_PATH ), $template );
 	if ( ! file_exists( $final_path ) ) {
+		echo 'Error: Template not found';
 		return;
 	}
 	extract( $data, EXTR_PREFIX_ALL, 'rek' ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract

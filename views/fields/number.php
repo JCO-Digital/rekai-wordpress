@@ -1,36 +1,34 @@
-<?php // phpcs:ignore Squiz.Commenting.FileComment.Missing
+<?php
+/**
+ * Number field.
+ *
+ * @package Rekai
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-$input_id          = $rek_id ?? '';
-$input_value       = $rek_value ?? '';
-$input_placeholder = $rek_placeholder ?? '';
-$input_help        = $rek_help ?? '';
-$input_min         = $rek_min ?? false;
-$input_max         = $rek_max ?? false;
-$input_step        = $rek_step ?? 1;
-
-
 ?>
 <input
 		type="number"
-		id="<?php echo esc_attr( $input_id ); ?>"
-		name="<?php echo esc_attr( $input_id ); ?>"
-		value="<?php echo esc_attr( $input_value ); ?>"
-		placeholder="<?php echo esc_attr( $input_placeholder ); ?>"
-		<?php if ( ! empty( $input_min ) ) : ?>
-			min="<?php echo esc_attr( $input_min ); ?>"
+		id="<?php echo esc_attr( $rek_id ); ?>"
+		name="<?php echo esc_attr( $rek_id ); ?>"
+		value="<?php echo esc_attr( $rek_value ); ?>"
+		placeholder="<?php echo esc_attr( $rek_placeholder ); ?>"
+		<?php if ( ! empty( $rek_min ) ) : ?>
+			min="<?php echo esc_attr( $rek_min ); ?>"
 		<?php endif; ?>
-		<?php if ( ! empty( $input_max ) ) : ?>
-			max="<?php echo esc_attr( $input_max ); ?>"
+		<?php if ( ! empty( $rek_max ) ) : ?>
+			max="<?php echo esc_attr( $rek_max ); ?>"
 		<?php endif; ?>
-		step="<?php echo esc_attr( $input_step ); ?>"
+		<?php if ( ! empty( $rek_step ) ) : ?>
+			step="<?php echo esc_attr( $rek_step ); ?>"
+		<?php endif; ?>
 />
-<?php if ( ! empty( $input_help ) ) : ?>
+<?php if ( ! empty( $rek_help ) ) : ?>
 	<p class="description">
 		<?php
-			echo esc_html( $input_help );
+			echo esc_html( $rek_help );
 		?>
 	</p>
 <?php endif; ?>
