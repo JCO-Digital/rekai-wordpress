@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Rekai\Options\OptionsPage;
-use Rekai\Options\ShortcodeGenerator;
 use Rekai\Scripts\RekaiAutocomplete;
 use Rekai\Scripts\RekaiMain;
 
@@ -21,7 +20,6 @@ add_action(
 	'plugins_loaded',
 	static function () {
 		OptionsPage::get_instance();
-		ShortcodeGenerator::get_instance();
 		RekaiMain::get_instance();
 		RekaiAutocomplete::get_instance();
 	}
@@ -40,7 +38,7 @@ add_action(
 
 // Add filter to add settings link to plugin page.
 add_filter(
-	'plugin_action_links_rekai/rekai.php',
+	'plugin_action_links_rek-ai/rek-ai.php',
 	array(
 		OptionsPage::get_instance(),
 		'settings_link',
