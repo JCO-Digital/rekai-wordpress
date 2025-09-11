@@ -21,8 +21,6 @@ $input_size        = $rek_size ?? '20';
 />
 <?php if ( ! empty( $rek_help ) ) : ?>
 	<p class="description">
-		<?php
-			echo esc_html( $rek_help );
-		?>
+		<?php \Rekai\render_help( $rek_help ); ?>
 	</p>
 <?php endif; ?>

@@ -30,8 +30,6 @@ foreach ( $rek_options ?? array() as $value => $label ) :
 <?php endforeach; ?>
 <?php if ( ! empty( $rek_help ) ) : ?>
 	<p class="description">
-		<?php
-			echo esc_html( $rek_help );
-		?>
+		<?php \Rekai\render_help( $rek_help ); ?>
 	</p>
 <?php endif; ?>

@@ -121,3 +121,16 @@ function render_template( string $template, array $data = array() ): void {
 	extract( $data, EXTR_PREFIX_ALL, 'rek' ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 	require $final_path;
 }
+
+function render_help( string|array $help ): void {
+	if ( is_string( $help ) ) {
+		echo esc_html( $help );
+	} elseif ( count( $help ) >= 3 ) {
+		printf(
+			'%1$s <a href="%3$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+			esc_html( $help[0] ),
+			esc_html( $help[1] ),
+			esc_url( $help[2] )
+		);
+	}
+}
