@@ -698,6 +698,12 @@ class OptionsPage extends Singleton {
 		return '';
 	}
 
+	/**
+	 * Sanitizes the autocomplete mode. Only allows 'auto', 'manual' or 'disabled'.
+	 *
+	 * @param string $input The autocomplete mode to sanitize.
+	 * @return string The sanitized autocomplete mode.
+	 */
 	public function sanitize_autocomplete_mode( string $input ): string {
 		if ( $input === 'auto' || $input === 'manual' ) {
 			return $input;

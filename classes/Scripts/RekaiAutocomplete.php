@@ -58,6 +58,8 @@ class RekaiAutocomplete extends RekaiBase {
 	/**
 	 * Handles rendering head inline scripts.
 	 *
+	 * @param string $handle The script handle to add the inline script to.
+	 *
 	 * @return void
 	 */
 	final public function create_inline( $handle ): void {
