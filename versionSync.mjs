@@ -17,7 +17,7 @@ try {
     .toString()
     .replace(
       /^"Project-Id-Version:.*$/m,
-      `"Project-Id-Version: Rek.ai ${pack.version}\n"`,
+      `"Project-Id-Version: Rek.ai ${pack.version}\\n"`,
     );
   writeFileSync("languages/rek-ai.pot", potString);
 } catch (error) {
