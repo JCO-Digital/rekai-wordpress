@@ -122,7 +122,15 @@ function render_template( string $template, array $data = array() ): void {
 	require $final_path;
 }
 
+/**
+ * Renders help text, optionally with a link.
+ *
+ * @param string|array $help Help text or an array containing the text, link text, and URL.
+ *
+ * @return void
+ */
 function render_help( string|array $help ): void {
+
 	if ( is_string( $help ) ) {
 		echo esc_html( $help );
 	} elseif ( count( $help ) >= 3 ) {

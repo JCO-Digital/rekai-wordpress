@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Rekai\Options\OptionsPage;
 
-$options_page = new OptionsPage();
+new OptionsPage();
 ?>
 <div
 	class="wrap">

@@ -10,7 +10,9 @@
     <exclude-pattern>*/.git/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>node_modules/*</exclude-pattern>
+    <exclude-pattern>plugin/*</exclude-pattern>
     <exclude-pattern>.idea/*</exclude-pattern>
+    <exclude-pattern>*.asset.php</exclude-pattern>
 
     <rule ref="WordPress-Docs" />
     <rule ref="WordPress-Extra">
