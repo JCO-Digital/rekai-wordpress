@@ -12,6 +12,14 @@ try {
     .toString()
     .replace(/^Stable tag:.*$/m, `Stable tag: ${pack.version}`);
   writeFileSync("readme.txt", readmeString);
+  const potFile = readFileSync("languages/rek-ai.pot");
+  const potString = potFile
+    .toString()
+    .replace(
+      /^"Project-Id-Version:.*$/m,
+      `"Project-Id-Version: Rek.ai ${pack.version}\n"`,
+    );
+  writeFileSync("languages/rek-ai.pot", potString);
 } catch (error) {
   console.error(error);
 }
