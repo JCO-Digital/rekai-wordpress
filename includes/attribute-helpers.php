@@ -143,6 +143,12 @@ function handle_path_options( array $attributes, $data = array() ): array {
  * @return array Data array with test mode settings if applicable.
  */
 function handle_testing_mode( $data = array() ) {
+
+	// Set mock data attribute.
+	if ( get_option( 'rekai_use_mock_data' ) === '1' ) {
+		$data['advanced_mockdata'] = 'true';
+	}
+
 	// Check for test mode.
 	if ( ! RekaiMain::get_instance()->get_test_mode() ) {
 		return $data;
@@ -158,11 +164,6 @@ function handle_testing_mode( $data = array() ) {
 
 	$data['projectid'] = $project_id;
 	$data['secretkey'] = $secret_key;
-
-	// Set mock data attribute.
-	if ( get_option( 'rekai_use_mock_data' ) === '1' ) {
-		$data['advanced_mockdata'] = 'true';
-	}
 
 	return $data;
 }
