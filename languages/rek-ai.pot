@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rek.ai 1.9.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rek-ai\n"
-"POT-Creation-Date: 2025-09-26 09:28:15+00:00\n"
+"POT-Creation-Date: 2025-09-26 13:55:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -101,7 +101,7 @@ msgid "Enter the HTML selector for the field you want to enable autocomplete for
 msgstr ""
 
 #: classes/options/class-optionspage.php:244
-#: classes/options/class-optionspage.php:519
+#: classes/options/class-optionspage.php:518
 msgid "Use current language"
 msgstr ""
 
@@ -122,7 +122,7 @@ msgid "Navigate to the selected item when clicking on it."
 msgstr ""
 
 #: classes/options/class-optionspage.php:294
-#: classes/options/class-optionspage.php:563
+#: classes/options/class-optionspage.php:562
 msgid "Test Mode"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgid "Enables test mode. This will not send any data to Rek.ai."
 msgstr ""
 
 #: classes/options/class-optionspage.php:310
-#: classes/options/class-optionspage.php:576
+#: classes/options/class-optionspage.php:575
 msgid "Use Mock Data"
 msgstr ""
 
@@ -140,7 +140,7 @@ msgid "Use mock data instead of getting real data from Rek.ai."
 msgstr ""
 
 #: classes/options/class-optionspage.php:326
-#: classes/options/class-optionspage.php:589
+#: classes/options/class-optionspage.php:588
 msgid "Project ID"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgid ""
 msgstr ""
 
 #: classes/options/class-optionspage.php:346
-#: classes/options/class-optionspage.php:601
+#: classes/options/class-optionspage.php:600
 msgid "Secret Key"
 msgstr ""
 
@@ -164,53 +164,53 @@ msgstr ""
 msgid "The secret key can be found in your dashboard, "
 msgstr ""
 
-#: classes/options/class-optionspage.php:377
+#: classes/options/class-optionspage.php:376
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: classes/options/class-optionspage.php:383
-#: classes/options/class-optionspage.php:412
+#: classes/options/class-optionspage.php:382
+#: classes/options/class-optionspage.php:411
 msgid "General"
 msgstr ""
 
-#: classes/options/class-optionspage.php:387
-#: classes/options/class-optionspage.php:555
+#: classes/options/class-optionspage.php:386
+#: classes/options/class-optionspage.php:554
 msgid "Advanced"
 msgstr ""
 
-#: classes/options/class-optionspage.php:391
+#: classes/options/class-optionspage.php:390
 msgid "Documentation"
 msgstr ""
 
-#: classes/options/class-optionspage.php:421
+#: classes/options/class-optionspage.php:420
 msgid "Load Scripts"
 msgstr ""
 
-#: classes/options/class-optionspage.php:435
+#: classes/options/class-optionspage.php:434
 msgid "Embed Code"
 msgstr ""
 
-#: classes/options/class-optionspage.php:457
+#: classes/options/class-optionspage.php:456
 msgid "Autocomplete"
 msgstr ""
 
-#: classes/options/class-optionspage.php:465
+#: classes/options/class-optionspage.php:464
 msgid "Autocomplete mode"
 msgstr ""
 
-#: classes/options/class-optionspage.php:486
+#: classes/options/class-optionspage.php:485
 msgid "Autocomplete Settings"
 msgstr ""
 
-#: classes/options/class-optionspage.php:494
+#: classes/options/class-optionspage.php:493
 msgid "Autocomplete selector"
 msgstr ""
 
-#: classes/options/class-optionspage.php:506
+#: classes/options/class-optionspage.php:505
 msgid "Open on click"
 msgstr ""
 
-#: classes/options/class-optionspage.php:532
+#: classes/options/class-optionspage.php:531
 msgid "Number of results"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgstr ""
 msgid "https://docs.rek.ai/integration-modules/wordpress"
 msgstr ""
 
-#: views/docs/docs.php:6
+#: views/docs/docs.php:12
 msgid "Documentation for the plugin"
 msgstr ""
 
