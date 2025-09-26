@@ -7,16 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@alpinejs/resize':
-        specifier: ^3.14.9
-        version: 3.14.9
-      alpinejs:
-        specifier: ^3.14.9
-        version: 3.14.9
-      highlight.js:
-        specifier: ^11.11.1
-        version: 11.11.1
     devDependencies:
       '@svgr/webpack':
         specifier: ^8.1.0
@@ -68,9 +58,6 @@ importers:
         version: 4.1.1(webpack@5.100.2)
 
 packages:
-
-  '@alpinejs/resize@3.14.9':
-    resolution: {integrity: sha512-UmKDn8MiuBLQxhohidze3NniMmXwFkLoul+IWnCDZO1mPCR0Q4227wjAYyj0P8pQwgARMUTiHrwdpYUId3vtnA==}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -2184,12 +2171,6 @@ packages:
     peerDependencies:
       react: '>= 16.8.0'
 
-  '@vue/reactivity@3.1.5':
-    resolution: {integrity: sha512-1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==}
-
-  '@vue/shared@3.1.5':
-    resolution: {integrity: sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==}
-
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
 
@@ -2630,9 +2611,6 @@ packages:
 
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
-
-  alpinejs@3.14.9:
-    resolution: {integrity: sha512-gqSOhTEyryU9FhviNqiHBHzgjkvtukq9tevew29fTj+ofZtfsYriw4zPirHHOAy9bw8QoL3WGhyk7QqCh5AYlw==}
 
   ansi-colors@4.1.3:
     resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
@@ -4406,10 +4384,6 @@ packages:
 
   highlight-words-core@1.2.3:
     resolution: {integrity: sha512-m1O9HW3/GNHxzSIXWw1wCNXXsgLlxrP0OI6+ycGUhiUHkikqW3OrwVHz+lxeNBe5yqLESdIcj8PowHQ2zLvUvQ==}
-
-  highlight.js@11.11.1:
-    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
-    engines: {node: '>=12.0.0'}
 
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
@@ -7649,8 +7623,6 @@ packages:
 
 snapshots:
 
-  '@alpinejs/resize@3.14.9': {}
-
   '@ampproject/remapping@2.3.0':
     dependencies:
       '@jridgewell/gen-mapping': 0.3.12
@@ -10737,12 +10709,6 @@ snapshots:
       '@use-gesture/core': 10.3.1
       react: 18.3.1
 
-  '@vue/reactivity@3.1.5':
-    dependencies:
-      '@vue/shared': 3.1.5
-
-  '@vue/shared@3.1.5': {}
-
   '@webassemblyjs/ast@1.14.1':
     dependencies:
       '@webassemblyjs/helper-numbers': 1.13.2
@@ -11599,10 +11565,6 @@ snapshots:
       fast-uri: 3.0.6
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
-
-  alpinejs@3.14.9:
-    dependencies:
-      '@vue/reactivity': 3.1.5
 
   ansi-colors@4.1.3: {}
 
@@ -13707,8 +13669,6 @@ snapshots:
       tslib: 2.8.1
 
   highlight-words-core@1.2.3: {}
-
-  highlight.js@11.11.1: {}
 
   hoist-non-react-statics@3.3.2:
     dependencies:

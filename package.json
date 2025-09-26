@@ -11,19 +11,17 @@
     "composer:install": "composer install",
     "composer:update": "composer update",
     "composer:install-release": "composer install --no-dev --no-scripts --no-interaction --prefer-dist",
-    "js:build": "esbuild --bundle assets/js/*.?s --outdir=dist/js --minify --sourcemap",
+    "js:build": "esbuild --bundle src/js/*.?s --outdir=dist/js --minify --sourcemap",
     "js:watch": "pnpm js:build --watch",
     "plugin:i18n": "grunt i18n",
     "plugin:readme": "grunt readme",
     "plugin:tasks": "grunt default",
     "plugin:zip": "grunt zip",
     "plugin:dist": "rm -rf plugin && grunt dist",
-    "project:build": "pnpm js:build && pnpm scss-admin:build && pnpm scss-frontend:build && pnpm blocks:build",
-    "project:dev": "pnpm dlx concurrently -c blue,yellow,magenta,cyan,red --names \"🌐wp,🛠️js,💄scss(admin),💄scss(frontend),📦blocks\" \"pnpm wp:start\" \"pnpm js:watch\" \"pnpm scss-admin:watch\" \"pnpm scss-frontend:watch\" \"pnpm blocks:watch\"",
-    "scss-admin:build": "sass --style=compressed assets/css/admin.scss dist/css/admin.css",
+    "project:build": "pnpm js:build && pnpm scss-admin:build && pnpm blocks:build",
+    "project:dev": "pnpm dlx concurrently -c blue,yellow,magenta,cyan,red --names \"🌐wp,🛠️js,💄scss(admin),📦blocks\" \"pnpm wp:start\" \"pnpm js:watch\" \"pnpm scss-admin:watch\"  \"pnpm blocks:watch\"",
+    "scss-admin:build": "sass --style=compressed src/css/admin.scss dist/css/admin.css",
     "scss-admin:watch": "pnpm scss-admin:build --watch",
-    "scss-frontend:build": "sass --style=compressed assets/css/index.scss dist/css/index.css",
-    "scss-frontend:watch": "pnpm scss-frontend:build --watch",
     "wp:start": "pnpm dlx @wp-now/wp-now start --blueprint=.wp/latest-debug.json",
     "wp:reset": "pnpm dlx @wp-now/wp-now start --reset --blueprint=.wp/latest-debug.json",
     "version": "node versionSync.mjs && git add -A",
@@ -51,9 +49,5 @@
   "author": "J&Co Digital Oy <support@jco.fi>",
   "license": "GPL-2.0-or-later",
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
-  "dependencies": {
-    "@alpinejs/resize": "^3.14.9",
-    "alpinejs": "^3.14.9",
-    "highlight.js": "^11.11.1"
-  }
+  "dependencies": {}
 }
