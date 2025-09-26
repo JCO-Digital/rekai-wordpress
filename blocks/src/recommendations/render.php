@@ -18,6 +18,6 @@ handle_extra_attributes( $attributes['extraAttributes'] ?? '', $extra );
 ?>
 <div
 		<?php
-		echo esc_attr( get_block_wrapper_attributes( $extra ) );
+		echo wp_kses_data( get_block_wrapper_attributes( $extra ) );
 		?>
 ></div>
