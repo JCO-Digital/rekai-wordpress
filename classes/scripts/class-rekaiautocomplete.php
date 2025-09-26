@@ -80,8 +80,8 @@ class RekaiAutocomplete extends RekaiBase {
 						"%s",
 						%s
 					);',
-				$selector,
-				$autocomplete_options
+				esc_js( $selector ),
+				wp_json_encode( $autocomplete_options )
 			);
 			if ( $autocomplete_navigate ) {
 				$output .= '
@@ -99,11 +99,11 @@ class RekaiAutocomplete extends RekaiBase {
 	}
 
 	/**
-	 * Handles retrieving the autocomplete options and constructing the JSON string.
+	 * Handles retrieving the autocomplete options and constructing and array.
 	 *
-	 * @return string
+	 * @return array
 	 */
-	private function get_autocomplete_options(): string {
+	private function get_autocomplete_options(): array {
 		$options           = array();
 		$is_test           = $this->get_test_mode();
 		$options['params'] = array();
@@ -120,6 +120,6 @@ class RekaiAutocomplete extends RekaiBase {
 			$options['params']['allowedlangs'] = get_bloginfo( 'language' );
 		}
 
-		return wp_json_encode( $options );
+		return $options;
 	}
 }
