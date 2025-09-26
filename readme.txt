@@ -17,6 +17,8 @@ This plugin loads the Rek.ai scripts into WordPress. It can be used to configure
 
 This plugin requires a Rek.ai account to use.
 
+Plugin source code: https://github.com/JCO-Digital/rekai-wordpress
+
 = Features =
 - Loads Rek.ai scripts into WordPress.
 - A recommendations block.
