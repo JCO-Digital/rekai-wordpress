@@ -18,7 +18,6 @@ handle_extra_attributes( $attributes['extraAttributes'] ?? '', $extra );
 ?>
 <div
 		<?php
-		// phpcs:ignore
 		echo get_block_wrapper_attributes( $extra );
 		?>
 ></div>

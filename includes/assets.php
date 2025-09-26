@@ -19,10 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function register_plugin_assets(): void {
 		style_register(
-			'rekai-frontend',
-			'dist/css/index.css',
-		);
-		style_register(
 			'rekai-admin',
 			'dist/css/admin.css',
 			array( 'wp-components' )

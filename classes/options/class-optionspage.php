@@ -1,4 +1,4 @@
-<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+<?php
 /**
  * Options page class.
  *
@@ -359,7 +359,6 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function enqueue_assets(): void {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_GET['page'] ) || 'rekai-settings' !== $_GET['page'] ) {
 			return;
 		}
@@ -376,7 +375,7 @@ class OptionsPage extends Singleton {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'rek-ai' ) );
 		}
-		$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'general';
 		$data = array(
 			'tabs'       => array(
 				'general'  => array(
