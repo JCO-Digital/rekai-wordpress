@@ -15,10 +15,9 @@
     <exclude-pattern>*.asset.php</exclude-pattern>
     <exclude-pattern>blocks-manifest.php</exclude-pattern>
 
+    <rule ref="WordPress-Core" />
     <rule ref="WordPress-Docs" />
-    <rule ref="WordPress-Extra">
-        <exclude name="WordPress.PHP.YodaConditions" />
-    </rule>
+    <rule ref="WordPress-Extra" />
     <rule ref="Generic.CodeAnalysis.AssignmentInCondition">
         <exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
     </rule>
