@@ -18,6 +18,6 @@ handle_extra_attributes( $attributes['extraAttributes'] ?? '', $extra );
 ?>
 <div
 		<?php
-		echo get_block_wrapper_attributes( $extra );
+		echo esc_attr( get_block_wrapper_attributes( $extra ) );
 		?>
 ></div>

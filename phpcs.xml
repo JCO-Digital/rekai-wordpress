@@ -13,6 +13,7 @@
     <exclude-pattern>plugin/*</exclude-pattern>
     <exclude-pattern>.idea/*</exclude-pattern>
     <exclude-pattern>*.asset.php</exclude-pattern>
+    <exclude-pattern>blocks-manifest.php</exclude-pattern>
 
     <rule ref="WordPress-Docs" />
     <rule ref="WordPress-Extra">
