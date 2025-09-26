@@ -359,11 +359,12 @@ class OptionsPage extends Singleton {
 	 * @return void
 	 */
 	final public function enqueue_assets(): void {
-		if ( ! isset( $_GET['page'] ) || 'rekai-settings' !== $_GET['page'] ) {
-			return;
+		// Nonce verification seems excessive, since this only checks if you need to load the assets.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['page'] ) && 'rekai-settings' == $_GET['page'] ) {
+			wp_enqueue_style( 'rekai-admin' );
+			wp_enqueue_script( 'rekai-backend' );
 		}
-		wp_enqueue_style( 'rekai-admin' );
-		wp_enqueue_script( 'rekai-backend' );
 	}
 
 	/**
@@ -375,7 +376,13 @@ class OptionsPage extends Singleton {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'rek-ai' ) );
 		}
-		$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'general';
+
+		// Make sure active_tab is always a valid value.
+		$allowed_tabs = array( 'general', 'advanced', 'docs' );
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$tab_index = isset( $_GET['tab'] ) ? array_search( $_GET['tab'], $allowed_tabs ) : 0;
+		$tab = $allowed_tabs[ $tab_index ] ?? 'general';
+
 		$data = array(
 			'tabs'       => array(
 				'general'  => array(
@@ -701,7 +708,7 @@ class OptionsPage extends Singleton {
 	 * @return string The sanitized autocomplete mode.
 	 */
 	public function sanitize_autocomplete_mode( string $input ): string {
-		if ( $input === 'auto' || $input === 'manual' ) {
+		if ( 'auto' === $input || 'manual' === $input ) {
 			return $input;
 		}
 		return 'disabled';
