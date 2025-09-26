@@ -29,7 +29,7 @@ new OptionsPage();
 		<?php endforeach; ?>
 	</div>
 
-	<?php if ( $rek_active_tab === 'docs' ) : ?>
+	<?php if ( 'docs' === $rek_active_tab ) : ?>
 		<div class="docs-wrapper">
 			<?php include trailingslashit( REKAI_PLUGIN_PATH ) . '/views/docs/docs.php'; ?>
 		</div>
@@ -38,11 +38,11 @@ new OptionsPage();
 			method="post"
 			action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
 			<?php
-			if ( $rek_active_tab === 'general' ) :
+			if ( 'general' === $rek_active_tab ) :
 				settings_fields( 'rekai-tab-general' );
 				do_settings_sections( 'rekai-tab-general' );
 				submit_button();
-			elseif ( $rek_active_tab === 'advanced' ) :
+			elseif ( 'advanced' === $rek_active_tab ) :
 				settings_fields( 'rekai-tab-advanced' );
 				do_settings_sections( 'rekai-tab-advanced' );
 				submit_button();
