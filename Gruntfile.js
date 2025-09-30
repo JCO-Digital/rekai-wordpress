@@ -101,12 +101,6 @@ module.exports = function (grunt) {
     zip: {
       "skip-files": {
         router: function (filepath) {
-          const isIgnored = ignoredFiles.filter((f) => {
-            // Don't zip files that are ignored by .distignore also run a regex
-            const match = matchGlobPattern(filepath, f);
-            return filepath.startsWith(f) || filepath.includes(f) || match;
-          });
-          if (isIgnored.length > 0) return null;
           return filepath.replace(/^plugin\//, "");
         },
         src: ["plugin/**/*"],
@@ -137,6 +131,12 @@ module.exports = function (grunt) {
               if (grunt.file.isDir(filepath)) {
                 return false;
               }
+              const isIgnored = ignoredFiles.filter((f) => {
+                // Don't zip files that are ignored by .distignore also run a regex
+                const match = matchGlobPattern(filepath, f);
+                return filepath.startsWith(f) || filepath.includes(f) || match;
+              });
+              if (isIgnored.length > 0) return false;
               return true;
             },
           },
