@@ -37,20 +37,21 @@ jobs:
       - name: Make
         run: make release
 
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/rek-ai.zip"
+
       - name: WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
           generate-zip: false
         env:
+          SLUG: rek-ai
           BUILD_DIR: plugin
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-
-      - name: Create GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/rek-ai.zip"
 
       - name: Deploy
         uses: s0/git-publish-subdir-action@v2.6.0
