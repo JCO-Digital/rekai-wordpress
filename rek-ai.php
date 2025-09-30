@@ -3,7 +3,7 @@
  * Plugin Name: Rek.ai
  * Plugin URI: https://docs.rek.ai/integration-modules/wordpress
  * Description: Rek.ai integration for WordPress
- * Version: 1.9.9
+ * Version: 1.9.10
  * Author: Rek.ai
  * Author URI: https://rek.ai
  * Domain Path: /languages
