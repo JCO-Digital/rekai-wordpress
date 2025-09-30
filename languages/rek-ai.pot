@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rek.ai 1.9.8\n"
+"Project-Id-Version: Rek.ai 1.9.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rek-ai\n"
 "POT-Creation-Date: 2025-09-26 15:17:30+00:00\n"
 "MIME-Version: 1.0\n"
