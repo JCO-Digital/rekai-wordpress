@@ -17,6 +17,7 @@ behat.yml
 bitbucket-pipelines.yml
 bin
 vendor
+node_modules
 .circleci/config.yml
 composer.json
 composer.lock
