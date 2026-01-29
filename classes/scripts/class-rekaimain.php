@@ -33,6 +33,10 @@ class RekaiMain extends RekaiBase {
 		if ( empty( $embed_code ) ) {
 			return;
 		}
+		if ( ! filter_var( $embed_code, FILTER_VALIDATE_URL ) || ! str_starts_with( $embed_code, 'https://' ) ) {
+			return;
+		}
+
 		$handle = 'rekai-main';
 
 		add_filter( 'script_loader_tag', array( $this, 'add_data_attributes' ), 10, 2 );
