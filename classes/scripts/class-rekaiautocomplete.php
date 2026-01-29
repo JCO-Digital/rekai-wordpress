@@ -49,7 +49,7 @@ class RekaiAutocomplete extends RekaiBase {
 			'rekai-autocomplete',
 			$this->get_static_url( '/addon/v3/rekai_autocomplete.min.js' ),
 			array( 'rekai-main' ),
-			'1',
+			REKAI_PLUGIN_VERSION,
 			false
 		);
 		$this->create_inline( 'rekai-autocomplete' );
