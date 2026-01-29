@@ -42,6 +42,7 @@ class OptionsPage extends Singleton {
 		'rekai_use_mock_data',
 		'rekai_project_id',
 		'rekai_secret_key',
+		'rekai_consent_mode',
 	);
 
 	/**
@@ -354,6 +355,26 @@ class OptionsPage extends Singleton {
 	}
 
 	/**
+	 * Renders the Consent Mode field.
+	 *
+	 * @return void
+	 */
+	final public function render_consent_mode_field(): void {
+		render_checkbox_field(
+			array(
+				'id'          => 'rekai_consent_mode',
+				'value'       => get_option( 'rekai_consent_mode', '' ),
+				'placeholder' => __( 'Consent Mode', 'rek-ai' ),
+				'help'        => array(
+					__( 'Allows fine-grained control over data collection, ', 'rek-ai' ),
+					__( 'please refer to this document for more information.', 'rek-ai' ),
+					__( 'https://docs.rek.ai/advanced/advanceddatacollection#block-usage-of-local-storage-and-session-storage', 'rek-ai' ),
+				),
+			)
+		);
+	}
+
+	/**
 	 * Enqueues the assets for the options page.
 	 *
 	 * @return void
@@ -381,7 +402,7 @@ class OptionsPage extends Singleton {
 		$allowed_tabs = array( 'general', 'advanced', 'docs' );
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$tab_index = isset( $_GET['tab'] ) ? array_search( $_GET['tab'], $allowed_tabs ) : 0;
-		$tab = $allowed_tabs[ $tab_index ] ?? 'general';
+		$tab       = $allowed_tabs[ $tab_index ] ?? 'general';
 
 		$data = array(
 			'tabs'       => array(
@@ -609,6 +630,19 @@ class OptionsPage extends Singleton {
 			array( $this, 'render_secret_key_field' ),
 			array(
 				'label_for' => 'rekai_secret_key',
+			)
+		);
+
+		$this->register_field(
+			$page,
+			$section,
+			'rekai_consent_mode',
+			__( 'Consent Mode', 'rek-ai' ),
+			'boolval',
+			array( $this, 'render_consent_mode_field' ),
+			array(
+				'label_for' => 'rekai_consent_mode',
+				'type'      => 'bool',
 			)
 		);
 	}

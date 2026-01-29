@@ -98,7 +98,7 @@ abstract class RekaiBase extends Singleton {
 			// Not in test mode.
 			return false;
 		}
-		if ( in_array( wp_get_environment_type(), array( 'production', 'local' ) ) ) {
+		if ( in_array( wp_get_environment_type(), array( 'production', 'local' ), true ) ) {
 			// Allow test mode without id / secret for local and production, since it probably works there.
 			return false;
 		}

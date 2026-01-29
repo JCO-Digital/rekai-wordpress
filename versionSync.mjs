@@ -2,24 +2,29 @@ import { readFileSync, writeFileSync } from "fs";
 
 try {
   const pack = JSON.parse(readFileSync("package.json"));
-  const baseFile = readFileSync("rek-ai.php");
-  const baseString = baseFile
-    .toString()
-    .replace(/^(.*)Version:.*$/m, `$1Version: ${pack.version}`);
-  writeFileSync("rek-ai.php", baseString);
-  const readmeFile = readFileSync("readme.txt");
-  const readmeString = readmeFile
-    .toString()
-    .replace(/^Stable tag:.*$/m, `Stable tag: ${pack.version}`);
-  writeFileSync("readme.txt", readmeString);
-  const potFile = readFileSync("languages/rek-ai.pot");
-  const potString = potFile
-    .toString()
-    .replace(
-      /^"Project-Id-Version:.*$/m,
-      `"Project-Id-Version: Rek.ai ${pack.version}\\n"`,
-    );
-  writeFileSync("languages/rek-ai.pot", potString);
+
+  replaceInFile("rek-ai.php", /Version:.*$/m, `Version: ${pack.version}`);
+  replaceInFile(
+    "readme.txt",
+    /^Stable tag:.*$/m,
+    `Stable tag: ${pack.version}`,
+  );
+  replaceInFile(
+    "consts.php",
+    /'REKAI_PLUGIN_VERSION', '.*'/m,
+    `'REKAI_PLUGIN_VERSION', '${pack.version}'`,
+  );
+  replaceInFile(
+    "languages/rek-ai.pot",
+    /^"Project-Id-Version:.*$/m,
+    `"Project-Id-Version: Rek.ai ${pack.version}\\n"`,
+  );
 } catch (error) {
   console.error(error);
+}
+
+function replaceInFile(file, search, replacement) {
+  const fileContent = readFileSync(file, "utf8");
+  const updatedContent = fileContent.toString().replace(search, replacement);
+  writeFileSync(file, updatedContent);
 }
