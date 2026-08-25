@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use WP_REST_Request;
 use WP_REST_Response;
 
 add_action( 'rest_api_init', 'Rekai\add_endpoints' );
@@ -39,10 +38,9 @@ function add_endpoints(): void {
 /**
  * Get all posts and their paths.
  *
- * @param WP_REST_Request $request Full data about the request.
  * @return WP_REST_Response
  */
-function get_posts( WP_REST_Request $request ): WP_REST_Response {
+function get_posts(): WP_REST_Response {
 	$response      = new \WP_REST_Response();
 	$blocked_types = array( 'attachment' );
 	$types         = array();
@@ -63,8 +61,11 @@ function get_posts( WP_REST_Request $request ): WP_REST_Response {
 	}
 
 	$args = array(
-		'post_type'      => $types,
-		'posts_per_page' => -1,
+		'post_type'              => $types,
+		'posts_per_page'         => -1,
+		// Only ID, title and permalink are used below, so skip the extra bulk queries.
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
 	);
 	foreach ( \get_posts( $args ) as $post ) {
 		$results[] = array(
