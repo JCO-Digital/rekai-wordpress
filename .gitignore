@@ -273,5 +273,6 @@ dist
 blocks/build
 build/
 plugin/
+.phpunit.result.cache
 
 README.md
