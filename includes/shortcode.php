@@ -36,6 +36,20 @@ add_shortcode( 'rekai-prediction', '\Rekai\prediction' );
  */
 function qna( $atts ) {
 	$atts['entitytype'] = 'rekai-qna';
+	$atts['blockType']  = 'qna';
+
+	if ( 'server' === resolve_qna_render_mode() ) {
+		$post_id = get_the_ID();
+		if ( empty( $post_id ) && isset( $GLOBALS['post']->ID ) ) {
+			$post_id = $GLOBALS['post']->ID;
+		}
+		$ssr_html = fetch_qna_ssr_html( (int) $post_id, $atts );
+		if ( null !== $ssr_html ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- see blocks/src/recommendations/render.php.
+			return $ssr_html;
+		}
+	}
+
 	return prediction( $atts );
 }
 add_shortcode( 'rekai-qna', '\Rekai\qna' );

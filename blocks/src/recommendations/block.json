@@ -112,6 +112,11 @@
     "extraAttributes": {
       "type": "string",
       "default": ""
+    },
+    "qnaRenderMode": {
+      "type": "string",
+      "default": "default",
+      "enum": ["default", "server", "client"]
     }
   },
   "textdomain": "rekai",

@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Rekai\Singleton;
+use function Rekai\get_rekai_service_url;
 
 /**
  * Rek.ai base class for script loading.
@@ -124,10 +125,6 @@ abstract class RekaiBase extends Singleton {
 	 * @return string The complete static URL.
 	 */
 	protected function get_static_url( string $url ): string {
-		$embed_code = get_option( 'rekai_embed_code', '' );
-		if ( ! empty( $embed_code ) && preg_match( '/^https:\/\/static\.[^\/]+/', $embed_code, $matches ) ) {
-			return $matches[0] . $url;
-		}
-		return self::DEFAULT_URL . $url;
+		return get_rekai_service_url( 'static', self::DEFAULT_URL ) . $url;
 	}
 }

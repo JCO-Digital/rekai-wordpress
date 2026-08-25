@@ -25,6 +25,21 @@ use Rekai\Scripts\RekaiMain;
  * @return array An array of HTML data attributes ready to be added to elements.
  */
 function generate_data_attributes( $attributes ) {
+	return map_data_to_dataset( generate_data_attributes_raw( $attributes ) );
+}
+
+/**
+ * Generates the raw (un-prefixed) Rekai API parameters for the given block attributes.
+ *
+ * Shares its output format with the Rek.ai predict API's own query parameter names,
+ * so it can be reused both for the client-side `data-*` attributes (via
+ * generate_data_attributes()) and for building a server-side predict API request.
+ *
+ * @param array $attributes The attributes array to be processed.
+ *
+ * @return array An array of Rekai API parameters, keyed by their (lowercase) param name.
+ */
+function generate_data_attributes_raw( $attributes ) {
 	$data = handle_testing_mode();
 	$data = handle_path_options( $attributes, $data );
 
@@ -84,7 +99,7 @@ function generate_data_attributes( $attributes ) {
 		}
 	}
 
-	return map_data_to_dataset( $data );
+	return $data;
 }
 
 /**

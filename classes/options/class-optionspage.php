@@ -42,6 +42,7 @@ class OptionsPage extends Singleton {
 		'rekai_use_mock_data',
 		'rekai_project_id',
 		'rekai_secret_key',
+		'rekai_qna_render_mode',
 		'rekai_consent_mode',
 	);
 
@@ -355,6 +356,29 @@ class OptionsPage extends Singleton {
 	}
 
 	/**
+	 * Renders the Q&A render mode field.
+	 *
+	 * @return void
+	 */
+	final public function render_qna_render_mode_field(): void {
+		render_radiobuttons_field(
+			array(
+				'id'      => 'rekai_qna_render_mode',
+				'value'   => get_option( 'rekai_qna_render_mode', 'server' ),
+				'options' => array(
+					'server' => __( 'Server-Side (recommended for SEO/AEO)', 'rek-ai' ),
+					'client' => __( 'Client-Side', 'rek-ai' ),
+				),
+				'help'    => array(
+					__( 'How Questions & Answers content should be fetched and rendered. ', 'rek-ai' ),
+					__( 'Read more about server side rendering.', 'rek-ai' ),
+					__( 'https://docs.rek.ai/questions-and-answers/server-side-rendering', 'rek-ai' ),
+				),
+			),
+		);
+	}
+
+	/**
 	 * Renders the Consent Mode field.
 	 *
 	 * @return void
@@ -636,6 +660,18 @@ class OptionsPage extends Singleton {
 		$this->register_field(
 			$page,
 			$section,
+			'rekai_qna_render_mode',
+			__( 'Q&A rendering', 'rek-ai' ),
+			array( $this, 'sanitize_qna_render_mode' ),
+			array( $this, 'render_qna_render_mode_field' ),
+			array(
+				'type' => 'string',
+			)
+		);
+
+		$this->register_field(
+			$page,
+			$section,
 			'rekai_consent_mode',
 			__( 'Consent Mode', 'rek-ai' ),
 			'boolval',
@@ -746,5 +782,15 @@ class OptionsPage extends Singleton {
 			return $input;
 		}
 		return 'disabled';
+	}
+
+	/**
+	 * Sanitizes the Q&A render mode. Only allows 'server' or 'client'.
+	 *
+	 * @param string $input The Q&A render mode to sanitize.
+	 * @return string The sanitized Q&A render mode.
+	 */
+	public function sanitize_qna_render_mode( string $input ): string {
+		return 'client' === $input ? 'client' : 'server';
 	}
 }

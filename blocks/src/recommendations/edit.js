@@ -45,6 +45,7 @@ export default function Edit({ attributes, setAttributes }) {
     allowedLangs,
     excludeTree,
     extraAttributes,
+    qnaRenderMode,
   } = attributes;
   const isRecommendations = blockType === "recommendations";
   const isQna = !isRecommendations;
@@ -261,6 +262,24 @@ export default function Edit({ attributes, setAttributes }) {
             />
           </PanelBody>
         </InspectorControls>
+        {isQna && (
+          <InspectorAdvancedControls>
+            <RadioControl
+              label={__("Q&A Rendering", "rekai")}
+              selected={qnaRenderMode}
+              options={[
+                { value: "default", label: __("Default", "rekai") },
+                { value: "server", label: __("Server-Side", "rekai") },
+                { value: "client", label: __("Client-Side", "rekai") },
+              ]}
+              onChange={(value) => setAttributes({ qnaRenderMode: value })}
+              help={__(
+                '"Default" follows the site-wide setting under Rek.ai Settings → Advanced.',
+                "rekai",
+              )}
+            />
+          </InspectorAdvancedControls>
+        )}
       </div>
     </>
   );
