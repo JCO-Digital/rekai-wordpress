@@ -44,10 +44,13 @@ function qna( $atts ) {
 			$post_id = $GLOBALS['post']->ID;
 		}
 		$ssr_html = fetch_qna_ssr_html( (int) $post_id, $atts );
-		if ( null !== $ssr_html ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- see blocks/src/recommendations/render.php.
-			return $ssr_html;
-		}
+
+		// Deliberately not falling back to prediction() (client-side rendering) here: it
+		// scopes results differently (broader "related content" matching rather than this
+		// exact page), so a fallback would silently show a different result set than what
+		// SSR was configured to show - render an empty block instead.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- see blocks/src/recommendations/render.php.
+		return $ssr_html ?? '<div class="rek-prediction rek-prediction--ssr"></div>';
 	}
 
 	return prediction( $atts );
