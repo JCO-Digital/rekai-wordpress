@@ -11,6 +11,7 @@
     "composer:install": "composer install",
     "composer:update": "composer update",
     "composer:install-release": "composer install --no-dev --no-scripts --no-interaction --prefer-dist",
+    "composer:test": "composer test",
     "js:build": "esbuild --bundle src/js/*.?s --outdir=dist/js --minify --sourcemap",
     "js:watch": "pnpm js:build --watch",
     "plugin:i18n": "grunt i18n",

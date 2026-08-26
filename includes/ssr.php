@@ -122,8 +122,16 @@ function fetch_qna_predictions( int $post_id, array $attributes ): ?array {
 		return null;
 	}
 
-	$cache_key = 'rekai_qna_ssr_' . $post_id . '_' . md5( wp_json_encode( $attributes ) );
-	$cached    = get_transient( $cache_key );
+	// Including rekai_use_mock_data in the key (rather than just $attributes) means flipping
+	// that setting busts the cache immediately instead of waiting out the TTL - it's read
+	// again, unhashed, in handle_testing_mode() on a cache miss to build the actual request.
+	// The "mock=0"/"mock=1" marker is deliberately non-empty in both states: appending the
+	// raw option value directly would make the "off" key identical to a plain md5($attributes)
+	// hash (an empty string appended is a no-op), colliding with - and resurrecting - stale
+	// cache entries from before this per-setting key existed at all.
+	$mock_marker = 'mock=' . ( '1' === get_option( 'rekai_use_mock_data' ) ? '1' : '0' );
+	$cache_key   = 'rekai_qna_ssr_' . $post_id . '_' . md5( wp_json_encode( $attributes ) . $mock_marker );
+	$cached      = get_transient( $cache_key );
 	if ( is_array( $cached ) ) {
 		// Cached result, empty on a prior failure or a genuine zero-prediction response.
 		return empty( $cached ) ? null : $cached;

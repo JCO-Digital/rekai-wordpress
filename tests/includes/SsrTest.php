@@ -274,6 +274,50 @@ final class SsrTest extends TestCase {
 		self::assertNull( fetch_qna_predictions( 1, array( 'blockType' => 'qna' ) ) );
 	}
 
+	public function test_fetch_qna_predictions_uses_a_different_cache_key_when_mock_data_is_toggled(): void {
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'production' );
+		Functions\when( 'apply_filters' )->alias( static fn( $tag, $value ) => $value );
+		Functions\when( 'add_action' )->justReturn( true );
+		Functions\when( 'get_permalink' )->justReturn( 'https://example.com/fi/grand-one-2024/' );
+		Functions\when( 'add_query_arg' )->alias( static fn( $args, $url ) => $url . '?' . http_build_query( $args ) );
+		$this->stub_wp_json_encode();
+		Functions\when( 'is_wp_error' )->justReturn( false );
+		Functions\when( 'wp_remote_retrieve_response_code' )->justReturn( 200 );
+		Functions\when( 'wp_remote_retrieve_body' )->justReturn(
+			wp_json_encode( array( 'predictions' => array( array( 'question' => 'Q', 'answer' => 'A' ) ) ) )
+		);
+		Functions\when( 'wp_remote_get' )->justReturn( array() );
+
+		$seen_keys = array();
+		Functions\when( 'get_transient' )->justReturn( false );
+		Functions\when( 'set_transient' )->alias(
+			static function ( $key ) use ( &$seen_keys ) {
+				$seen_keys[] = $key;
+			}
+		);
+
+		$this->stub_options(
+			array(
+				'rekai_project_id'   => '14231580',
+				'rekai_secret_key'   => 'a-secret',
+				'rekai_use_mock_data' => '',
+			)
+		);
+		fetch_qna_predictions( 1, array( 'blockType' => 'qna' ) );
+
+		$this->stub_options(
+			array(
+				'rekai_project_id'   => '14231580',
+				'rekai_secret_key'   => 'a-secret',
+				'rekai_use_mock_data' => '1',
+			)
+		);
+		fetch_qna_predictions( 1, array( 'blockType' => 'qna' ) );
+
+		self::assertCount( 2, $seen_keys );
+		self::assertNotSame( $seen_keys[0], $seen_keys[1] );
+	}
+
 	public function test_fetch_qna_ssr_html_returns_null_when_there_are_no_predictions_to_render(): void {
 		$this->stub_options( array() );
 		self::assertNull( fetch_qna_ssr_html( 1, array( 'blockType' => 'qna' ) ) );
