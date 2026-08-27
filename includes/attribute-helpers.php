@@ -25,6 +25,21 @@ use Rekai\Scripts\RekaiMain;
  * @return array An array of HTML data attributes ready to be added to elements.
  */
 function generate_data_attributes( $attributes ) {
+	return map_data_to_dataset( generate_data_attributes_raw( $attributes ) );
+}
+
+/**
+ * Generates the raw (un-prefixed) Rekai API parameters for the given block attributes.
+ *
+ * Shares its output format with the Rek.ai predict API's own query parameter names,
+ * so it can be reused both for the client-side `data-*` attributes (via
+ * generate_data_attributes()) and for building a server-side predict API request.
+ *
+ * @param array $attributes The attributes array to be processed.
+ *
+ * @return array An array of Rekai API parameters, keyed by their (lowercase) param name.
+ */
+function generate_data_attributes_raw( $attributes ) {
 	$data = handle_testing_mode();
 	$data = handle_path_options( $attributes, $data );
 
@@ -84,7 +99,7 @@ function generate_data_attributes( $attributes ) {
 		}
 	}
 
-	return map_data_to_dataset( $data );
+	return $data;
 }
 
 /**
@@ -174,10 +189,14 @@ function handle_testing_mode( $data = array() ) {
  * This function takes an array of post IDs, retrieves the permalink for each ID,
  * and constructs a string of permalinks separated by commas. The URL is shortened to a relative path.
  *
- * @param array $ids An array of post IDs.
+ * @param string|array $ids An array of post IDs, or a comma-separated string of IDs (e.g. from a shortcode attribute).
  * @return string A comma-separated string of permalinks, or an empty string if input is invalid.
  */
-function generate_subtree( array $ids ): string {
+function generate_subtree( string|array $ids ): string {
+	if ( is_string( $ids ) ) {
+		$ids = array_filter( array_map( 'trim', explode( ',', $ids ) ) );
+	}
+
 	$subtree = array();
 	foreach ( $ids as $id ) {
 		$link      = preg_replace( '|^https?://[^/]+/|', '^/', get_permalink( $id ) );
@@ -207,6 +226,9 @@ function handle_extra_attributes(
 	string $attributes_string,
 	array &$attributes
 ): void {
+	// Attribute names that could be used to execute JavaScript or load external resources.
+	$blocked_attributes = array( 'style', 'href', 'src', 'formaction', 'srcdoc', 'action' );
+
 	if (
 		preg_match_all(
 			'/([a-zA-Z0-9_-]+)="([^"]*)"/',
@@ -216,7 +238,12 @@ function handle_extra_attributes(
 		)
 	) {
 		foreach ( $attr_array as $match ) {
-			$attr_name     = $match[1];
+			$attr_name = $match[1];
+
+			if ( str_starts_with( strtolower( $attr_name ), 'on' ) || in_array( strtolower( $attr_name ), $blocked_attributes, true ) ) {
+				continue;
+			}
+
 			$cleaned_value = esc_attr( str_replace( array( '"', "'" ), '', $match[2] ) );
 			$old_value     = $attributes[ $attr_name ] ?? '';
 			switch ( $attr_name ) {

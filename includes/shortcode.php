@@ -36,6 +36,23 @@ add_shortcode( 'rekai-prediction', '\Rekai\prediction' );
  */
 function qna( $atts ) {
 	$atts['entitytype'] = 'rekai-qna';
+	$atts['blockType']  = 'qna';
+
+	if ( 'server' === resolve_qna_render_mode() ) {
+		$post_id = get_the_ID();
+		if ( empty( $post_id ) && isset( $GLOBALS['post']->ID ) ) {
+			$post_id = $GLOBALS['post']->ID;
+		}
+		$ssr_html = fetch_qna_ssr_html( (int) $post_id, $atts );
+
+		// Deliberately not falling back to prediction() (client-side rendering) here: it
+		// scopes results differently (broader "related content" matching rather than this
+		// exact page), so a fallback would silently show a different result set than what
+		// SSR was configured to show - render an empty block instead.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- see blocks/src/recommendations/render.php.
+		return $ssr_html ?? '<div class="rek-prediction rek-prediction--ssr"></div>';
+	}
+
 	return prediction( $atts );
 }
 add_shortcode( 'rekai-qna', '\Rekai\qna' );

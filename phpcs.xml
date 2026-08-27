@@ -14,6 +14,9 @@
     <exclude-pattern>.idea/*</exclude-pattern>
     <exclude-pattern>*.asset.php</exclude-pattern>
     <exclude-pattern>blocks-manifest.php</exclude-pattern>
+    <!-- PHPUnit test suite: PSR-4/PHPUnit class-naming conventions conflict with WPCS's
+         "class-name.php" file-naming rule, and test methods don't need docblocks. -->
+    <exclude-pattern>*/tests/*</exclude-pattern>
 
     <rule ref="WordPress-Core" />
     <rule ref="WordPress-Docs" />

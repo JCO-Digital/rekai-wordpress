@@ -11,6 +11,7 @@
     "composer:install": "composer install",
     "composer:update": "composer update",
     "composer:install-release": "composer install --no-dev --no-scripts --no-interaction --prefer-dist",
+    "composer:test": "composer test",
     "js:build": "esbuild --bundle src/js/*.?s --outdir=dist/js --minify --sourcemap",
     "js:watch": "pnpm js:build --watch",
     "plugin:i18n": "grunt i18n",
@@ -22,8 +23,8 @@
     "project:dev": "pnpm dlx concurrently -c blue,yellow,magenta,cyan,red --names \"🌐wp,🛠️js,💄scss(admin),📦blocks\" \"pnpm wp:start\" \"pnpm js:watch\" \"pnpm scss-admin:watch\"  \"pnpm blocks:watch\"",
     "scss-admin:build": "sass --style=compressed src/css/admin.scss dist/css/admin.css",
     "scss-admin:watch": "pnpm scss-admin:build --watch",
-    "wp:start": "pnpm dlx @wp-now/wp-now start --blueprint=.wp/latest-debug.json",
-    "wp:reset": "pnpm dlx @wp-now/wp-now start --reset --blueprint=.wp/latest-debug.json",
+    "wp:start": "pnpm dlx @wp-playground/cli@latest start --blueprint=.wp/latest-debug.json",
+    "wp:reset": "pnpm dlx @wp-playground/cli@latest start --reset --blueprint=.wp/latest-debug.json",
     "version": "node versionSync.mjs && git add -A",
     "postversion": "git push && git push --tags"
   },

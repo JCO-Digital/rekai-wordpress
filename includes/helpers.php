@@ -142,3 +142,20 @@ function render_help( string|array $help ): void {
 		);
 	}
 }
+
+/**
+ * Derives a Rek.ai service URL from the configured embed code, so that all Rek.ai
+ * services are requested from the same base domain (e.g. for CSP reasons).
+ *
+ * @param string $service The service subdomain, e.g. 'static' or 'predict'.
+ * @param string $default_url Fallback base URL if no embed code is set or it doesn't match the expected format.
+ *
+ * @return string The base URL for the given service.
+ */
+function get_rekai_service_url( string $service, string $default_url ): string {
+	$embed_code = get_option( 'rekai_embed_code', '' );
+	if ( ! empty( $embed_code ) && preg_match( '/^https:\/\/static\.([^\/]+)/', $embed_code, $matches ) ) {
+		return 'https://' . $service . '.' . $matches[1];
+	}
+	return $default_url;
+}

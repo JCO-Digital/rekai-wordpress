@@ -49,6 +49,9 @@ require_once __DIR__ . '/includes/blocks.php';
 // Block specific functions.
 require_once __DIR__ . '/includes/attribute-helpers.php';
 
+// Server-side rendering for Q&A.
+require_once __DIR__ . '/includes/ssr.php';
+
 // REST API.
 require_once __DIR__ . '/includes/rest-api.php';
 

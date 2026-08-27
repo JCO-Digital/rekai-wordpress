@@ -36,3 +36,8 @@ clean-blocks:
 dev: clean-blocks install
 	@echo "▶️ Starting project"
 	@pnpm project:dev
+
+.PHONY: test
+test:
+	@echo "▶️ Running tests"
+	@pnpm composer:test
