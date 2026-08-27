@@ -61,11 +61,8 @@ function get_posts(): WP_REST_Response {
 	}
 
 	$args = array(
-		'post_type'              => $types,
-		'posts_per_page'         => -1,
-		// Only ID, title and permalink are used below, so skip the extra bulk queries.
-		'update_post_meta_cache' => false,
-		'update_post_term_cache' => false,
+		'post_type'      => $types,
+		'posts_per_page' => -1,
 	);
 	foreach ( \get_posts( $args ) as $post ) {
 		$results[] = array(

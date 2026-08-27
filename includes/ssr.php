@@ -73,6 +73,15 @@ function get_current_page_subtree( int $post_id ): string {
  * raw JSON is also the only format the predict API returns real content for when
  * "advanced_mockdata" is set - it silently ignores format=html for mock data.
  *
+ * Honors an explicitly configured subtree (pathOption "subTree" with a non-empty subTree list,
+ * already translated into a "subtree" param by handle_path_options()) as-is. Otherwise defaults
+ * to scoping to the current page - confirmed against the live API that "unranked" mode (see
+ * below) always returns zero predictions without a subtree, even for accounts with plenty of
+ * real content elsewhere, so this isn't optional the way it is client-side. This also covers
+ * "userootpath" (pathOption "rootPath"/"rootPathLevel"): the client script can infer the current
+ * page from the browser's URL to compute the root path relative to, but SSR has no such thing,
+ * so the current page is supplied explicitly via the same subtree default.
+ *
  * @param array $attributes The block/shortcode attributes being rendered.
  * @param int   $post_id    The post ID of the page being rendered.
  *
@@ -96,7 +105,10 @@ function build_predict_query_args( array $attributes, int $post_id ): array {
 	$args['p']        = get_option( 'rekai_project_id', '' );
 	$args['secret']   = get_option( 'rekai_secret_key', '' );
 	$args['unranked'] = 'true';
-	$args['subtree']  = get_current_page_subtree( $post_id );
+
+	if ( empty( $args['subtree'] ) ) {
+		$args['subtree'] = get_current_page_subtree( $post_id );
+	}
 
 	return $args;
 }

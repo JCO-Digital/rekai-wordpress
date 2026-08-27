@@ -1,7 +1,6 @@
 import apiFetch from "@wordpress/api-fetch";
-import { useState } from "@wordpress/element";
+import { useEffect, useRef, useState } from "@wordpress/element";
 import { separator } from "./tokenFieldHandler";
-let fetching = false;
 
 export default function usePosts(
   subTree,
@@ -11,14 +10,19 @@ export default function usePosts(
 ) {
   const url = "/?rest_route=/rekai/v1/posts";
   const [postList, setPostList] = useState([]);
+  const hasFetchedRef = useRef(false);
 
-  if (!fetching && postList.length === 0) {
-    fetching = true;
-    try {
-      const subTreeList = [];
-      const excludeTreeList = [];
-      apiFetch({ path: url }).then((body) => {
-        let list = [...postList];
+  useEffect(() => {
+    if (hasFetchedRef.current) {
+      return;
+    }
+    hasFetchedRef.current = true;
+
+    const subTreeList = [];
+    const excludeTreeList = [];
+    apiFetch({ path: url })
+      .then((body) => {
+        const list = [];
         body.forEach((post) => {
           const index = post.id ? post.id : post.link;
           const token = post.label + separator + index;
@@ -36,12 +40,14 @@ export default function usePosts(
         setSubTreeTokenValue(subTreeList);
         setExcludeTreeTokenValue(excludeTreeList);
         setPostList(list);
+      })
+      .catch((error) => {
+        hasFetchedRef.current = false;
+        console.error(error.message ?? error);
       });
-    } catch (error) {
-      fetching = false;
-      console.error(error.message);
-    }
-  }
+    // Only ever needs to fetch once per mounted instance.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return postList;
 }

@@ -178,7 +178,10 @@ final class SsrTest extends TestCase {
 		self::assertSame( '', $second );
 	}
 
-	public function test_build_predict_query_args_uses_p_not_projectid_and_a_page_scoped_subtree(): void {
+	public function test_build_predict_query_args_uses_p_not_projectid_and_defaults_to_a_page_scoped_subtree(): void {
+		// unranked=true always returns zero predictions without a subtree (confirmed against
+		// the live API), so the default ("all") pathOption must still fall back to scoping to
+		// the current page - it's not optional the way it is client-side.
 		$this->stub_options(
 			array(
 				'rekai_project_id' => '14231580',
@@ -198,6 +201,110 @@ final class SsrTest extends TestCase {
 		self::assertSame( 'true', $args['unranked'] );
 		self::assertSame( '^/fi/grand-one-2024/$', $args['subtree'] );
 		self::assertSame( 'rekai-qna', $args['entitytype'] );
+	}
+
+	public function test_build_predict_query_args_falls_back_to_current_page_when_subtree_option_is_empty(): void {
+		// pathOption "subTree" with an empty subTree list is a possible but incomplete config
+		// (nothing selected yet) - handle_path_options() sets no subtree param at all in that
+		// case, so this must still fall back rather than send unranked=true with nothing.
+		$this->stub_options(
+			array(
+				'rekai_project_id' => '14231580',
+				'rekai_secret_key' => 'a-secret',
+			)
+		);
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'production' );
+		Functions\when( 'apply_filters' )->alias( static fn( $tag, $value ) => $value );
+		Functions\when( 'add_action' )->justReturn( true );
+		Functions\when( 'get_permalink' )->justReturn( 'https://example.com/fi/grand-one-2024/' );
+
+		$args = build_predict_query_args(
+			array(
+				'blockType'  => 'qna',
+				'pathOption' => 'subTree',
+				'subTree'    => array(),
+			),
+			1
+		);
+
+		self::assertSame( '^/fi/grand-one-2024/$', $args['subtree'] );
+	}
+
+	public function test_build_predict_query_args_honors_an_explicit_subtree_override(): void {
+		$this->stub_options(
+			array(
+				'rekai_project_id' => '14231580',
+				'rekai_secret_key' => 'a-secret',
+			)
+		);
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'production' );
+		Functions\when( 'apply_filters' )->alias( static fn( $tag, $value ) => $value );
+		Functions\when( 'add_action' )->justReturn( true );
+		Functions\when( 'get_permalink' )->justReturn( 'https://example.com/other-page/' );
+
+		$args = build_predict_query_args(
+			array(
+				'blockType'  => 'qna',
+				'pathOption' => 'subTree',
+				'subTree'    => array( 42 ),
+			),
+			1
+		);
+
+		self::assertSame( '^/other-page/', $args['subtree'] );
+	}
+
+	public function test_build_predict_query_args_adds_current_page_subtree_for_root_path(): void {
+		// userootpath tells the API to compute the root path relative to the current page - the
+		// client-side script infers "current page" from the browser's URL, but SSR has nothing
+		// equivalent, so the current page must be supplied explicitly via subtree.
+		$this->stub_options(
+			array(
+				'rekai_project_id' => '14231580',
+				'rekai_secret_key' => 'a-secret',
+			)
+		);
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'production' );
+		Functions\when( 'apply_filters' )->alias( static fn( $tag, $value ) => $value );
+		Functions\when( 'add_action' )->justReturn( true );
+		Functions\when( 'get_permalink' )->justReturn( 'https://example.com/fi/grand-one-2024/' );
+
+		$args = build_predict_query_args(
+			array(
+				'blockType'  => 'qna',
+				'pathOption' => 'rootPath',
+			),
+			1
+		);
+
+		self::assertSame( 'true', $args['userootpath'] );
+		self::assertSame( '^/fi/grand-one-2024/$', $args['subtree'] );
+	}
+
+	public function test_build_predict_query_args_adds_current_page_subtree_for_root_path_level(): void {
+		$this->stub_options(
+			array(
+				'rekai_project_id' => '14231580',
+				'rekai_secret_key' => 'a-secret',
+			)
+		);
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'production' );
+		Functions\when( 'apply_filters' )->alias( static fn( $tag, $value ) => $value );
+		Functions\when( 'add_action' )->justReturn( true );
+		Functions\when( 'get_permalink' )->justReturn( 'https://example.com/fi/grand-one-2024/' );
+
+		$args = build_predict_query_args(
+			array(
+				'blockType'     => 'qna',
+				'pathOption'    => 'rootPathLevel',
+				'rootPathLevel' => 2,
+			),
+			1
+		);
+
+		self::assertSame( 'true', $args['userootpath'] );
+		self::assertSame( 2, $args['rootpathlevel'] );
+		self::assertSame( '^/fi/grand-one-2024/$', $args['subtree'] );
 	}
 
 	public function test_fetch_qna_predictions_returns_null_when_credentials_are_missing(): void {
