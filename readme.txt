@@ -3,7 +3,7 @@ Contributors: jcodigital
 Donate link: -
 Tags: rekai, ai, integration
 Requires at least: 6.0
-Tested up to: 6.9.4
+Tested up to: 7.1
 Requires PHP: 8.0
 Stable tag: 1.11.0
 License: GPLv2 or later
