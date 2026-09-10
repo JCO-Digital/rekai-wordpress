@@ -50,7 +50,7 @@ function qna( $atts ) {
 		// exact page), so a fallback would silently show a different result set than what
 		// SSR was configured to show - render an empty block instead.
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- see blocks/src/recommendations/render.php.
-		return $ssr_html ?? '<div class="rek-prediction rek-prediction--ssr"></div>';
+		return $ssr_html ?? '<div class="rek-prediction--ssr"></div>';
 	}
 
 	return prediction( $atts );

@@ -21,7 +21,7 @@ if ( 'server' === $render_mode ) {
 }
 
 if ( null !== $ssr_html ) :
-	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'rek-prediction rek-prediction--ssr' ) );
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'rek-prediction--ssr' ) );
 	?>
 	<div <?php echo wp_kses_data( $wrapper_attributes ); ?>>
 		<?php
@@ -44,7 +44,7 @@ elseif ( 'server' === $render_mode ) :
 	 * an empty block.
 	 */
 	?>
-	<div <?php echo wp_kses_data( get_block_wrapper_attributes( array( 'class' => 'rek-prediction rek-prediction--ssr' ) ) ); ?>></div>
+	<div <?php echo wp_kses_data( get_block_wrapper_attributes( array( 'class' => 'rek-prediction--ssr' ) ) ); ?>></div>
 	<?php
 else :
 	$extra          = generate_data_attributes( $attributes ?? array() );
