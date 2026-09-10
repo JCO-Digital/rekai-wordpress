@@ -1,0 +1,2 @@
+push = true
+versionSync = ["rek-ai.php","readme.txt","consts.php","rek-ai.pot"]
