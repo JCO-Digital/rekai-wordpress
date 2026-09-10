@@ -24,9 +24,7 @@
     "scss-admin:build": "sass --style=compressed src/css/admin.scss dist/css/admin.css",
     "scss-admin:watch": "pnpm scss-admin:build --watch",
     "wp:start": "pnpm dlx @wp-playground/cli@latest start --blueprint=.wp/latest-debug.json",
-    "wp:reset": "pnpm dlx @wp-playground/cli@latest start --reset --blueprint=.wp/latest-debug.json",
-    "version": "node versionSync.mjs && git add -A",
-    "postversion": "git push && git push --tags"
+    "wp:reset": "pnpm dlx @wp-playground/cli@latest start --reset --blueprint=.wp/latest-debug.json"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

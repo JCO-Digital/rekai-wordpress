@@ -276,3 +276,4 @@ plugin/
 .phpunit.result.cache
 
 README.md
+languages/rek-ai.pot
