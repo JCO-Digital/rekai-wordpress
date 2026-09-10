@@ -41,9 +41,15 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/rek-ai.zip"
+          prerelease: ${{ contains(github.ref_name, '-') }}
+
+      # Pre-release tags (e.g. v1.12.0-beta.1) stop here: only a GitHub release
+      # is created, so testing builds never reach the public WordPress.org
+      # plugin directory or the dist repo.
 
       - name: WordPress Plugin Deploy
         id: deploy
+        if: ${{ !contains(github.ref_name, '-') }}
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
           generate-zip: false
@@ -54,6 +60,7 @@ jobs:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
 
       - name: Deploy
+        if: ${{ !contains(github.ref_name, '-') }}
         uses: s0/git-publish-subdir-action@v2.6.0
         env:
           REPO: git@github.com:jco-digital/rekai-wordpress-dist.git
